@@ -24,17 +24,17 @@ export default function BookButton() {
   );
 
   return (
-    <div
-      ref={containerRef}
-      className="flex items-center lg:mt-10 mt-6 relative"
-    >
-      <GsapMagneticCursor>
-        <div className="book-ball rounded-full bg-peach-500 w-20 h-20" />
-      </GsapMagneticCursor>
-      <GsapMagneticCursor>
-        <p className="book-text absolute left-10 lg:text-4xl md:text-3xl text-2xl font-galgin">
-          Book Your Event
-        </p>
+    <div ref={containerRef} className="lg:mt-10 mt-6">
+      <GsapMagneticCursor strength={0.1}>
+        <div
+          className="flex items-center relative w-100"
+          onClick={() => console.log("book your event")}
+        >
+          <div className="book-ball rounded-full bg-peach-500 w-20 h-20" />
+          <p className="book-text absolute left-10 lg:text-4xl md:text-3xl text-2xl font-galgin">
+            Book Your Event
+          </p>
+        </div>
       </GsapMagneticCursor>
     </div>
   );

@@ -51,14 +51,6 @@
   --color-peach-800: oklch(0.4417 0.044 57.05);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-elevated: #0a0a0a;
-    --foreground-primary: #ededed;
-    --foreground-secondary: #c9b99a;
-  }
-}
-
 body {
   background: var(--background-base);
   color: var(--foreground-primary);
