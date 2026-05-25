@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-primary: #000000;
+  --foreground-secondary: #3e3320;
+  --background-base: linear-gradient(#ffffff 0%, #eeeeee 50%, #ffffff 100%);
+  --background-elevated: #ffffff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --breakpoint-lg: 1120px;
+  --breakpoint-md: 680px;
+  --breakpoint-sm: 358px;
+  --color-background-base: var(--background-base);
+  --color-background-elevated: var(--background-elevated);
+  --color-foreground-primary: var(--foreground-primary);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --font-poppins: var(--font-poppins);
+  --font-caveat: var(--font-caveat);
+  --font-inter: var(--font-inter);
+  --font-galgin: var(--font-galgin);
+
+  --color-golden-50: oklch(0.9797 0.0167 88);
+  --color-golden-100: oklch(0.9591 0.0317 89.14);
+  --color-golden-200: oklch(0.9189 0.064 89.56);
+  --color-golden-300: oklch(0.8827 0.0944 89.5);
+  --color-golden-400: oklch(0.8448 0.1212 88.93);
+  --color-golden-500: oklch(0.8085 0.141 87.42);
+  --color-golden-600: oklch(0.6859 0.1187 87.64);
+  --color-golden-700: oklch(0.5575 0.0946 87.79);
+  --color-golden-800: oklch(0.4177 0.0684 87.96);
+
+  --color-dark-50: oklch(0.9456 0.0017 247.84);
+  --color-dark-100: oklch(0.8912 0.0029 264.54);
+  --color-dark-200: oklch(0.7762 0.0074 268.53);
+  --color-dark-300: oklch(0.6597 0.0109 267.32);
+  --color-dark-400: oklch(0.5347 0.0163 268.36);
+  --color-dark-500: oklch(0.4054 0.0212 267.5);
+  --color-dark-600: oklch(0.3486 0.0183 268.16);
+  --color-dark-700: oklch(0.293 0.0134 267.09);
+  --color-dark-800: oklch(0.2308 0.0101 268.24);
+
+  --color-peach-50: oklch(0.9854 0.0092 62.59);
+  --color-peach-100: oklch(0.9708 0.0186 62.46);
+  --color-peach-200: oklch(0.9405 0.0365 58.04);
+  --color-peach-300: oklch(0.9124 0.0556 59.11);
+  --color-peach-400: oklch(0.8833 0.0741 57.34);
+  --color-peach-500: oklch(0.8567 0.0934 57.68);
+  --color-peach-600: oklch(0.7248 0.0777 56.9);
+  --color-peach-700: oklch(0.5885 0.0617 58.31);
+  --color-peach-800: oklch(0.4417 0.044 57.05);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background-elevated: #0a0a0a;
+    --foreground-primary: #ededed;
+    --foreground-secondary: #c9b99a;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background-base);
+  color: var(--foreground-primary);
+  font-family: var(--font-poppins), sans-serif;
+}
+
+@layer utilities {
+  .bg-base {
+    background: var(--background-base);
+  }
+}
+
+@layer utilities {
+  .container-app {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (max-width: 1120px) {
+    .container-app {
+      max-width: 680px;
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .container-app {
+      max-width: 358px;
+      padding-inline: 1rem;
+    }
+  }
 }
