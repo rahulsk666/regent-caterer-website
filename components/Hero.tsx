@@ -1,5 +1,6 @@
 import BookButton from "./BookButton";
-import SinceBadge from "./ui/since-badge";
+import HeroContactButtons from "./HeroContactButtons";
+import SinceBadge from "./ui/SinceBadge";
 
 export default function Hero() {
   return (
@@ -18,6 +19,7 @@ export default function Hero() {
         presentation, and service your guests will remember.
       </p>
       <BookButton />
+      <HeroContactButtons />
     </section>
   );
 }

@@ -31,7 +31,7 @@ export default function BookButton() {
           onClick={() => console.log("book your event")}
         >
           <div className="book-ball rounded-full bg-peach-500 w-20 h-20" />
-          <p className="book-text absolute left-10 lg:text-4xl md:text-3xl text-2xl font-galgin">
+          <p className="book-text absolute left-9 lg:text-4xl md:text-3xl text-2xl font-galgin">
             Book Your Event
           </p>
         </div>
