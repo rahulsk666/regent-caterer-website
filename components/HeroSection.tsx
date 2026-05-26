@@ -1,5 +1,3 @@
-import BookButton from "./BookButton";
-import HeroContactButtons from "./HeroContactButtons";
 import SinceBadge from "./ui/SinceBadge";
 
 export default function HeroSection() {
@@ -18,8 +16,6 @@ export default function HeroSection() {
         elegant dining experiences with exceptional quality, refined
         presentation, and service your guests will remember.
       </p>
-      <BookButton />
-      <HeroContactButtons />
     </section>
   );
 }

@@ -3,25 +3,31 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { log } from "console";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ExpandVideo() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const circle = circleRef.current;
-    if (!circle) return;
+    const container = containerRef.current;
+    if (!circle || !container) return;
 
     const mm = gsap.matchMedia();
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    console.log(vw);
 
     const ctx = gsap.context(() => {
       mm.add("(min-width: 1120px)", () => {
         gsap.fromTo(
           circle,
           {
-            top: 500,
-            right: 120,
+            top: -220,
+            right: 150,
             bottom: 0,
             width: "45vw",
             height: "45vw",
@@ -33,16 +39,17 @@ export default function ExpandVideo() {
             left: 0,
             right: 0,
             bottom: 0,
-            width: "100%",
-            height: "100%",
+            width: vw,
+            height: vh,
             borderRadius: "0",
             ease: "none",
             scrollTrigger: {
-              trigger: circle,
-              start: "top 50%",
+              trigger: container,
+              pin: true,
+              start: "top 70%",
               end: "+=30%",
               scrub: 1,
-              //   markers: true,
+              // markers: true,
             },
           },
         );
@@ -51,8 +58,8 @@ export default function ExpandVideo() {
         gsap.fromTo(
           circle,
           {
-            top: 400,
-            right: 100,
+            top: -160,
+            right: 150,
             bottom: 0,
             width: "35vw",
             height: "35vw",
@@ -64,17 +71,18 @@ export default function ExpandVideo() {
             left: 0,
             right: 0,
             bottom: 0,
-            width: "100%",
-            height: "100%",
+            width: vw,
+            height: vh,
             borderRadius: "0",
             ease: "none",
             overflow: "hidden",
             scrollTrigger: {
-              trigger: circle,
-              start: "top 40%",
+              trigger: container,
+              pin: true,
+              start: "top 50%",
               end: "+=30%",
               scrub: 1,
-              //   markers: true,
+              // markers: true,
             },
           },
         );
@@ -83,7 +91,7 @@ export default function ExpandVideo() {
         gsap.fromTo(
           circle,
           {
-            top: 600,
+            top: -80,
             right: -120,
             bottom: 0,
             width: "90vw",
@@ -97,15 +105,16 @@ export default function ExpandVideo() {
             left: 0,
             right: 0,
             bottom: 0,
-            width: "100%",
-            height: "100%",
+            width: vw,
+            height: vh,
             borderRadius: "0",
             ease: "none",
             overflow: "hidden",
             scrollTrigger: {
-              trigger: circle,
-              start: "top 65%",
-              end: "+=40%",
+              trigger: container,
+              pin: true,
+              start: "top 75%",
+              end: "+=20%",
               scrub: 1,
               // markers: true,
             },
@@ -118,20 +127,22 @@ export default function ExpandVideo() {
   }, []);
 
   return (
-    <div
-      ref={circleRef}
-      className="fixed rounded-full overflow-hidden"
-      style={{ willChange: "top, right, width, height, border-radius" }}
-    >
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="h-full w-full object-cover"
+    <div ref={containerRef} className="relative">
+      <div
+        ref={circleRef}
+        className="absolute rounded-full overflow-hidden"
+        style={{ willChange: "top, right, width, height, border-radius" }}
       >
-        <source src="/videos/video.mp4" type="video/mp4" />
-      </video>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover"
+        >
+          <source src="/videos/video.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${caveat.variable} ${inter.variable} ${galgin.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background-base container-app">
+      <body className="min-h-full flex flex-col bg-background-base">
         {children}
       </body>
     </html>
