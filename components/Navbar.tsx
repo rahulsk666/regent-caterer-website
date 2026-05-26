@@ -1,4 +1,4 @@
-import Logo from "./ui/tempLogo";
+import Logo from "./ui/Logo";
 
 export default function Navbar() {
   return (
