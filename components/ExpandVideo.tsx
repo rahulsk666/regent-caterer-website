@@ -20,7 +20,7 @@ export default function ExpandVideo() {
         gsap.fromTo(
           circle,
           {
-            top: 450,
+            top: 500,
             right: 120,
             bottom: 0,
             width: "45vw",
