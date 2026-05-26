@@ -107,7 +107,7 @@ export default function ExpandVideo() {
               start: "top 0%",
               end: "+=50%",
               scrub: 1.2,
-              markers: true,
+              // markers: true,
             },
           },
         );
