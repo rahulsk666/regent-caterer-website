@@ -84,4 +84,12 @@ body {
       padding-inline: 1rem;
     }
   }
+
+  /* .video-block-full-width {
+    max-width: calc(var(--vw) * 100);
+    margin-left: calc(50% - (var(--vw) * 50));
+    margin-right: calc(50% - (var(--vw) * 50));
+    width: auto;
+    overflow: hidden;
+  } */
 }

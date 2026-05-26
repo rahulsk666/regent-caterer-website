@@ -2,9 +2,9 @@ import BookButton from "./BookButton";
 import HeroContactButtons from "./HeroContactButtons";
 import SinceBadge from "./ui/SinceBadge";
 
-export default function Hero() {
+export default function HeroSection() {
   return (
-    <section className="lg:mt-28 mt-12 flex flex-col gap-2">
+    <section className="container-app lg:mt-28 mt-12 flex flex-col gap-2">
       <div className="flex items-center justify-center relative">
         <p className="lg:text-7xl text-[50px] leading-none font-galgin">
           Premium Catering Crafted for Memorable Celebrations
