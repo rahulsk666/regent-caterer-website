@@ -1,7 +1,7 @@
 export default function ScrollingEventSection() {
   return (
-    <section className="container-app h-screen flex flex-col gap-2">
-      <div>
+    <section className="flex flex-col gap-2">
+      <div className="container-app">
         <p className="font-galgin lg:text-4xl md:text-3xl text-xl">
           What Event
         </p>
