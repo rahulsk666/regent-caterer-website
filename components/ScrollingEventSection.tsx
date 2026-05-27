@@ -1,6 +1,6 @@
 export default function ScrollingEventSection() {
   return (
-    <section className="container-app h-screen lg:mt-28 md:mt-20 mt-12 flex flex-col gap-2">
+    <section className="container-app h-screen flex flex-col gap-2">
       <div>
         <p className="font-galgin lg:text-4xl md:text-3xl text-xl">
           What Event

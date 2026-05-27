@@ -8,7 +8,7 @@ import Whatsapp from "./ui/Whatsapp";
 
 export default function HeroContactButtons() {
   return (
-    <div className="flex flex-row ml-5 md:gap-3 gap-1co mt-6">
+    <div className="flex flex-row ml-5 md:gap-3 gap-1 mt-6">
       <ImageButtons
         classname="md:mx-1"
         component={<Instagram />}

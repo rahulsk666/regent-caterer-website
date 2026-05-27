@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { log } from "console";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,9 +16,7 @@ export default function ExpandVideo() {
     if (!circle || !container) return;
 
     const mm = gsap.matchMedia();
-    const vh = window.innerHeight;
     const vw = window.innerWidth;
-    console.log(vw);
 
     const ctx = gsap.context(() => {
       mm.add("(min-width: 1120px)", () => {
@@ -40,16 +37,33 @@ export default function ExpandVideo() {
             right: 0,
             bottom: 0,
             width: vw,
-            height: vh,
-            borderRadius: "0",
+            height: "80vh",
+            // borderRadius: "0",
             ease: "none",
             scrollTrigger: {
               trigger: container,
               pin: true,
               start: "top 70%",
-              end: "+=30%",
+              end: "+=40%",
               scrub: 1,
               // markers: true,
+            },
+            onUpdate: function () {
+              // Triggers continuously during the animation
+              if (this.progress() > 0.9) {
+                gsap.to(circleRef.current, {
+                  top: 0,
+                  right: 0,
+                  borderRadius: "0",
+                });
+              }
+              if (this.progress() < 0.9) {
+                gsap.to(circleRef.current, {
+                  top: -220,
+                  right: 150,
+                  borderRadius: "50%",
+                });
+              }
             },
           },
         );
@@ -59,7 +73,7 @@ export default function ExpandVideo() {
           circle,
           {
             top: -160,
-            right: 150,
+            right: 120,
             bottom: 0,
             width: "35vw",
             height: "35vw",
@@ -72,8 +86,8 @@ export default function ExpandVideo() {
             right: 0,
             bottom: 0,
             width: vw,
-            height: vh,
-            borderRadius: "0",
+            height: "50vh",
+            // borderRadius: "0",
             ease: "none",
             overflow: "hidden",
             scrollTrigger: {
@@ -84,15 +98,32 @@ export default function ExpandVideo() {
               scrub: 1,
               // markers: true,
             },
+            onUpdate: function () {
+              // Triggers continuously during the animation
+              if (this.progress() > 0.9) {
+                gsap.to(circleRef.current, {
+                  top: 0,
+                  right: 0,
+                  borderRadius: "0",
+                });
+              }
+              if (this.progress() < 0.9) {
+                gsap.to(circleRef.current, {
+                  top: -160,
+                  right: 150,
+                  borderRadius: "50%",
+                });
+              }
+            },
           },
         );
       });
-      mm.add("(max-width: 680px)", () => {
+      mm.add("(min-width:358px) and (max-width: 680px)", () => {
         gsap.fromTo(
           circle,
           {
             top: -80,
-            right: -120,
+            right: -140,
             bottom: 0,
             width: "90vw",
             height: "90vw",
@@ -106,28 +137,78 @@ export default function ExpandVideo() {
             right: 0,
             bottom: 0,
             width: vw,
-            height: vh,
-            borderRadius: "0",
+            height: "50vh",
             ease: "none",
             overflow: "hidden",
             scrollTrigger: {
               trigger: container,
               pin: true,
               start: "top 75%",
-              end: "+=20%",
+              end: "+=30%",
               scrub: 1,
-              // markers: true,
+              markers: true,
+            },
+            onUpdate: function () {
+              // Triggers continuously during the animation
+              if (this.progress() > 0.9) {
+                gsap.to(circleRef.current, {
+                  top: 0,
+                  right: 0,
+                  borderRadius: "0",
+                });
+              }
+              if (this.progress() < 0.9) {
+                gsap.to(circleRef.current, {
+                  top: -80,
+                  right: -120,
+                  borderRadius: "50%",
+                });
+              }
             },
           },
         );
       });
+      // mm.add("(max-width: 358px)", () => {
+      //   gsap.fromTo(
+      //     circle,
+      //     {
+      //       top: -80,
+      //       right: -120,
+      //       bottom: 0,
+      //       width: "90vw",
+      //       height: "90vw",
+      //       borderRadius: "50%",
+      //       ease: "none",
+      //       overflow: "hidden",
+      //     },
+      //     {
+      //       top: 0,
+      //       left: 0,
+      //       right: 0,
+      //       bottom: 0,
+      //       width: vw,
+      //       height: vh,
+      //       borderRadius: "0",
+      //       ease: "none",
+      //       overflow: "hidden",
+      //       scrollTrigger: {
+      //         trigger: container,
+      //         pin: true,
+      //         start: "top 75%",
+      //         end: "+=20%",
+      //         scrub: 1,
+      //         // markers: true,
+      //       },
+      //     },
+      //   );
+      // });
     });
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative overflow-x-clip">
       <div
         ref={circleRef}
         className="absolute rounded-full overflow-hidden"

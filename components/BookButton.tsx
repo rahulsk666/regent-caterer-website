@@ -27,7 +27,7 @@ export default function BookButton() {
     <div ref={containerRef} className="lg:mt-10 mt-6">
       <GsapMagneticCursor strength={0.1}>
         <div
-          className="flex items-center relative w-100"
+          className="flex items-center relative w-full"
           onClick={() => console.log("book your event")}
         >
           <div className="book-ball rounded-full bg-peach-500 w-20 h-20" />
