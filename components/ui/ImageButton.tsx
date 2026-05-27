@@ -7,7 +7,7 @@ interface Props {
   classname?: string;
 }
 
-export default function ImageButtons({ onClick, component, classname }: Props) {
+export default function ImageButton({ onClick, component, classname }: Props) {
   return (
     <div className={`flex items-center justify-center ${classname}`}>
       <button

@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 
 export const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["200", "400", "700"],
   variable: "--font-poppins",
   style: ["normal", "italic"],
   display: "swap",

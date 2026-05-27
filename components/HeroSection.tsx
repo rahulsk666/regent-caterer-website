@@ -1,4 +1,4 @@
-import SinceBadge from "./ui/SinceBadge";
+import SinceBadge from "./ui/svg/SinceBadge";
 
 export default function HeroSection() {
   return (

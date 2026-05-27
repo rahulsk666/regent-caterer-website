@@ -46,7 +46,7 @@ export default function ExpandVideo() {
               start: "top 70%",
               end: "+=40%",
               scrub: 1,
-              // markers: true,
+              markers: process.env.NODE_ENV === "development",
             },
             onUpdate: function () {
               // Triggers continuously during the animation
@@ -96,7 +96,7 @@ export default function ExpandVideo() {
               start: "top 50%",
               end: "+=30%",
               scrub: 1,
-              // markers: true,
+              markers: process.env.NODE_ENV === "development",
             },
             onUpdate: function () {
               // Triggers continuously during the animation
@@ -146,18 +146,18 @@ export default function ExpandVideo() {
               start: "top 75%",
               end: "+=30%",
               scrub: 1,
-              markers: true,
+              markers: process.env.NODE_ENV === "development",
             },
             onUpdate: function () {
               // Triggers continuously during the animation
-              if (this.progress() > 0.9) {
+              if (this.progress() > 0.95) {
                 gsap.to(circleRef.current, {
                   top: 0,
                   right: 0,
                   borderRadius: "0",
                 });
               }
-              if (this.progress() < 0.9) {
+              if (this.progress() < 0.95) {
                 gsap.to(circleRef.current, {
                   top: -80,
                   right: -120,

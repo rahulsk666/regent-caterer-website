@@ -1,6 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
-import ScrollingEventSection from "@/components/ScrollingEventSection";
+import EventSection from "@/components/EventSection";
 import VideoSection from "@/components/VideoSection";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <VideoSection />
-      <ScrollingEventSection />
+      <EventSection />
     </main>
   );
 }

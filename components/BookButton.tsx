@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import GsapMagneticCursor from "./GsapMagneticCursor";
+import GsapMagneticCursor from "./ui/GsapMagneticCursor";
 
 gsap.registerPlugin(useGSAP);
 
