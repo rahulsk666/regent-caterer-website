@@ -15,9 +15,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${caveat.variable} ${inter.variable} ${galgin.variable} h-full antialiased`}
+      className={`${poppins.variable} ${caveat.variable} ${inter.variable} ${galgin.variable} h-full antialiased no-scrollbar`}
     >
-      <body className="min-h-full flex flex-col bg-background-base no-scrollbar overflow-x-hidden">
+      <body className="min-h-full flex flex-col bg-background-base overflow-x-hidden">
         {children}
       </body>
     </html>

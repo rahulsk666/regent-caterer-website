@@ -2,7 +2,7 @@ import ScrollingText from "./ui/ScrollingText";
 
 export default function EventSection() {
   return (
-    <section className="flex flex-col gap-2 mb-10">
+    <section className="flex flex-col gap-2 my-24">
       <div className="container-app">
         <p className="font-galgin lg:text-4xl md:text-3xl text-xl">
           What Event
@@ -28,7 +28,7 @@ export default function EventSection() {
             " birthday",
           ]}
           separator="|"
-          speed={0.9}
+          speed={0.4}
           separatorClassname="text-foreground-primary font-extralight lg:text-6xl md:text-5xl"
           className="md:text-5xl font-caveat"
         />
@@ -36,7 +36,7 @@ export default function EventSection() {
         <ScrollingText
           items={["Kerala", "Travancore", "Continental", "Chinese"]}
           separator="|"
-          speed={1}
+          speed={0.6}
           separatorClassname="text-foreground-primary font-extralight lg:text-6xl md:text-5xl"
           className="md:text-5xl font-caveat"
           reverse

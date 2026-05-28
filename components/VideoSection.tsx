@@ -4,7 +4,7 @@ import HeroContactButtons from "./HeroContactButtons";
 
 export default function VideoSection() {
   return (
-    <section className="relative lg:h-[150vh] h-screen">
+    <section className="relative lg:h-[140vh] h-screen">
       <div className="container-app">
         <BookButton />
         <HeroContactButtons />
