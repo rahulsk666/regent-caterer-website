@@ -78,7 +78,7 @@ export default function ExpandVideo() {
             pin: true,
             start: triggerStart,
             end: "+=40%",
-            scrub: true,
+            scrub: 1,
             markers: process.env.NODE_ENV === "development",
             invalidateOnRefresh: true,
             onUpdate: (self) => {
