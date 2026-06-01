@@ -2,6 +2,13 @@ import ContactForm from "@/components/ContactForm";
 import ContactInfoCard from "@/components/ContactInfoCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Regent Caterers - Contact Us",
+};
+
 const ContactPage = () => {
   return (
     <div className="flex-1 space-y-4">
