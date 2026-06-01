@@ -162,8 +162,12 @@ export default function FooterContent() {
 
       <div className="flex justify-between mt-4 my-4 mx-5 p-2">
         <div className="flex flex-row gap-2 text-sm text-white">
-          <a href="">Privacy Policy</a>
-          <a href="">Terms of Use</a>
+          <a className="text" href="">
+            Privacy Policy
+          </a>
+          <a className="text" href="">
+            Terms of Use
+          </a>
         </div>
         <div>
           <p className="text-sm text-white/70 text-center md:text-left">
