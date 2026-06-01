@@ -53,30 +53,30 @@ export default function FooterContent() {
       // ─────────────────────────────────────
       // Character Reveal — rises from behind the line
       // ─────────────────────────────────────
-      const splitTitle = SplitText.create(titleRef.current!, {
-        type: "chars",
-      });
+      // const splitTitle = SplitText.create(titleRef.current!, {
+      //   type: "chars",
+      // });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: titleContainerRef.current,
-          start: "top 80%",
-          end: "top 20%",
-          scrub: 1.5,
-          markers: process.env.NODE_ENV === "development",
-        },
-      });
+      // const tl = gsap.timeline({
+      //   scrollTrigger: {
+      //     trigger: titleContainerRef.current,
+      //     start: "top 80%",
+      //     end: "top 20%",
+      //     scrub: 1.5,
+      //     markers: process.env.NODE_ENV === "development",
+      //   },
+      // });
 
-      // Step 1: chars start fully below the mask (invisible, clipped)
-      // Step 2: they slide up into view through the line
-      tl.from(splitTitle.chars, {
-        yPercent: 105, // just below the overflow-hidden boundary
-        ease: "power3.out",
-        stagger: {
-          each: 0.04,
-          from: "start",
-        },
-      });
+      // // Step 1: chars start fully below the mask (invisible, clipped)
+      // // Step 2: they slide up into view through the line
+      // tl.from(splitTitle.chars, {
+      //   yPercent: 105, // just below the overflow-hidden boundary
+      //   ease: "power3.out",
+      //   stagger: {
+      //     each: 0.04,
+      //     from: "start",
+      //   },
+      // });
     }, container);
 
     return () => ctx.revert();
@@ -160,17 +160,18 @@ export default function FooterContent() {
         </div>
       </div>
 
-      <div className="flex justify-between mt-4 my-4 mx-5 p-2">
-        <div className="flex flex-row gap-2 text-sm text-white">
+      <div className="flex md:flex-row flex-col justify-between gap-5 mt-4 my-4 mx-5 p-2">
+        <div className="flex flex-row md:gap-2 md:justify-start justify-center gap-5 text -sm text-white">
           <a className="text" href="">
             Privacy Policy
           </a>
+          <span className="text-gray-500">|</span>
           <a className="text" href="">
             Terms of Use
           </a>
         </div>
         <div>
-          <p className="text-sm text-white/70 text-center md:text-left">
+          <p className="text-sm text-white/70 text-center md:text-left hidden md:block">
             © {new Date().getFullYear()} Regent Caterers. All rights reserved.
           </p>
         </div>
@@ -202,6 +203,11 @@ export default function FooterContent() {
               className="object-contain"
             />
           </a>
+        </div>
+        <div className="block md:hidden">
+          <p className="text-sm text-white/70 text-center md:text-left ">
+            © {new Date().getFullYear()} Regent Caterers. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
