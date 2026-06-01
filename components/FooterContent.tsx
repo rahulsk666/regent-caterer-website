@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { ScrollToPlugin, ScrollTrigger, SplitText } from "gsap/all";
 import Image from "next/image";
+import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, ScrollToPlugin);
@@ -115,9 +116,9 @@ export default function FooterContent() {
           <a href="" className="text text-lg md:text-xl w-fit">
             Gallery
           </a>
-          <a href="" className="text text-lg md:text-xl w-fit">
+          <Link href="/contact" className="text text-lg md:text-xl w-fit">
             Contact
-          </a>
+          </Link>
         </div>
 
         {/* Right Content */}
