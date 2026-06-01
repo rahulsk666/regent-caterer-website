@@ -4,6 +4,7 @@
   --foreground-primary: #000000;
   --foreground-secondary: #3e3320;
   --background-base: linear-gradient(#ffffff 0%, #eeeeee 50%, #ffffff 100%);
+  --background-secondary: #111111;
   --background-elevated: #ffffff;
 }
 
@@ -12,6 +13,7 @@
   --breakpoint-md: 680px;
   --breakpoint-sm: 358px;
   --color-background-base: var(--background-base);
+  --color-background-secondary: var(--background-secondary);
   --color-background-elevated: var(--background-elevated);
   --color-foreground-primary: var(--foreground-primary);
   --color-foreground-secondary: var(--foreground-secondary);

@@ -2,6 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import EventSection from "@/components/EventSection";
 import VideoSection from "@/components/VideoSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSection />
       <VideoSection />
       <EventSection />
+      <Footer />
     </main>
   );
 }

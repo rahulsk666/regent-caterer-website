@@ -2,7 +2,7 @@ import Logo from "./ui/svg/Logo";
 
 export default function Navbar() {
   return (
-    <nav className="py-3 container-app">
+    <nav id="Header" className="py-3 container-app">
       <Logo />
     </nav>
   );
