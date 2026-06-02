@@ -5,17 +5,17 @@ export default function Navbar() {
   return (
     <nav
       id="Header"
-      className="py-3 container-app flex flex-row justify-between items-center"
+      className="py-3 m-2 container-app flex flex-row justify-center items-center"
     >
-      <Link href="/">
+      {/* <Link href="/">
         <Logo />
-      </Link>
+      </Link> */}
       <div className="hidden md:flex flex-row lg:gap-8 md:gap-2 gap-1 lg:text-xl md:text-base text-xs text-black font-medium">
         <Link
-          href=""
+          href="/"
           className="hover:underline hover:underline-offset-8 hover:text-golden-500"
         >
-          About Us
+          Home
         </Link>
         {/* <Link
           href=""

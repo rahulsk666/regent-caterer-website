@@ -2,23 +2,15 @@ import SinceBadge from "./ui/svg/SinceBadge";
 
 export default function HeroSection() {
   return (
-    <section
-      id="home"
-      className="container-app lg:mt-28 mt-12 flex flex-col gap-2"
-    >
-      <div className="flex items-center justify-center relative">
-        <p className="lg:text-7xl text-[50px] leading-none font-galgin">
-          Premium Catering Crafted for Memorable Celebrations
+    <section id="home" className="container-app h-screen flex-1">
+      <div className="w-full lg:pt-48 md:pt-40 pt-24 flex flex-col items-center justify-center">
+        <p className="lg:text-9xl md:text-7xl text-4xl tracking-wide leading-none font-galgin">
+          Regent Caterers
         </p>
-        <div className="absolute right-29 top-16 hidden lg:block">
+        <p className="pt-4">
           <SinceBadge />
-        </div>
+        </p>
       </div>
-      <p className="lg:text-2xl text-base mt-5">
-        From intimate gatherings to grand celebrations, Regent Caterers delivers
-        elegant dining experiences with exceptional quality, refined
-        presentation, and service your guests will remember.
-      </p>
     </section>
   );
 }
