@@ -49,12 +49,14 @@ export default function ParallaxCard({
           backgroundColor: color,
           top: `calc(-10% + ${i * 25}px)`,
         }}
-        className="w-5xl h-[500px] rounded-2xl relative top-[-10%] items-center flex flex-col p-2"
+        className="w-full h-[600px] md:w-5xl md:h-[500px] rounded-2xl relative top-[-10%] items-center flex flex-col p-2"
       >
-        <h1 className="text-5xl font-galgin font-medium p-2 mt-2">{title}</h1>
-        <div className="grid grid-cols-3 h-full gap-4 m-2 p-4">
-          <div className="col-span-2">
-            <p className="text-lg">{description}</p>
+        <h1 className="text-center text-5xl font-galgin font-medium p-2 mt-2">
+          {title}
+        </h1>
+        <div className="grid md:grid-cols-3 grid-rows-4 h-full md:gap-4 gap-1 m-1 md:m-2 p-4">
+          <div className="md:col-span-2 md:row-span-6 row-span-2">
+            <p className=" md:text-lg">{description}</p>
             <Link href={link}>
               <span className="flex flex-row gap-1 items-center cursor-pointer">
                 <span className="text-sm">See More</span>
@@ -74,7 +76,7 @@ export default function ParallaxCard({
               </span>
             </Link>
           </div>
-          <div className="relative col-span-1 w-full h-full overflow-hidden rounded-lg">
+          <div className="relative md:col-span-1 md:row-span-6 row-span-2 w-full h-full overflow-hidden rounded-lg">
             <motion.div
               style={{ scale: imageScale }}
               className="relative w-[80%] h-full"
@@ -85,6 +87,7 @@ export default function ParallaxCard({
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover"
+                loading="lazy"
               />
             </motion.div>
           </div>
