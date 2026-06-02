@@ -45,7 +45,7 @@ export const projects = [
     title: "Salads",
     description:
       "Fresh and vibrant salad creations made with seasonal ingredients, balanced flavors, and elegant presentation for a healthy yet premium culinary experience.",
-    src: "Salad.jpg",
+    src: "salad.jpg",
     link: "https://example.com/salads",
     color: "#5E8B4A", // Fresh olive green
   },
