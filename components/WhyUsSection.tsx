@@ -9,7 +9,7 @@ export default function WhyUsSection() {
           Why Us?
         </h2>
       </div>
-      <div className="relative flex flex-col gap-15 md:h-full md:items-center md:justify-center">
+      <div className="relative flex flex-col md:gap-15 gap-8 md:h-full md:items-center md:justify-center">
         {points.map((point) => (
           <PointCard key={point.title} point={point} />
         ))}
