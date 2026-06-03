@@ -95,7 +95,7 @@ export default function FooterContent() {
   return (
     <footer
       ref={container}
-      className="relative w-full overflow-hidden text-white gap-5"
+      className="relative w-full overflow-hidden text-white gap-5 flex flex-col"
     >
       {/* Top Section */}
       <div className="flex flex-col md:flex-row justify-between gap-20 px-6 py-16 md:px-12">

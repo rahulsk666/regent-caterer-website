@@ -4,17 +4,30 @@ export default function ContactSection() {
   return (
     <section
       id="contactSection"
-      className="h-screen flex items-center justify-center bg-golden-300"
+      className="min-h-screen flex items-center justify-center bg-golden-300"
     >
-      <div className="container-app grid lg:grid-cols-4 lg:grid-rows-1 grid-rows-3 grid-cols-1 lg:gap-4 gap-10 py-4 lg:h-[90%] h-full w-full justify-center items-center">
-        <div className="flex lg:flex-col flex-row w-full gap-2 mx-2 lg:gap-10 lg:col-span-2 lg:row-span-1 row-span-1 col-span-1 leading-none whitespace-nowrap text-[10vw] font-medium font-galgin uppercase justify-center items-center">
-          <p className="lg:w-full lg:text-start text-center lg:block hidden">
+      <div className="container-app grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-5 py-10 w-full items-center">
+        <div
+          className="
+        lg:col-span-2
+        flex lg:flex-col flex-row
+        justify-center items-center
+        gap-2 lg:gap-10
+        leading-none
+        text-4xl md:text-7xl lg:text-[10vw]
+        font-medium font-galgin uppercase
+      "
+        >
+          <p className="lg:w-full lg:text-start text-center hidden lg:block">
             Let&apos;s
           </p>
-          <p className="lg:w-full lg:text-end text-center">Get in </p>
+
+          <p className="lg:w-full lg:text-end text-center">Get in</p>
+
           <p className="lg:w-full lg:text-start text-center">Touch</p>
         </div>
-        <div className="md:col-span-2 lg:grid-rows-1 lg:row-span-1 rows-span-2 col-span-2 self-center">
+
+        <div className="col-span-1 lg:col-span-2 w-full">
           <ContactFormV2 />
         </div>
       </div>
