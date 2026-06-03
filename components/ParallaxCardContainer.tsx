@@ -5,51 +5,9 @@ import { useScroll } from "framer-motion";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { projects } from "@/lib/data";
 
 gsap.registerPlugin(ScrollTrigger);
-
-export const projects = [
-  {
-    title: "Premium Cutlery",
-    description:
-      "A refined collection of luxury cutlery crafted with precision and elegance. Designed to elevate modern dining experiences with timeless aesthetics and premium-quality finishes.",
-    src: "cutlery-1.jpg",
-    link: "https://example.com/premium-cutlery",
-    color: "#D8C3A5", // Warm champagne beige
-  },
-  {
-    title: "Food Counter",
-    description:
-      "An inviting live food counter experience featuring freshly prepared dishes, interactive serving stations, and a contemporary culinary presentation tailored for premium events and restaurants.",
-    src: "counter-1.jpg",
-    link: "https://example.com/food-counter",
-    color: "#8E6E53", // Rich walnut brown
-  },
-  {
-    title: "Food",
-    description:
-      "A curated showcase of gourmet cuisine featuring rich flavors, artistic plating, and high-quality ingredients that bring together taste and visual storytelling.",
-    src: "food.jpg",
-    link: "https://example.com/food",
-    color: "#C75B39", // Deep terracotta
-  },
-  {
-    title: "Desserts",
-    description:
-      "An indulgent dessert collection blending delicate textures, handcrafted sweets, and premium ingredients to create memorable finishing touches for every dining experience.",
-    src: "desert-1.jpg",
-    link: "https://example.com/desserts",
-    color: "#E0B04B", // Golden caramel
-  },
-  {
-    title: "Salads",
-    description:
-      "Fresh and vibrant salad creations made with seasonal ingredients, balanced flavors, and elegant presentation for a healthy yet premium culinary experience.",
-    src: "salad.jpg",
-    link: "https://example.com/salads",
-    color: "#5E8B4A", // Fresh olive green
-  },
-];
 
 export default function ParallaxCardContainer() {
   const container = useRef(null);
@@ -85,7 +43,7 @@ export default function ParallaxCardContainer() {
   }, []);
 
   return (
-    <div ref={container} className="h-full">
+    <div ref={container} className="h-full w-full">
       {projects.map((project, i) => {
         const targetScale = 1 - (projects.length - i) * 0.05;
         return (

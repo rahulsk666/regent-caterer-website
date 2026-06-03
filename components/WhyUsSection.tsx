@@ -3,34 +3,7 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import React, { useRef, useState } from "react";
 import PointCard from "./ui/PointCard";
-
-const points = [
-  {
-    title: "Our Brand",
-    description:
-      "To craft unforgettable culinary and hospitality experiences through premium quality, elegant presentation, and exceptional service.",
-  },
-  {
-    title: "Our Mission",
-    description:
-      "We believe that a perfect dining and hospitality experience is more than just service — it's about creating timeless moments that people remember forever.",
-  },
-  {
-    title: "Our Vision",
-    description:
-      "To become a leading luxury catering and dining brand known for innovation, trust, and timeless guest experiences.",
-  },
-  {
-    title: "Premium Quality",
-    description:
-      "From ingredients to presentation, every detail is carefully curated to deliver excellence in every experience.",
-  },
-  {
-    title: "Customer First",
-    description:
-      "We prioritize client satisfaction by creating personalized experiences tailored to every celebration and gathering.",
-  },
-];
+import { points } from "@/lib/data";
 
 export default function WhyUsSection() {
   const container = useRef<HTMLDivElement>(null);

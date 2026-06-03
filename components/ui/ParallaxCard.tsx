@@ -54,8 +54,8 @@ export default function ParallaxCard({
         <h1 className="text-center text-5xl font-galgin font-medium p-2 mt-2">
           {title}
         </h1>
-        <div className="grid md:grid-cols-3 grid-rows-4 h-full md:gap-4 gap-1 m-1 md:m-2 p-4">
-          <div className="md:col-span-2 md:row-span-6 row-span-2">
+        <div className="grid lg:grid-cols-3 md:grid-cols-4 grid-rows-4 h-full md:gap-4 gap-1 m-1 md:m-2 p-4">
+          <div className="lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-3 row-span-2">
             <p className=" md:text-lg">{description}</p>
             <Link href={link}>
               <span className="flex flex-row gap-1 items-center cursor-pointer">
@@ -76,7 +76,7 @@ export default function ParallaxCard({
               </span>
             </Link>
           </div>
-          <div className="relative md:col-span-1 md:row-span-6 row-span-2 w-full h-full overflow-hidden rounded-lg">
+          <div className="relative lg:col-span-1 md:col-span-2 lg:row-span-4 md:row-span-3 row-span-2 w-full h-full overflow-hidden rounded-lg">
             <motion.div
               style={{ scale: imageScale }}
               className="relative w-[80%] h-full"
