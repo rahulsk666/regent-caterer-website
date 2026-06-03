@@ -25,7 +25,7 @@ function FieldWrapper({
       {label && (
         <label
           htmlFor={htmlFor}
-          className="mb-2 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground-primary font-poppins"
+          className="mb-1 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground-primary font-poppins"
         >
           <span>{label}</span>
           {required && (

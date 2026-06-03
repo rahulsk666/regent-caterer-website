@@ -80,7 +80,7 @@ export default function ContactFormV2() {
       onSubmit={handleSubmit}
       className="space-y-6 m-2 p-4 bg-background-elevated rounded-2xl"
     >
-      <div className="grid grid-cols-1 gap-10 h-full mt-10  mb-0">
+      <div className="grid grid-cols-1 gap-8 h-full mt-10 mb-0">
         {/* Full Name */}
         <div className="space-y-2 w-full">
           <UnderlineInput
@@ -152,7 +152,7 @@ export default function ContactFormV2() {
             placeholder="Type your message here..."
             required
             error={errors.message}
-            rows={5}
+            rows={6}
           />
         </div>
       </div>
