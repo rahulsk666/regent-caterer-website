@@ -57,14 +57,14 @@ export const points = [
     description:
       "To become a leading luxury catering and dining brand known for innovation, trust, and timeless guest experiences.",
   },
-  {
-    title: "Premium Quality",
-    description:
-      "From ingredients to presentation, every detail is carefully curated to deliver excellence in every experience.",
-  },
-  {
-    title: "Customer First",
-    description:
-      "We prioritize client satisfaction by creating personalized experiences tailored to every celebration and gathering.",
-  },
+  // {
+  //   title: "Premium Quality",
+  //   description:
+  //     "From ingredients to presentation, every detail is carefully curated to deliver excellence in every experience.",
+  // },
+  // {
+  //   title: "Customer First",
+  //   description:
+  //     "We prioritize client satisfaction by creating personalized experiences tailored to every celebration and gathering.",
+  // },
 ];

@@ -5,7 +5,4 @@ export interface point {
 
 export interface PointCardProps {
   point: point;
-  index: number;
-  activeIndex: number;
-  total: number;
 }
