@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CardsSection from "@/components/CardsSection";
 import WhyUsSection from "@/components/WhyUsSection";
+import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       <HeroSection />
       <CardsSection />
       <WhyUsSection />
-
+      <ContactSection />
       <Footer />
     </main>
   );
