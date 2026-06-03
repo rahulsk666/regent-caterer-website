@@ -254,7 +254,7 @@ function UnderlineTextarea({
         className={cn(
           fieldBaseStyles,
           resizeClass,
-          "pt-1 pb-3 pr-1 leading-relaxed",
+          "mt-1 pt-1 pb-3 pr-1 leading-relaxed",
           "border! border-dark-100! rounded-sm px-3",
           "focus:border-foreground-primary/70!",
           "transition-colors duration-300",

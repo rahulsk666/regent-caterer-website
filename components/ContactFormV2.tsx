@@ -104,7 +104,7 @@ export default function ContactFormV2() {
             value={form.phone}
             required
             onChange={handleChange}
-            placeholder="+91 1322123"
+            placeholder="+91 9263815374"
             type="tel"
             error={errors.phone}
           />
