@@ -155,7 +155,7 @@ function UnderlineSelect({
           id={selectId}
           required={required}
           value={value}
-          defaultValue={defaultValue ?? ""}
+          // defaultValue={defaultValue ?? ""}
           data-slot="underline-select"
           className={cn(
             fieldBaseStyles,
