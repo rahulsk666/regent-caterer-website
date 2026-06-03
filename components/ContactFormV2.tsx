@@ -80,7 +80,7 @@ export default function ContactFormV2() {
       onSubmit={handleSubmit}
       className="space-y-6 m-2 p-4 bg-background-elevated rounded-2xl"
     >
-      <div className="grid grid-cols-1 gap-10 h-full">
+      <div className="grid grid-cols-1 gap-10 h-full mt-10  mb-0">
         {/* Full Name */}
         <div className="space-y-2 w-full">
           <UnderlineInput
@@ -94,32 +94,35 @@ export default function ContactFormV2() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          {/* Email Address */}
-          <div className="space-y-2 w-full">
-            <UnderlineInput
-              label="Email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="email@example.com"
-              type="email"
-            />
-          </div>
+        {/* <div className="grid grid-cols-2 gap-4"> */}
 
-          {/* Phone Number */}
-          <div className="space-y-2 w-full">
-            <UnderlineInput
-              label="Phone"
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              placeholder="+91 1322123"
-              type="tel"
-              error={errors.phone}
-            />
-          </div>
+        {/* Phone Number */}
+        <div className="space-y-2 w-full">
+          <UnderlineInput
+            label="Phone"
+            name="phone"
+            value={form.phone}
+            required
+            onChange={handleChange}
+            placeholder="+91 1322123"
+            type="tel"
+            error={errors.phone}
+          />
         </div>
+
+        {/* Email Address */}
+        <div className="space-y-2 w-full">
+          <UnderlineInput
+            label="Email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="email@example.com"
+            type="email"
+          />
+        </div>
+
+        {/* </div> */}
 
         {/* Services */}
         <div className="space-y-2 w-full">
@@ -128,7 +131,7 @@ export default function ContactFormV2() {
             value={form.services}
             onChange={handleChange}
             label="Services"
-            placeholder="Services"
+            placeholder="Select a service"
             options={[
               { value: "Birthday", label: "Birthday" },
               { value: "Corporate", label: "Corporate" },
@@ -152,15 +155,14 @@ export default function ContactFormV2() {
             rows={5}
           />
         </div>
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full h-10 rounded-xl bg-golden-400 text-white font-medium text-sm shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 active:translate-y-0"
-        >
-          {isSubmitting ? "Sending..." : "Send Message"}
-        </button>
       </div>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full h-10 mb-5 rounded-xl bg-golden-400 text-white font-medium text-sm shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 active:translate-y-0"
+      >
+        {isSubmitting ? "Sending..." : "Send Message"}
+      </button>
     </form>
   );
 }
