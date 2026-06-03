@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import PointCard from "./ui/PointCard";
 import { points } from "@/lib/data";
 
