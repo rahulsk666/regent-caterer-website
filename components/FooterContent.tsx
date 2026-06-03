@@ -58,24 +58,25 @@ export default function FooterContent() {
       //   type: "chars",
       // });
 
-      // const tl = gsap.timeline({
-      //   scrollTrigger: {
-      //     trigger: titleContainerRef.current,
-      //     start: "top 80%",
-      //     end: "top 20%",
-      //     scrub: 1.5,
-      //     markers: process.env.NODE_ENV === "development",
-      //   },
+      // gsap.set(splitTitle.chars, {
+      //   yPercent: 0,
+      //   rotationX: 0,
       // });
 
-      // // Step 1: chars start fully below the mask (invisible, clipped)
-      // // Step 2: they slide up into view through the line
-      // tl.from(splitTitle.chars, {
-      //   yPercent: 105, // just below the overflow-hidden boundary
-      //   ease: "power3.out",
-      //   stagger: {
-      //     each: 0.04,
-      //     from: "start",
+      // gsap.from(splitTitle.chars, {
+      //   duration: 1,
+      //   yPercent: 100,
+      //   rotationX: -70,
+      //   stagger: 0.05,
+      //   ease: "power2.inOut",
+      //   delay: 0.2,
+      //   scrollTrigger: {
+      //     trigger: titleRef.current,
+      //     start: "center top",
+      //     end: "bottom bottom",
+      //     scrub: 1,
+      //     markers: true,
+      //     toggleActions: "play none none reverse",
       //   },
       // });
     }, container);
@@ -156,7 +157,7 @@ export default function FooterContent() {
               Regent Caterers
             </p>
           </div>
-          {/* White line sits ABOVE the mask — acts as the "reveal edge" */}
+          {/* White line sits Below the mask — acts as the "reveal edge" */}
           <div className="w-full h-px bg-white" />
         </div>
       </div>

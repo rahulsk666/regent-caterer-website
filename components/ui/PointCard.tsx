@@ -19,7 +19,7 @@ export default function PointCard({
         y: isActive ? 0 : isPast ? -50 : 50,
         opacity: isActive ? 1 : 0,
         scale: isActive ? 1 : 0.97,
-        filter: isActive ? "blur(0px)" : "blur(3px)",
+        // filter: isActive ? "blur(0px)" : "blur(3px)",
       }}
       transition={{
         duration: 0.55,
