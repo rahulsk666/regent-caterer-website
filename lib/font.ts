@@ -28,3 +28,23 @@ export const galgin = localFont({
   variable: "--font-galgin",
   display: "swap",
 });
+
+export const redHatDisplay = localFont({
+  src: "../fonts/RedHatDisplay.ttf",
+  weight: "400 700 800",
+  variable: "--font-red-hat-display",
+  display: "swap",
+});
+
+export const kapakana = localFont({
+  src: "../fonts/Kapakana.ttf",
+  weight: "400",
+  variable: "--font-kapakana",
+  display: "swap",
+});
+
+export const helmorin = localFont({
+  src: "../fonts/HelmorinRegular.ttf",
+  variable: "--font-helmorin",
+  display: "swap",
+});

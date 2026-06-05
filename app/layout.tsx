@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { caveat, galgin, inter, poppins } from "@/lib/font";
+import {
+  caveat,
+  galgin,
+  inter,
+  kapakana,
+  redHatDisplay,
+  poppins,
+  helmorin,
+} from "@/lib/font";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
@@ -16,7 +24,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${caveat.variable} ${inter.variable} ${galgin.variable} h-full antialiased no-scrollbar`}
+      className={`${poppins.variable} ${caveat.variable} ${inter.variable} ${galgin.variable} ${kapakana.variable} ${redHatDisplay.variable} ${helmorin.variable} h-full antialiased no-scrollbar`}
     >
       <body className="min-h-full flex flex-col bg-background-base overflow-x-hidden">
         {children}

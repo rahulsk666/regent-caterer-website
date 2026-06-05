@@ -2,7 +2,8 @@
 
 :root {
   --foreground-primary: #000000;
-  --foreground-secondary: #3e3320;
+  --foreground-secondary: #ffffff;
+  --foreground-golden: #e7ba44;
   --background-base: linear-gradient(#ffffff 0%, #eeeeee 50%, #ffffff 100%);
   --background-secondary: #111111;
   --background-elevated: #ffffff;
@@ -17,10 +18,16 @@
   --color-background-elevated: var(--background-elevated);
   --color-foreground-primary: var(--foreground-primary);
   --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-golden: var(--foreground-golden);
   --font-poppins: var(--font-poppins);
   --font-caveat: var(--font-caveat);
   --font-inter: var(--font-inter);
   --font-galgin: var(--font-galgin);
+  --font-red-hat-display: var(--font-red-hat-display);
+  --font-kapakana: var(--font-kapakana);
+  --font-helmorin: var(--font-helmorin);
+
+  --color-button-blur: linear-gradient(to bottom, #ffffff33 0%, #ffffffcc 100%);
 
   --color-golden-50: #fdf8ec;
   --color-golden-100: #faf1da;

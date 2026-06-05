@@ -5,6 +5,7 @@ import { ScrollToPlugin, ScrollTrigger, SplitText } from "gsap/all";
 import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, ScrollToPlugin);
 
@@ -12,6 +13,7 @@ export default function FooterContent() {
   const container = useRef<HTMLDivElement>(null);
   const titleContainerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLParagraphElement>(null);
+  const router = useRouter();
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -101,16 +103,17 @@ export default function FooterContent() {
       <div className="flex flex-col md:flex-row justify-between gap-20 px-6 py-16 md:px-12">
         {/* Navigation */}
         <div className="flex flex-col gap-4">
-          <a
-            href=""
+          <Link
+            href="/"
             onClick={(e) => {
               e.preventDefault();
+              router.push("/");
               navigateTo("#Header");
             }}
             className="text text-lg md:text-xl w-fit"
           >
             Home
-          </a>
+          </Link>
           <a href="" className="text text-lg md:text-xl w-fit">
             Services
           </a>
@@ -180,7 +183,7 @@ export default function FooterContent() {
         <div className="flex flex-row gap-4 mr-5 items-center justify-center">
           <a href="">
             <Image
-              src={"svg/insta-bw.svg"}
+              src={"/svg/insta-bw.svg"}
               alt="insta"
               width={25}
               height={25}
@@ -189,7 +192,7 @@ export default function FooterContent() {
           </a>
           <a href="">
             <Image
-              src={"svg/fb-bw.svg"}
+              src={"/svg/fb-bw.svg"}
               alt="insta"
               width={25}
               height={25}
@@ -198,7 +201,7 @@ export default function FooterContent() {
           </a>
           <a href="">
             <Image
-              src={"svg/yt-bw.svg"}
+              src={"/svg/yt-bw.svg"}
               alt="insta"
               width={25}
               height={25}

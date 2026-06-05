@@ -1,11 +1,10 @@
 import Link from "next/link";
-import Logo from "./ui/svg/Logo";
 
-export default function Navbar() {
+export default function Header() {
   return (
     <nav
       id="Header"
-      className="py-3 m-2 container-app flex flex-row justify-center items-center"
+      className="py-3 container-app flex flex-row justify-center items-center"
     >
       {/* <Link href="/">
         <Logo />

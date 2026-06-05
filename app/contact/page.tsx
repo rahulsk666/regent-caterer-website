@@ -1,7 +1,7 @@
 import ContactForm from "@/components/ContactForm";
 import ContactInfoCard from "@/components/ContactInfoCard";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Header";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
