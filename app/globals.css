@@ -28,6 +28,7 @@
   --font-helmorin: var(--font-helmorin);
 
   --color-button-blur: linear-gradient(to bottom, #ffffff33 0%, #ffffffcc 100%);
+  --color-card-background: #f9f9f9;
 
   --color-golden-50: #fdf8ec;
   --color-golden-100: #faf1da;
@@ -63,7 +64,7 @@
 body {
   background: var(--background-base);
   color: var(--foreground-primary);
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-red-hat-display), sans-serif;
 }
 
 @layer utilities {

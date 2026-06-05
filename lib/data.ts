@@ -68,3 +68,38 @@ export const points = [
   //     "We prioritize client satisfaction by creating personalized experiences tailored to every celebration and gathering.",
   // },
 ];
+
+export const stats = [
+  { label: "Since", value: "1996" },
+  { label: "Functions", value: "1L+" },
+  { label: "Servings", value: "5Cr+" },
+  { label: "Staff Strength", value: "300+" },
+];
+
+export const features = [
+  {
+    title: "Premium Ingredients",
+    description:
+      "We use only the highest quality, freshest ingredients sourced from trusted local suppliers.",
+  },
+  {
+    title: "Elegant Food Presentation",
+    description:
+      "Every dish is presented beautifully to elevate the event experience.",
+  },
+  {
+    title: "Professional Hospitality",
+    description:
+      "Experienced staff ensuring smooth coordination and guest satisfaction.",
+  },
+  {
+    title: "Trusted Service",
+    description:
+      "Reliable catering backed by customer trust and successful event experiences.",
+  },
+  {
+    title: "Custom Event Solutions",
+    description:
+      "Menus and arrangements tailored to your preferences and event style.",
+  },
+];

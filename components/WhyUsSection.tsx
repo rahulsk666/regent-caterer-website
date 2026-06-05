@@ -1,19 +1,52 @@
-import PointCard from "./ui/PointCard";
-import { points } from "@/lib/data";
+import { features, stats } from "@/lib/data";
+import StatItem from "./ui/StatItem";
+import FeatureCard from "./ui/FeatureCard";
 
 export default function WhyUsSection() {
   return (
-    <div className="min-h-screen my-20 overflow-hidden container-app md:grid md:grid-cols-2 md:gap-16 md:items-center">
-      <div className="md:m-0 my-10 md:py-0 flex flex-col gap-3 md:gap-6 md:items-center">
-        <h2 className="text-center text-6xl lg:text-9xl md:text-6xl leading-none font-galgin font-medium text-golden-500">
-          Why Us?
-        </h2>
+    <section id="why-us" className="container-app py-10">
+      <div className="h-full lg:grid lg:grid-cols-2 gap-15">
+        <div className="flex flex-col gap-5">
+          <p className="font-kapakana text-foreground-golden lg:text-9xl text-7xl">
+            Why us
+          </p>
+          <div>
+            <p className="font-red-hat-display lg:text-3xl md:text-lg text-base">
+              Combining premium ingredients, refined presentation, and dedicated
+              hospitality, Regent Caterers creates memorable dining experiences
+              that elevate every celebration and leave a lasting impression on
+              guests.
+            </p>
+          </div>
+          <div className="lg:mt-10 space-y-7 grid grid-cols-2 text-foreground-golden items-center justify-center">
+            {stats.map((stat) => (
+              <StatItem
+                key={stat.label}
+                label={stat.label}
+                value={stat.value}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {features.slice(0, 4).map((feature) => (
+            <FeatureCard
+              key={feature.title}
+              title={feature.title}
+              description={feature.description}
+            />
+          ))}
+          <div className="text-foreground-golden flex items-center justify-start mx-2">
+            <StatItem label="Happy Clients" value="500+" classname="order-5" />
+          </div>
+
+          <FeatureCard
+            key={features[4].title}
+            title={features[4].title}
+            description={features[4].description}
+          />
+        </div>
       </div>
-      <div className="relative flex flex-col md:gap-15 gap-8 md:h-full md:items-center md:justify-center">
-        {points.map((point) => (
-          <PointCard key={point.title} point={point} />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }

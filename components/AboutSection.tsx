@@ -3,7 +3,7 @@ import React from "react";
 
 export default function AboutSection() {
   return (
-    <section className="">
+    <section id="about" className="">
       <div className="container-app h-full p-2 md:mt-10 m-7">
         <div className="text-7xl lg:h-20 w-full md:text-9xl font-kapakana text-left text-foreground-golden">
           <p>About Us</p>

@@ -15,6 +15,7 @@ export default function HeroSection() {
           alt="Logo"
           width={512}
           height={512}
+          loading="eager"
           className="w-40 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80"
         />
         <div className="flex flex-col lg:text-6xl md:text-5xl sm:text-2xl text-xl tracking-wide whitespace-nowrap leading-none text-white font-semibold font-helmorin">

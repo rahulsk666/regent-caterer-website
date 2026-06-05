@@ -31,7 +31,6 @@ export const galgin = localFont({
 
 export const redHatDisplay = localFont({
   src: "../fonts/RedHatDisplay.ttf",
-  weight: "400 700 800",
   variable: "--font-red-hat-display",
   display: "swap",
 });
