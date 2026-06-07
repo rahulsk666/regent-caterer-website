@@ -1,41 +1,47 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
   return (
     <nav
       id="Header"
-      className="py-3 container-app flex flex-row justify-center items-center"
+      className="container-app flex flex-row justify-center items-center"
     >
-      {/* <Link href="/">
-        <Logo />
-      </Link> */}
-      <div className="hidden md:flex flex-row lg:gap-8 md:gap-2 gap-1 lg:text-xl md:text-base text-xs text-black font-medium">
+      <div className="m-2 p-4 hidden lg:flex flex-row justify-center items-center w-full gap-8 text-lg text-foreground-secondary font-medium bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px] rounded-2xl">
+        <Link
+          href="/"
+          className="hover:underline hover:underline-offset-8 hover:text-golden-500"
+        >
+          Menu
+        </Link>
+        <Link
+          href="/"
+          className="hover:underline hover:underline-offset-8 hover:text-golden-500"
+        >
+          Services
+        </Link>
         <Link
           href="/"
           className="hover:underline hover:underline-offset-8 hover:text-golden-500"
         >
           Home
         </Link>
-        {/* <Link
-          href=""
-          className="hover:underline hover:underline-offset-8 hover:text-golden-500"
-        >
-          Our Specialties
-        </Link> */}
+        <Image
+          src={"/svg/logo.svg"}
+          alt="Logo"
+          width={512}
+          height={512}
+          loading="eager"
+          className="w-10 h-auto"
+        />
         <Link
-          href=""
+          href="/"
           className="hover:underline hover:underline-offset-8 hover:text-golden-500"
         >
-          Events
+          Why Us
         </Link>
         <Link
-          href=""
-          className="hover:underline hover:underline-offset-8 hover:text-golden-500"
-        >
-          Reviews
-        </Link>
-        <Link
-          href=""
+          href="/"
           className="hover:underline hover:underline-offset-8 hover:text-golden-500"
         >
           Gallery

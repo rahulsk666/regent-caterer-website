@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import HeroContactButtons from "./HeroContactButtons";
+import Button from "./ui/Button";
+import Header from "./Header";
 
 export default function HeroSection() {
   return (
@@ -11,10 +13,8 @@ export default function HeroSection() {
         backgroundImage: `linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2)), url('/images/hero-bg.png')`,
       }}
     >
-      {/* <Navbar /> */}
-      {/* Background Image */}
-      {/* <div className="absolute -z-10 inset-0 bg-cover bg-center" /> */}
-      <div className="container-app relative z-10 w-full lg:pt-24 md:pt-30 pt-30 px-10 md:gap-2 gap-10 flex flex-col items-center">
+      <Header />
+      <div className="container-app relative z-10 w-full lg:pt-10 md:pt-30 pt-30 px-10 md:gap-2 gap-10 flex flex-col items-center">
         <p className="text-sm font-medium text-white">Quality You Can Trust</p>
         <Image
           src={"/svg/logo.svg"}
@@ -47,12 +47,9 @@ export default function HeroSection() {
               className="w-6 h-6 opacity-90 transform group-hover:rotate-45 transition-all duration-300 ease-in-out"
             />
           </Link>
-          <Link
-            href="/contact"
-            className="order-1 md:order-2 flex items-center justify-center rounded-full px-10 py-4 text-2xl font-medium text-foreground-secondary transition-all duration-200 ease-in-out bg-linear-to-br from-white/40 to-white/5 hover:bg-linear-to-bl hover:from-white/40 hover:to-white/5 backdrop-blur-[20px]"
-          >
-            Book Your Event
-          </Link>
+          <Button variant="primary" className="order-1 md:order-2">
+            <Link href={"/contact"}>Book Your Event</Link>
+          </Button>
         </div>
         <HeroContactButtons />
       </div>
