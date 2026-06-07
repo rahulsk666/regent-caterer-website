@@ -361,7 +361,7 @@ export default function AdminDashboard() {
   // ── nav tabs ────────────────────────────────────────────────────────────
   const NAV: { key: Section; label: string; badge?: number }[] = [
     { key: "overview", label: "Overview" },
-    { key: "packages", label: "Packages", badge: packages.length },
+    // { key: "packages", label: "Packages", badge: packages.length },
     {
       key: "reviews",
       label: "Reviews",
@@ -426,7 +426,7 @@ export default function AdminDashboard() {
             <h2 className="text-2xl font-bold">Dashboard</h2>
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
               <StatCard
-                label="Packages"
+                label="Events"
                 value={stats.packages}
                 color="bg-golden-600"
               />
