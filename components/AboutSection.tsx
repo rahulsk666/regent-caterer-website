@@ -30,7 +30,10 @@ export default function AboutSection() {
           alt="About us banner"
           width={100}
           height={100}
-          className="absolute lg:max-w-[50vh] z-1 lg:top-1/7 md:top-1/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-[50vh] md:w-[40vh] w-[30vh] h-auto object-cover"
+          style={{
+            width: "clamp(250px, 45vw, 500px)",
+          }}
+          className="absolute z-1 lg:top-1/7 md:top-1/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  h-auto object-cover"
         />
         <Image
           src={"/images/about-us-bg-1.png"}
