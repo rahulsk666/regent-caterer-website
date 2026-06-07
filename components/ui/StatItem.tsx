@@ -6,9 +6,13 @@ type StatItemProps = {
 
 export default function StatItem({ label, value, classname }: StatItemProps) {
   return (
-    <div className={`flex flex-col ${classname}`}>
-      <p className="font-red-hat-display text-xl">{label}</p>
-      <p className="font-red-hat-display text-6xl">{value}</p>
+    <div className={`flex flex-col text-foreground-golden ${classname}`}>
+      <p className="font-red-hat-display lg:text-xl md:text-xl text-base">
+        {label}
+      </p>
+      <p className="font-red-hat-display lg:text-6xl md:text-5xl text-3xl">
+        {value}
+      </p>
     </div>
   );
 }

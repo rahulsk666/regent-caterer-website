@@ -74,6 +74,7 @@ export const stats = [
   { label: "Functions", value: "1L+" },
   { label: "Servings", value: "5Cr+" },
   { label: "Staff Strength", value: "300+" },
+  { label: "Happy Clients", value: "500+" },
 ];
 
 export const features = [

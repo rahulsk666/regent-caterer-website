@@ -1,50 +1,84 @@
 import { features, stats } from "@/lib/data";
 import StatItem from "./ui/StatItem";
 import FeatureCard from "./ui/FeatureCard";
+import Image from "next/image";
 
 export default function WhyUsSection() {
   return (
     <section id="why-us" className="container-app py-10">
-      <div className="h-full lg:grid lg:grid-cols-2 gap-15">
-        <div className="flex flex-col gap-5">
-          <p className="font-kapakana text-foreground-golden lg:text-9xl text-7xl">
-            Why us
+      <div className="flex flex-row lg:ml-9 items-center justify-start">
+        <p className="font-kapakana text-foreground-golden text-9xl">Why us</p>
+      </div>
+      <div className="bento-grid">
+        <div className="item hero">
+          <p className="font-red-hat-display lg:text-3xl md:text-lg text-base">
+            Combining premium ingredients, refined presentation, and dedicated
+            hospitality, Regent Caterers creates memorable dining experiences
+            that elevate every celebration and leave a lasting impression on
+            guests.
           </p>
-          <div>
-            <p className="font-red-hat-display lg:text-3xl md:text-lg text-base">
-              Combining premium ingredients, refined presentation, and dedicated
-              hospitality, Regent Caterers creates memorable dining experiences
-              that elevate every celebration and leave a lasting impression on
-              guests.
-            </p>
+        </div>
+
+        {stats.map((stat, index) => (
+          <div
+            key={stat.label}
+            className={`item stat${index + 1} flex items-center justify-start`}
+          >
+            <StatItem label={stat.label} value={stat.value} />
           </div>
-          <div className="lg:mt-10 space-y-7 grid grid-cols-2 text-foreground-golden items-center justify-center">
-            {stats.map((stat) => (
-              <StatItem
-                key={stat.label}
-                label={stat.label}
-                value={stat.value}
+        ))}
+
+        {features.map((feature, index) => (
+          <div key={feature.title} className={`item feature${index + 1}`}>
+            <FeatureCard
+              title={feature.title}
+              description={feature.description}
+            />
+          </div>
+        ))}
+
+        <div className="lg:hidden w-20 item star items-center justify-center">
+          <Image
+            src="/svg/star.svg"
+            alt="star"
+            width={100}
+            height={100}
+            className="object-cover"
+          />
+        </div>
+      </div>
+      <div className="lg:hidden flex flex-col gap-4">
+        <p className="font-red-hat-display my-5 md:text-xl text-base">
+          Combining premium ingredients, refined presentation, and dedicated
+          hospitality, Regent Caterers creates memorable dining experiences that
+          elevate every celebration and leave a lasting impression on guests.
+        </p>
+        <div>
+          <div className="my-10 p-2 px-5 gap-10 flex flex-col items-center justify-center">
+            {features.map((feature) => (
+              <FeatureCard
+                key={feature.title}
+                title={feature.title}
+                description={feature.description}
               />
             ))}
           </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-4">
-          {features.slice(0, 4).map((feature) => (
-            <FeatureCard
-              key={feature.title}
-              title={feature.title}
-              description={feature.description}
-            />
+        <div className="grid grid-cols-2 gap-5 my-10 items-center justify-center">
+          {stats.map((stat) => (
+            <div key={stat.label} className={``}>
+              <StatItem label={stat.label} value={stat.value} />
+            </div>
           ))}
-          <div className="text-foreground-golden flex items-center justify-start mx-2">
-            <StatItem label="Happy Clients" value="500+" classname="order-5" />
+          <div className="">
+            <Image
+              src="/svg/star.svg"
+              alt="star"
+              width={20}
+              height={20}
+              className="w-15 h-auto object-cover"
+            />
           </div>
-
-          <FeatureCard
-            key={features[4].title}
-            title={features[4].title}
-            description={features[4].description}
-          />
         </div>
       </div>
     </section>

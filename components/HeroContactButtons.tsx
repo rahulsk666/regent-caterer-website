@@ -3,7 +3,7 @@ import IconButton from "./ui/IconButton";
 
 export default function HeroContactButtons() {
   return (
-    <div className="flex flex-row items-center justify-center gap-3">
+    <div className="flex flex-row items-center justify-center mt-5 lg:mt-10 gap-3">
       <IconButton
         link="https://www.instagram.com/regentcaterers?igsh=dTJkeGN4N3RiOGdl"
         imageSrc="/svg/insta.svg"

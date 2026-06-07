@@ -1,4 +1,4 @@
-import ParallaxCardContainer from "./ParallaxCardContainer";
+import ParallaxCardContainer from "./CardStacksContainer";
 
 export default function CardsSection() {
   return (

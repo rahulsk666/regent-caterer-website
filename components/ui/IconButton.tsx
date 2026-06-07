@@ -30,7 +30,7 @@ export default function IconButton({
           alt={alt}
           width={100}
           height={100}
-          className={`w-full h-full rounded-full object-contain md:grayscale md:hover:grayscale-0 transition-all duration-300 ${imageClassname}`}
+          className={`w-full h-full rounded-full object-contain transition-all duration-300 ${imageClassname}`}
         />
       </div>
     </Link>

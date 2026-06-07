@@ -1,15 +1,16 @@
 "use client";
 import { useEffect, useRef } from "react";
-import ParallaxCard from "./ui/ParallaxCard";
+import ParallaxCard from "./ui/CardStack";
 import { useScroll } from "framer-motion";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { projects } from "@/lib/data";
+import { features } from "@/lib/data";
+import CardStacks from "./ui/CardStack";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ParallaxCardContainer() {
+export default function CardStacksContainer() {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -43,14 +44,20 @@ export default function ParallaxCardContainer() {
   }, []);
 
   return (
-    <div ref={container} className="h-full w-full">
-      {projects.map((project, i) => {
-        const targetScale = 1 - (projects.length - i) * 0.05;
+    <div
+      ref={container}
+      className="h-full w-full gap-10"
+      style={{ height: `${features.length * 80}vh` }}
+    >
+      {features.map((feature, i) => {
+        const targetScale = 1 - (features.length - i) * 0.05;
+
         return (
-          <ParallaxCard
-            key={i}
+          <CardStacks
+            key={feature.title}
             i={i}
-            {...project}
+            title={feature.title}
+            description={feature.description}
             range={[i * 0.2, 1]}
             targetScale={targetScale}
             progress={scrollYProgress}

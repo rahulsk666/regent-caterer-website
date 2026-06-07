@@ -5,10 +5,10 @@ export default function AboutSection() {
   return (
     <section id="about" className="">
       <div className="container-app h-full p-2 md:mt-10 m-7">
-        <div className="text-7xl lg:h-20 w-full md:text-9xl font-kapakana text-left text-foreground-golden">
+        <div className="text-6xl lg:h-20 w-full md:text-9xl font-kapakana text-left text-foreground-golden">
           <p>About Us</p>
         </div>
-        <div className="lg:my-20 md:mt-10 md:mb-20 my-5 w-full md:w-2/3 ml-auto text-sm lg:text-3xl md:text-xl text-right font-red-hat-display">
+        <div className="lg:my-20 md:mt-10 md:mb-20 my-5 w-full md:w-2/3 ml-auto text-sm lg:text-3xl md:text-lg text-right font-red-hat-display">
           <p>
             At Regent Caterers, we believe food is more than a meal. It is the
             centerpiece of every celebration. We combine authentic flavors,
@@ -28,15 +28,15 @@ export default function AboutSection() {
         <Image
           src={"/images/about-us-bg-2.png"}
           alt="About us banner"
-          width={1920}
-          height={1080}
-          className="absolute z-1 lg:top-1/7 md:top-1/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-[35%] w-[50%]  object-cover"
+          width={100}
+          height={100}
+          className="absolute lg:max-w-[50vh] z-1 lg:top-1/7 md:top-1/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-[50vh] md:w-[40vh] w-[30vh] h-auto object-cover"
         />
         <Image
           src={"/images/about-us-bg-1.png"}
           alt="About us background"
-          width={1920}
-          height={1080}
+          width={100}
+          height={100}
           className="relative w-full h-full object-cover"
         />
       </div>
