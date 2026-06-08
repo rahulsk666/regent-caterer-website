@@ -12,7 +12,7 @@ export default function FeatureCard({
   icon = "/svg/star.svg",
 }: FeatureCardProps) {
   return (
-    <div className="flex flex-col lg:h-full lg:w-full md:w-[50vh] w-[30vh] h-[20vh] gap-1 p-4 m-2 shadow-lg rounded-2xl bg-card-primary">
+    <div className="flex flex-col lg:h-full lg:w-full md:w-[50vh] w-[40vh] h-[25vh] gap-1 p-4 m-2 shadow-lg rounded-2xl bg-card-primary">
       <div className="m-1">
         <Image
           src={icon}

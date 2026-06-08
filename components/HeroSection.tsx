@@ -14,7 +14,7 @@ export default function HeroSection() {
       }}
     >
       <Header />
-      <div className="container-app relative z-10 w-full lg:pt-10 md:pt-30 pt-30 px-10 lg:gap-2 gap-5 flex flex-col items-center">
+      <div className="container-app relative z-10 w-full p-10 lg:gap-2 gap-5 flex flex-col items-center">
         <p className="text-sm font-medium text-white">Quality You Can Trust</p>
         <Image
           src={"/svg/logo.svg"}

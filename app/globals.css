@@ -49,6 +49,7 @@
   --breakpoint-lg: 1120px;
   --breakpoint-md: 680px;
   --breakpoint-sm: 358px;
+  --breakpoint-xs: 320px;
   --color-background-base: var(--background-base);
   --color-background-secondary: var(--background-secondary);
   --color-background-elevated: var(--background-elevated);

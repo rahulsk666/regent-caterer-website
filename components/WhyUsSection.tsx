@@ -7,7 +7,11 @@ export default function WhyUsSection() {
   return (
     <section id="why-us" className="container-app py-10">
       <div className="flex flex-row lg:ml-9 items-center justify-start">
-        <p className="font-kapakana text-foreground-golden text-9xl">Why us</p>
+        <div className="px-2">
+          <p className="font-kapakana text-foreground-golden md:text-9xl text-6xl">
+            Why us
+          </p>
+        </div>
       </div>
       <div className="bento-grid">
         <div className="item hero">
