@@ -13,7 +13,7 @@ import { Toaster } from "sonner";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Regent Caterers",
@@ -28,9 +28,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "no-scrollbar", poppins.variable, caveat.variable, inter.variable, galgin.variable, kapakana.variable, redHatDisplay.variable, helmorin.variable, "font-sans", geist.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        "no-scrollbar",
+        poppins.variable,
+        caveat.variable,
+        inter.variable,
+        galgin.variable,
+        kapakana.variable,
+        redHatDisplay.variable,
+        helmorin.variable,
+        "font-sans",
+        geist.variable,
+      )}
     >
-      <body className="min-h-full flex flex-col bg-background-base overflow-x-hidden">
+      <body className="bg-background-base overflow-x-hidden">
         {children}
         <Toaster richColors closeButton />
       </body>

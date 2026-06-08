@@ -8,13 +8,13 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex-1 bg-cover"
+      className="relative flex-1 bg-cover min-h-screen"
       style={{
         backgroundImage: `linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2)), url('/images/hero-bg.png')`,
       }}
     >
       <Header />
-      <div className="container-app relative z-10 w-full lg:pt-10 md:pt-30 pt-30 px-10 md:gap-2 gap-10 flex flex-col items-center">
+      <div className="container-app relative z-10 w-full lg:pt-10 md:pt-30 pt-30 px-10 lg:gap-2 gap-5 flex flex-col items-center">
         <p className="text-sm font-medium text-white">Quality You Can Trust</p>
         <Image
           src={"/svg/logo.svg"}

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   link: string;
@@ -20,7 +21,10 @@ export default function IconButton({
 }: Props) {
   return (
     <Link
-      className={`cursor-pointer md:hover:scale-105 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-xs p-2 ${classname}`}
+      className={twMerge(
+        "cursor-pointer md:hover:scale-105 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-xs p-2 ",
+        classname,
+      )}
       href={link}
       role="button"
     >
