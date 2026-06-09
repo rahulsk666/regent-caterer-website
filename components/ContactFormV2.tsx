@@ -46,19 +46,19 @@ export default function ContactFormV2() {
     setIsSubmitting(true);
     try {
       await Promise.allSettled([
-        // emailjs.send(
-        //   process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        //   process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        //   {
-        //     from_name: form.name,
-        //     from_email: form.email,
-        //     phone: form.phone,
-        //     services: form.service,
-        //     message: form.message,
-        //     to_email: "[EMAIL_ADDRESS]",
-        //   },
-        //   process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-        // ),
+        emailjs.send(
+          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+          {
+            from_name: form.name,
+            from_email: form.email,
+            phone: form.phone,
+            services: form.service,
+            message: form.message,
+            to_email: "[EMAIL_ADDRESS]",
+          },
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+        ),
         fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
