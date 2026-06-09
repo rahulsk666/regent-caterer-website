@@ -58,7 +58,7 @@ interface ContactRow {
   name: string;
   email: string;
   phone?: string | null;
-  subject: string;
+  service: string;
   message: string;
   read: number;
   created_at: string;
@@ -125,7 +125,7 @@ function rowToContact(row: ContactRow): ContactSubmission {
     name: row.name,
     email: row.email,
     phone: row.phone || undefined,
-    subject: row.subject,
+    service: row.service,
     message: row.message,
     read: Boolean(row.read),
     createdAt: row.created_at,
@@ -174,7 +174,7 @@ function openDatabase() {
       name TEXT NOT NULL,
       email TEXT NOT NULL,
       phone TEXT DEFAULT '',
-      subject TEXT NOT NULL,
+      service TEXT NOT NULL,
       message TEXT NOT NULL,
       read INTEGER DEFAULT 0,
       created_at TEXT DEFAULT (datetime('now'))
@@ -351,29 +351,34 @@ seedDatabase(db);
 seedReviews(db);
 
 export function getPackageById(id: string): PackageDetail | null {
-  const row = db.prepare("SELECT * FROM packages WHERE id = ?").get(id) as PackageRow | undefined;
+  const row = db.prepare("SELECT * FROM packages WHERE id = ?").get(id) as
+    | PackageRow
+    | undefined;
   return row ? rowToPackage(row) : null;
 }
 
 export function getPackageSummaries(): PackageSummary[] {
-  return (db
-    .prepare("SELECT * FROM packages WHERE published = 1 ORDER BY title ASC")
-    .all() as PackageRow[])
-    .map(rowToSummary);
+  return (
+    db
+      .prepare("SELECT * FROM packages WHERE published = 1 ORDER BY title ASC")
+      .all() as PackageRow[]
+  ).map(rowToSummary);
 }
 
 export function getAllPackageSummaries(): PackageSummary[] {
-  return (db
-    .prepare("SELECT * FROM packages ORDER BY title ASC")
-    .all() as PackageRow[])
-    .map(rowToSummary);
+  return (
+    db
+      .prepare("SELECT * FROM packages ORDER BY title ASC")
+      .all() as PackageRow[]
+  ).map(rowToSummary);
 }
 
 export function getPackageDetails(): PackageDetail[] {
-  return (db
-    .prepare("SELECT * FROM packages ORDER BY title ASC")
-    .all() as PackageRow[])
-    .map(rowToPackage);
+  return (
+    db
+      .prepare("SELECT * FROM packages ORDER BY title ASC")
+      .all() as PackageRow[]
+  ).map(rowToPackage);
 }
 
 export function savePackage(pkg: PackageDetail) {
@@ -433,28 +438,31 @@ export function exportDatabasePath() {
 // ── Reviews ────────────────────────────────────────────────────────────────
 
 export function getHomeReviews(): Review[] {
-  return (db
-    .prepare(
-      "SELECT * FROM reviews WHERE approved = 1 AND highlighted_home = 1 ORDER BY created_at DESC",
-    )
-    .all() as ReviewRow[])
-    .map(rowToReview);
+  return (
+    db
+      .prepare(
+        "SELECT * FROM reviews WHERE approved = 1 AND highlighted_home = 1 ORDER BY created_at DESC",
+      )
+      .all() as ReviewRow[]
+  ).map(rowToReview);
 }
 
 export function getPackageReviews(packageId: string): Review[] {
-  return (db
-    .prepare(
-      "SELECT * FROM reviews WHERE approved = 1 AND package_id = ? ORDER BY created_at DESC",
-    )
-    .all(packageId) as ReviewRow[])
-    .map(rowToReview);
+  return (
+    db
+      .prepare(
+        "SELECT * FROM reviews WHERE approved = 1 AND package_id = ? ORDER BY created_at DESC",
+      )
+      .all(packageId) as ReviewRow[]
+  ).map(rowToReview);
 }
 
 export function getAllReviews(): Review[] {
-  return (db
-    .prepare("SELECT * FROM reviews ORDER BY created_at DESC")
-    .all() as ReviewRow[])
-    .map(rowToReview);
+  return (
+    db
+      .prepare("SELECT * FROM reviews ORDER BY created_at DESC")
+      .all() as ReviewRow[]
+  ).map(rowToReview);
 }
 
 export function saveReview(review: Omit<Review, "id" | "createdAt">): number {
@@ -517,22 +525,23 @@ export function saveContact(
   contact: Omit<ContactSubmission, "id" | "createdAt">,
 ): void {
   db.prepare(
-    `INSERT INTO contact_submissions (name, email, phone, subject, message)
+    `INSERT INTO contact_submissions (name, email, phone, service, message)
      VALUES (?, ?, ?, ?, ?)`,
   ).run(
     contact.name,
     contact.email,
     contact.phone || "",
-    contact.subject,
+    contact.service,
     contact.message,
   );
 }
 
 export function getAllContacts(): ContactSubmission[] {
-  return (db
-    .prepare("SELECT * FROM contact_submissions ORDER BY created_at DESC")
-    .all() as ContactRow[])
-    .map(rowToContact);
+  return (
+    db
+      .prepare("SELECT * FROM contact_submissions ORDER BY created_at DESC")
+      .all() as ContactRow[]
+  ).map(rowToContact);
 }
 
 export function updateContact(id: number, read: boolean): void {

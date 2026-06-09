@@ -10,7 +10,7 @@ export default function ContactFormV2() {
     name: "",
     email: "",
     phone: "",
-    services: "",
+    service: "",
     message: "",
   });
 
@@ -21,7 +21,7 @@ export default function ContactFormV2() {
     const newErrors: Record<string, string> = {};
     if (!form.name.trim()) newErrors.name = "Name is required";
     if (!form.phone.trim()) newErrors.phone = "Phone is required";
-    if (!form.services.trim()) newErrors.services = "Services is required";
+    if (!form.service.trim()) newErrors.services = "Service is required";
     if (!form.message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
@@ -46,26 +46,26 @@ export default function ContactFormV2() {
     setIsSubmitting(true);
     try {
       await Promise.allSettled([
-        emailjs.send(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-          {
-            from_name: form.name,
-            from_email: form.email,
-            phone: form.phone,
-            services: form.services,
-            message: form.message,
-            to_email: "[EMAIL_ADDRESS]",
-          },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-        ),
+        // emailjs.send(
+        //   process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        //   process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        //   {
+        //     from_name: form.name,
+        //     from_email: form.email,
+        //     phone: form.phone,
+        //     services: form.service,
+        //     message: form.message,
+        //     to_email: "[EMAIL_ADDRESS]",
+        //   },
+        //   process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+        // ),
         fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),
         }),
       ]);
-      setForm({ name: "", email: "", phone: "", services: "", message: "" });
+      setForm({ name: "", email: "", phone: "", service: "", message: "" });
       toast.success("Message sent successfully!");
     } catch (error) {
       console.error("Contact error:", error);
@@ -127,8 +127,8 @@ export default function ContactFormV2() {
         {/* Services */}
         <div className="space-y-2 w-full">
           <UnderlineSelect
-            name="services"
-            value={form.services}
+            name="service"
+            value={form.service}
             onChange={handleChange}
             label="Services"
             placeholder="Select a service"
@@ -138,7 +138,7 @@ export default function ContactFormV2() {
               { value: "Wedding", label: "Wedding" },
               { value: "Other", label: "Other" },
             ]}
-            error={errors.services}
+            error={errors.service}
           />
         </div>
 
