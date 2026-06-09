@@ -14,7 +14,7 @@ export default function Footer() {
             <p>Gallery</p>
           </div>
           <Image
-            src={"svg/logo.svg"}
+            src={"/svg/logo.svg"}
             alt="Logo"
             width={100}
             height={100}
