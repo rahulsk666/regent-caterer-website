@@ -480,7 +480,7 @@ export default function AdminDashboard() {
                       <div className="min-w-0">
                         <p className="text-sm font-medium truncate">{c.name}</p>
                         <p className="text-xs text-slate-500 truncate">
-                          {c.subject}
+                          {c.service}
                         </p>
                       </div>
                     </div>
@@ -1418,7 +1418,7 @@ export default function AdminDashboard() {
                         )}
                       </div>
                       <p className="text-sm font-medium text-slate-700 mb-1">
-                        {c.subject}
+                        {c.service}
                       </p>
                       <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
                         {c.message}
@@ -1443,7 +1443,7 @@ export default function AdminDashboard() {
                         {c.read ? "Mark unread" : "Mark read"}
                       </button>
                       <a
-                        href={`mailto:${c.email}?subject=Re: ${encodeURIComponent(c.subject)}`}
+                        href={`mailto:${c.email}?subject=Re: ${encodeURIComponent(c.service)}`}
                         className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-medium text-blue-700 hover:bg-blue-100 text-center"
                       >
                         Reply by email
