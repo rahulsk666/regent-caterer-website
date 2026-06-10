@@ -1,7 +1,6 @@
-import ContactForm from "@/components/ContactForm";
-import ContactInfoCard from "@/components/ContactInfoCard";
+import ContactFormV2 from "@/components/ContactFormV2";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Header";
+import Header from "@/components/Header";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,24 +12,36 @@ const ContactPage = () => {
   return (
     <div className="flex-1 space-y-4">
       {/* Page Header */}
-      <Navbar />
+      <Header />
       {/* Main Content */}
       <section
-        id="contactPage"
-        className="container-app min-h-[150vh] pb-24 flex-1"
+        id="contactSection"
+        className="min-h-screen py-10 flex items-center justify-center bg-golden-300"
       >
-        <div className="text-center lg:mb-8 mb-12">
-          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-          <p className="text-lg text-gray-600">
-            We&apos;d love to hear from you! Reach out through any of the
-            channels below.
-          </p>
-        </div>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
-          {/* Contact Form */}
-          <ContactForm />
-          {/* Contact Info Sidebar */}
-          <ContactInfoCard />
+        <div className="container-app grid grid-cols-1 lg:grid-cols-4 gap-5 lg:gap-5 w-full items-center">
+          <div
+            className="
+              lg:col-span-2
+              flex lg:flex-col flex-row
+              justify-center items-center
+              gap-2 lg:gap-3
+              leading-none
+              text-5xl md:text-8xl lg:text-[10vw]
+              font-medium font-galgin uppercase
+            "
+          >
+            <p className="lg:w-full lg:text-start text-center hidden lg:block">
+              Let&apos;s
+            </p>
+
+            <p className="lg:w-full lg:text-end text-center">Get in</p>
+
+            <p className="lg:w-full lg:text-start text-center">Touch</p>
+          </div>
+
+          <div className="col-span-1 lg:col-span-2 w-full">
+            <ContactFormV2 />
+          </div>
         </div>
       </section>
 

@@ -4,6 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+// import { Metadata } from "next";
+
+// export const metadata: Metadata = {
+//   title: "Admin Login - Regent Caterers",
+//   description: "Admin Login - Regent Caterers",
+// };
 
 export default function AdminLoginPage() {
   const router = useRouter();
