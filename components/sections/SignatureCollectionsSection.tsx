@@ -13,7 +13,7 @@ export default function SignatureCollectionsSection() {
   ];
   return (
     <section
-      id="signature-collections"
+      id="signatureCollectionsSections"
       className="min-h-full bg-peach-50 overflow-hidden"
     >
       <div className="h-full flex flex-col lg:py-15 py-10">

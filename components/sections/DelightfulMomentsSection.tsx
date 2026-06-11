@@ -13,7 +13,7 @@ export default function DelightFulMomentsSection() {
   ];
   return (
     <section
-      id="signature-collections"
+      id="delightfulMomentsSections"
       className="min-h-full bg-peach-50 overflow-hidden"
     >
       <div className="h-full flex flex-col lg:py-15 py-10">

@@ -4,7 +4,7 @@ import { DecorativeStar } from "../ui/DecorativeStar";
 export default function TestomonialsSection() {
   return (
     <section
-      id="testimonials"
+      id="testimonialsSections"
       className="min-h-full relative py-30 bg-peach-50 overflow-hidden"
     >
       <DecorativeStar

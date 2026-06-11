@@ -3,7 +3,7 @@ import React from "react";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="">
+    <section id="aboutSection" className="">
       <div className="container-app h-full p-2 md:mt-10 m-7">
         <div className="text-6xl lg:h-20 w-full md:text-9xl font-kapakana text-left text-foreground-golden">
           <p>About Us</p>
@@ -24,7 +24,16 @@ export default function AboutSection() {
         </div>
       </div>
       {/* Image side */}
-      <div className="relative w-full h-full md:mt-20 mt-5">
+      <div
+        className="relative w-full l md:mt-20 mt-5"
+        style={{
+          backgroundImage: "url(/images/about-us-bg-1.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "clamp(250px, 50vw, 500px)",
+        }}
+      >
         <Image
           src={"/images/about-us-bg-2.png"}
           alt="About us banner"
@@ -34,13 +43,6 @@ export default function AboutSection() {
             width: "clamp(250px, 45vw, 500px)",
           }}
           className="absolute z-1 lg:top-1/7 md:top-1/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  h-auto object-cover"
-        />
-        <Image
-          src={"/images/about-us-bg-1.png"}
-          alt="About us background"
-          width={100}
-          height={100}
-          className="relative w-full h-full object-cover"
         />
       </div>
     </section>

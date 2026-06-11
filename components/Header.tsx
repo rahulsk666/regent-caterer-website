@@ -16,14 +16,14 @@ export default function Header() {
       id="Header"
       className="container-app flex flex-row md:justify-center justify-end items-center"
     >
-      <div className="m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full gap-8 lg:text-lg text-base text-foreground-secondary font-medium bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px] rounded-2xl">
-        <Link href="/" className="hover:underline hover:underline-offset-8">
+      <div className="m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full gap-8 lg:text-lg text-base text-foreground-secondary/75 font-medium bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px] rounded-2xl">
+        <Link href="/" className="hover:text-foreground-secondary">
           Menu
         </Link>
-        <Link href="/" className="hover:underline hover:underline-offset-8">
+        <Link href="/" className="hover:text-foreground-secondary">
           Services
         </Link>
-        <Link href="/" className="hover:underline hover:underline-offset-8">
+        <Link href="/" className="hover:text-foreground-secondary">
           Home
         </Link>
         <Image
@@ -34,16 +34,13 @@ export default function Header() {
           loading="eager"
           className="w-8 lg:w-10 h-auto"
         />
-        <Link href="/" className="hover:underline hover:underline-offset-8">
+        <Link href="/" className="hover:text-foreground-secondary">
           Why Us
         </Link>
-        <Link href="/" className="hover:underline hover:underline-offset-8">
+        <Link href="/" className="hover:text-foreground-secondary">
           Gallery
         </Link>
-        <Link
-          href="/contact"
-          className="hover:underline hover:underline-offset-8"
-        >
+        <Link href="/" className="hover:text-foreground-secondary">
           Contact Us
         </Link>
       </div>
@@ -51,7 +48,7 @@ export default function Header() {
       <div className="mt-2 py-2 md:hidden">
         <button
           onClick={toggleMenu}
-          className="flex flex-col items-end gap-2 py-2 rounded-lg"
+          className="flex flex-col items-end gap-2 py-2 rounded-lg "
         >
           <span className="w-2 h-0.5 bg-secondary" />
           <span className="w-4 h-0.5 bg-secondary" />

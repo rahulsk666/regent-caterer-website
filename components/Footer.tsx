@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -7,11 +8,36 @@ export default function Footer() {
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col text-foreground-muted mt-5 lg:text-xl text-lg">
             <p className="text-foreground-secondary">Important Links</p>
-            <p className="mt-5">Home</p>
-            <p>About Us</p>
-            <p>Why Us</p>
-            <p>Contact Us</p>
-            <p>Gallery</p>
+            <Link
+              href="#homeSection"
+              className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Home
+            </Link>
+            <Link
+              href="#aboutSection"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              About Us
+            </Link>
+            <Link
+              href="#whyUsSection"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Why Us
+            </Link>
+            <Link
+              href="#contactSection"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="#signatureCollectionsSections"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Gallery
+            </Link>
           </div>
           <Image
             src={"/svg/logo.svg"}
@@ -22,11 +48,44 @@ export default function Footer() {
           />
           <div className="flex flex-col text-foreground-muted mt-10 lg:text-xl text-lg">
             <p className="text-foreground-secondary">Social</p>
-            <p className="mt-5">Instagram</p>
-            <p>Whats App</p>
-            <p>Facebook</p>
-            <p>Email</p>
-            <p>Phone</p>
+            <Link
+              href="https://www.instagram.com/regentcaterers/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Instagram
+            </Link>
+            <Link
+              href="https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Whats App
+            </Link>
+            <Link
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Facebook
+            </Link>
+            <Link
+              href="mailto:hello@example.com"
+              rel="noopener noreferrer"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Email
+            </Link>
+            <Link
+              href="tel:9876543210"
+              rel="noopener noreferrer"
+              className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+            >
+              Phone
+            </Link>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center mt-5 gap-3">
@@ -62,11 +121,37 @@ export default function Footer() {
           <div className="flex flex-col gap-10">
             <div className="flex flex-col text-foreground-muted mt-5 text-xl">
               <p className="text-foreground-secondary">Important Links</p>
-              <p className="mt-5">Home</p>
-              <p>About Us</p>
-              <p>Why Us</p>
-              <p>Contact Us</p>
-              <p>Gallery</p>
+              <Link
+                href="#homeSection"
+                as={"/"}
+                className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Home
+              </Link>
+              <Link
+                href="#aboutSection"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                About Us
+              </Link>
+              <Link
+                href="#whyUsSection"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Why Us
+              </Link>
+              <Link
+                href="#contactSection"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Contact Us
+              </Link>
+              <Link
+                href="#signatureCollectionsSections"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Gallery
+              </Link>
             </div>
             <div>
               <p className="text-golden-gradient text-xl">Quality You Can</p>
@@ -76,11 +161,44 @@ export default function Footer() {
           <div className="flex flex-col gap-10">
             <div className="flex flex-col text-foreground-muted mt-32 text-xl">
               <p className="text-foreground-secondary">Social</p>
-              <p className="mt-5">Instagram</p>
-              <p>Whats App</p>
-              <p>Facebook</p>
-              <p>Email</p>
-              <p>Phone</p>
+              <Link
+                href="https://www.instagram.com/regentcaterers/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Instagram
+              </Link>
+              <Link
+                href="https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Whats App
+              </Link>
+              <Link
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Facebook
+              </Link>
+              <Link
+                href="mailto:hello@example.com"
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Email
+              </Link>
+              <Link
+                href="tel:9876543210"
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
+              >
+                Phone
+              </Link>
             </div>
           </div>
         </div>
