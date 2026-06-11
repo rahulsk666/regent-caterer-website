@@ -1,4 +1,3 @@
-"use client";
 import IconButton from "./ui/IconButton";
 
 export default function HeroContactButtons() {

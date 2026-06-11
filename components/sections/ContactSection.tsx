@@ -1,4 +1,4 @@
-import ContactFormV2 from "./ContactFormV2";
+import ContactFormV2 from "../ContactFormV2";
 
 export default function ContactSection() {
   return (
