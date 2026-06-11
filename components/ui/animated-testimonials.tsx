@@ -104,13 +104,13 @@ export const AnimatedTestimonials = ({
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <h3 className="text-2xl font-bold text-black dark:text-white">
+            <h3 className="text-2xl font-bold md:text-left text-center text-black dark:text-white">
               {testimonials[active].name}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-neutral-500">
+            <p className="text-sm md:text-left text-center text-gray-500 dark:text-neutral-500">
               {testimonials[active].designation}
             </p>
-            <motion.p className="mt-8 text-lg text-gray-500 dark:text-neutral-300">
+            <motion.p className="mt-8 md:text-left text-center text-lg  text-gray-500 dark:text-neutral-300">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -128,12 +128,20 @@ export const AnimatedTestimonials = ({
               ))}
             </motion.p>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-0">
-            <Button variant="carousel" onClick={handlePrev}>
-              <IconArrowLeft className="h-5 w-5 text-golden-500 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
+          <div className="flex gap-4 pt-12 md:pt-6 md:justify-start justify-center">
+            <Button
+              variant="carousel"
+              onClick={handlePrev}
+              className="w-14 h-14 md:w-12 md:h-12"
+            >
+              <IconArrowLeft className="h-6 w-6 text-golden-500 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
             </Button>
-            <Button variant="carousel" onClick={handleNext}>
-              <IconArrowRight className="h-5 w-5 text-golden-500 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
+            <Button
+              variant="carousel"
+              onClick={handleNext}
+              className="w-14 h-14 md:w-12 md:h-12"
+            >
+              <IconArrowRight className="h-6 w-6 text-golden-500 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
             </Button>
           </div>
         </div>
