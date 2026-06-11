@@ -1,5 +1,5 @@
-import Testimonials from "./Testomonials";
-import { DecorativeStar } from "./ui/DecorativeStar";
+import Testimonials from "../Testomonials";
+import { DecorativeStar } from "../ui/DecorativeStar";
 
 export default function TestomonialsSection() {
   return (

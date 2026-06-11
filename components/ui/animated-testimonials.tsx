@@ -14,15 +14,11 @@ type Testimonial = {
 };
 
 // Generated once at module level — stable across all renders
-// const MAX_TESTIMONIALS = 20;
-// const rotations = Array.from(
-//   { length: MAX_TESTIMONIALS },
-//   () => Math.floor(Math.random() * 21) - 10,
-// );
-
-const rotations = [
-  -8, 5, -3, 7, -6, 4, -9, 2, 8, -4, 6, -7, 3, -5, 9, -2, 1, -10, 10, 0,
-];
+const MAX_TESTIMONIALS = 20;
+const rotations = Array.from(
+  { length: MAX_TESTIMONIALS },
+  () => Math.floor(Math.random() * 21) - 10,
+);
 
 export const AnimatedTestimonials = ({
   testimonials,

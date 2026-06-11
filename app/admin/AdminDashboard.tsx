@@ -9,7 +9,7 @@ import type {
   ItineraryDay,
   Review,
 } from "@/lib/types";
-import { StarDisplay } from "@/components/StarRating";
+import { StarDisplay } from "@/components/ui/StarRating";
 
 type Section = "overview" | "packages" | "reviews" | "contacts";
 

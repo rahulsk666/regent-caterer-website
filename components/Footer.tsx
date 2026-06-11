@@ -33,7 +33,7 @@ export default function Footer() {
           <p className="lg:text-3xl text-2xl text-golden-gradient">
             Quality You Can See. Taste. Trust.
           </p>
-          <p className="lg:text-9xl text-7xl font-galgin text-golden-gradient underline decoration-3 underline-offset-8">
+          <p className="lg:text-9xl text-7xl pb-4 font-galgin text-golden-gradient underline decoration-3 underline-offset-8">
             Regent Caterers
           </p>
         </div>

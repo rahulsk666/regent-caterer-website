@@ -1,6 +1,6 @@
 import { features, stats } from "@/lib/data";
-import StatItem from "./ui/StatItem";
-import FeatureCard from "./ui/FeatureCard";
+import StatItem from "../ui/StatItem";
+import FeatureCard from "../ui/FeatureCard";
 import Image from "next/image";
 
 export default function WhyUsSection() {

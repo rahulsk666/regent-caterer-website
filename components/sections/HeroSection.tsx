@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import HeroContactButtons from "./HeroContactButtons";
-import Button from "./ui/Button";
-import Header from "./Header";
+import HeroContactButtons from "../HeroContactButtons";
+import Button from "../ui/Button";
+import Header from "../Header";
 
 export default function HeroSection() {
   return (

@@ -11,6 +11,7 @@ const buttonVariants = {
   primary: `${glassStyles} rounded-full px-6 py-2 text-lg md:px-10 md:py-4 md:text-2xl`,
   rounded: `${glassStyles} rounded-full size-10 md:size-12 shrink-0 text-lg md:text-2xl`,
   carousel: `group/button h-7 w-7 rounded-full bg-linear-[108deg] from-golden-200 from-0% to-golden-50 to-100%`,
+  custom: `px-10 py-4 rounded-full text-2xl text-foreground-secondary`,
 } as const;
 
 type ButtonVariant = keyof typeof buttonVariants;

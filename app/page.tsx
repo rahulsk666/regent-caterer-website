@@ -1,10 +1,10 @@
-import HeroSection from "@/components/HeroSection";
+import HeroSection from "@/components/sections/HeroSection";
 import Footer from "@/components/Footer";
-// import CardsSection from "@/components/CardsSection";
-import WhyUsSection from "@/components/WhyUsSection";
-import ContactSection from "@/components/ContactSection";
-import AboutSection from "@/components/AboutSection";
-import TestomonialsSection from "@/components/TestomonialsSection";
+import WhyUsSection from "@/components/sections/WhyUsSection";
+import AboutSection from "@/components/sections/AboutSection";
+import TestomonialsSection from "@/components/sections/TestomonialsSection";
+import DelightFulMomentsSection from "@/components/sections/DelightfulMomentsSection";
+import SignatureCollectionsSection from "@/components/sections/SignatureCollectionsSection";
 
 export default function Home() {
   return (
@@ -13,7 +13,8 @@ export default function Home() {
       <AboutSection />
       <WhyUsSection />
       <TestomonialsSection />
-      <ContactSection />
+      <SignatureCollectionsSection />
+      <DelightFulMomentsSection />
       <Footer />
     </main>
   );
