@@ -1,34 +1,53 @@
-import ContactFormV2 from "../ContactFormV2";
+import Link from "next/link";
+import Button from "../ui/Button";
+import Image from "next/image";
+import { IconArrowUpRight } from "@tabler/icons-react";
 
 export default function ContactSection() {
   return (
     <section
       id="contactSection"
-      className="min-h-screen flex items-center justify-center bg-golden-300"
+      className="relative min-h-screen"
+      style={{
+        background: "linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2))",
+      }}
     >
-      <div className="container-app grid grid-cols-1 lg:grid-cols-4 gap-5 lg:gap-5 py-10 w-full items-center">
-        <div
-          className="
-        lg:col-span-2
-        flex lg:flex-col flex-row
-        justify-center items-center
-        gap-2 lg:gap-3
-        leading-none
-        text-5xl md:text-8xl lg:text-[10vw]
-        font-medium font-galgin uppercase
-      "
-        >
-          <p className="lg:w-full lg:text-start text-center hidden lg:block">
-            Let&apos;s
-          </p>
-
-          <p className="lg:w-full lg:text-end text-center">Get in</p>
-
-          <p className="lg:w-full lg:text-start text-center">Touch</p>
-        </div>
-
-        <div className="col-span-1 lg:col-span-2 w-full">
-          <ContactFormV2 />
+      <video
+        loop
+        muted
+        autoPlay
+        playsInline
+        className="absolute z-[-1] object-cover w-full h-full"
+      >
+        <source src="/videos/contact-bg.mp4" type="video/mp4" />
+      </video>
+      <div className="relative h-full w-full mx-auto flex flex-col lg:pt-50 pt-20 lg:gap-20 gap-70  items-center justify-center">
+        <p className="text-golden-gradient font-galgin lg:text-6xl md:text-5xl text-3xl">
+          Let’s plan together
+        </p>
+        <div className="flex flex-col items-center justify-center lg:gap-20 md:gap-10 gap-5">
+          <Button variant="primary" className="lg:w-3xl md:w-xl w-70">
+            <Link href={"/booking"} className="flex items-center gap-5">
+              <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">
+                Chat on WhatsApp
+              </p>
+              <Image
+                src={"/svg/whatsapp.svg"}
+                width={50}
+                height={50}
+                alt="whatsapp"
+                className="lg:w-18 md:w-12 w-5 h-auto"
+              />
+            </Link>
+          </Button>
+          <Button variant="primary" className="lg:w-3xl md:w-xl w-70 group">
+            <Link href={"/booking"} className="flex items-center gap-5">
+              <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">
+                Contact Us Now
+              </p>
+              <IconArrowUpRight className="lg:w-18 md:w-12 w-5 h-auto transform  transition-all duration-300 group-hover:rotate-45" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
