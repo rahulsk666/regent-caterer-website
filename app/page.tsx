@@ -9,7 +9,7 @@ import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
   return (
-    <main className="flex-1">
+    <main>
       <HeroSection />
       <AboutSection />
       <WhyUsSection />
