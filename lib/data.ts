@@ -104,3 +104,46 @@ export const features = [
       "Menus and arrangements tailored to your preferences and event style.",
   },
 ];
+
+export const testimonials = [
+  {
+    name: "Anjali Nair",
+    rating: 5,
+    designation: "Bride, Wedding Reception",
+    image: "/uploads/reviews/testomonial-1.avif",
+    review:
+      "The food was absolutely exceptional and beautifully presented. Our guests couldn't stop talking about the menu, and the service was flawless from start to finish.",
+  },
+  {
+    name: "Rahul Menon",
+    rating: 5,
+    designation: "HR Manager at Nexa Solutions",
+    image: "/uploads/reviews/testomonial-2.avif",
+    review:
+      "Their team handled catering for our corporate event with incredible professionalism. Every dish was fresh, flavorful, and served right on schedule.",
+  },
+  {
+    name: "Priya Thomas",
+    rating: 5,
+    designation: "Birthday Event Host",
+    image: "/uploads/reviews/testomonial-3.avif",
+    review:
+      "From the tasting session to the final event, the experience was seamless. The customized menu perfectly reflected our preferences and impressed every guest.",
+  },
+  {
+    name: "Arjun Krishnan",
+    rating: 5,
+    designation: "Event Organizer",
+    image: "/uploads/reviews/testomonial-4.avif",
+    review:
+      "The live food counters were a huge hit at our celebration. The chefs were engaging, and the quality of the food exceeded our expectations.",
+  },
+  {
+    name: "Meera Joseph",
+    rating: 5,
+    designation: "Family Event Host",
+    image: "/uploads/reviews/testomonial-5.avif",
+    review:
+      "Outstanding catering service with attention to every detail. The menu variety, presentation, and hospitality made our family function truly memorable.",
+  },
+];

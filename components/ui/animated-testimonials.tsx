@@ -5,13 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import Button from "./Button";
-
-type Testimonial = {
-  quote: string;
-  name: string;
-  designation: string;
-  src: string;
-};
+import { Testimonial } from "@/lib/types";
 
 // Generated once at module level — stable across all renders
 const MAX_TESTIMONIALS = 20;
@@ -88,6 +82,7 @@ export const AnimatedTestimonials = ({
                     alt={testimonial.name}
                     width={500}
                     height={500}
+                    loading="eager"
                     draggable={false}
                     className="h-full w-full rounded-3xl object-cover object-center"
                   />

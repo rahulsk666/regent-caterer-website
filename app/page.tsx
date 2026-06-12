@@ -6,6 +6,7 @@ import TestomonialsSection from "@/components/sections/TestomonialsSection";
 import DelightFulMomentsSection from "@/components/sections/DelightfulMomentsSection";
 import SignatureCollectionsSection from "@/components/sections/SignatureCollectionsSection";
 import ContactSection from "@/components/sections/ContactSection";
+import CreateReviewSection from "@/components/sections/CreateReviewSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <AboutSection />
       <WhyUsSection />
       <TestomonialsSection />
+      <CreateReviewSection />
       <SignatureCollectionsSection />
       <DelightFulMomentsSection />
       <ContactSection />

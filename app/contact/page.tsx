@@ -44,9 +44,7 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
-
       <Footer />
-      {/* <WhatsAppFloating /> */}
     </div>
   );
 };

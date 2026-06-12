@@ -10,10 +10,7 @@ import {
   helmorin,
 } from "@/lib/font";
 import { Toaster } from "sonner";
-import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Regent Caterers",
@@ -40,7 +37,6 @@ export default function RootLayout({
         redHatDisplay.variable,
         helmorin.variable,
         "font-sans",
-        geist.variable,
       )}
     >
       <body className="bg-background-base overflow-x-hidden">

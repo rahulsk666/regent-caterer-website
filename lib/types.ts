@@ -1,79 +1,60 @@
-export interface point {
+export interface Point {
   title: string;
   description: string;
 }
 
 export interface PointCardProps {
-  point: point;
+  point: Point;
 }
 
-export type PackageSummary = {
-  id: string;
-  title: string;
-  destination: string[];
-  duration: string;
-  price: string;
-  image: string;
-  shortDescription: string;
-  highlighted?: boolean;
-  published?: boolean;
-};
-
-export type ItineraryDay = {
-  day: number;
-  title: string;
-  description: string;
-  meals?: string;
-  image?: string;
-};
-
-export type PackageDetail = {
-  id: string;
-  title: string;
-  destination: string[];
-  duration: string;
-  price: string;
-  coverImage: string;
-  shortDescription: string;
-  overview: string;
-  highlights: string[];
-  itinerary: ItineraryDay[];
-  inclusions: string[];
-  exclusions: string[];
-  gallery: string[];
-  termsAndConditions?: TermsAndConditions;
-  termsNote?: string;
-  itineraryPdf?: string;
-  highlighted?: boolean;
-  published?: boolean;
-};
-
-export type TermsAndConditions = {
-  paymentPolicy?: string[];
-  hotelPolicy?: string[];
-  transportationPolicy?: string[];
-  cancellationPolicy?: string[];
-  childPolicy?: string[];
-};
+// ─────────────────────────────
+// Reviews
+// ─────────────────────────────
 
 export type Review = {
   id?: number;
   name: string;
   email?: string;
+  designation?: string;
   rating: number;
   review: string;
   image?: string;
-  packageId?: string;
   highlightedHome?: boolean;
-  highlightedPackage?: boolean;
   approved?: boolean;
   createdAt?: string;
 };
 
+export type Testimonial = {
+  quote: string;
+  name: string;
+  designation: string;
+  src: string;
+};
+
+// ─────────────────────────────
+// Contact Details
+// ─────────────────────────────
+
+export type ContactDetails = {
+  id?: number;
+  phone: string;
+  whatsapp?: string;
+  email: string;
+  address: string;
+  instagram?: string;
+  facebook?: string;
+  youtube?: string;
+  mapUrl?: string;
+};
+
+// ─────────────────────────────
+// Contact Form Submissions
+// ─────────────────────────────
+
 export type ContactSubmission = {
   id?: number;
   name: string;
-  email: string;
+  email: string | undefined;
   phone?: string;
   service: string;
   message: string;
@@ -81,33 +62,73 @@ export type ContactSubmission = {
   createdAt?: string;
 };
 
-export type YoutubeData = {
-  channelId: string;
-  channelName?: string;
-  videos: { id: string; title: string; thumbnail: string }[];
+// ─────────────────────────────
+// Shared Image Sections
+// Delightful Moments
+// Signature Collections
+// Gallery
+// ─────────────────────────────
+
+export type SectionImage = {
+  id: string;
+  image: string;
+  section: "delightful-moments" | "signature-collections" | "gallery";
+  featured?: boolean;
+  published?: boolean;
 };
 
-export interface YoutubeVideoItem {
-  id: {
-    videoId: string;
-  };
-  snippet: {
-    title: string;
-    description: string;
-    thumbnails: {
-      default?: {
-        url: string;
-      };
-      medium?: {
-        url: string;
-      };
-      high?: {
-        url: string;
-      };
-    };
-  };
-}
+// ─────────────────────────────
+// Menu
+// ─────────────────────────────
 
-export interface YoutubeSearchResponse {
-  items: YoutubeVideoItem[];
-}
+export type MenuCategory = {
+  id: string;
+  name: string;
+  description?: string;
+  image?: string;
+  published?: boolean;
+};
+
+export type MenuItem = {
+  id: string;
+  categoryId: string;
+  name: string;
+  description?: string;
+  price: string;
+  image?: string;
+  featured?: boolean;
+  published?: boolean;
+};
+
+// ─────────────────────────────
+// Services
+// ─────────────────────────────
+
+export type Service = {
+  id: string;
+  title: string;
+  description: string;
+  image?: string;
+  startingPrice?: string;
+  features: string[];
+  featured?: boolean;
+  published?: boolean;
+};
+
+// ─────────────────────────────
+// Admin Dashboard
+// ─────────────────────────────
+
+export type AdminsSection =
+  | "overview"
+  | "Menu"
+  | "services"
+  | "reviews"
+  | "contacts";
+
+export type DashboardStats = {
+  reviews: number;
+  pendingReviews: number;
+  contacts: number;
+  unreadContacts: number;
+};
