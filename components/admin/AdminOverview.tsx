@@ -106,7 +106,7 @@ export default function AdminOverview({
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-2">
                       <p className="text-sm font-medium truncate">{r.name}</p>
-                      <StarDisplay rating={r.rating} size={12} />
+                      <StarDisplay rating={r.rating} />
                     </div>
                     <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
                       {r.review}

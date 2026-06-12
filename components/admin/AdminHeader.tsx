@@ -17,6 +17,7 @@ export default function AdminHeader({
   const NAV: { key: AdminsSection; label: string; badge?: number }[] = [
     { key: "overview", label: "Overview" },
     { key: "services", label: "Services" },
+    { key: "images", label: "Images" },
     {
       key: "reviews",
       label: "Reviews",

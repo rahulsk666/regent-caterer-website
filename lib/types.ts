@@ -134,6 +134,7 @@ export type Service = {
 export type AdminsSection =
   | "overview"
   | "Menu"
+  | "images"
   | "services"
   | "reviews"
   | "contacts";
