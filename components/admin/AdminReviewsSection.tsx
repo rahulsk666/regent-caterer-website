@@ -67,7 +67,7 @@ export default function AdminReviewsSection({
                       <p className="text-xs text-slate-400">{r.email}</p>
                     )}
                   </div>
-                  <StarDisplay rating={r.rating} />
+                  <StarDisplay rating={r.rating} size={12} />
                   {!r.approved && (
                     <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
                       Pending

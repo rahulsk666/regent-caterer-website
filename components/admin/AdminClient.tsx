@@ -13,10 +13,10 @@ import {
   deleteSectionImageAction,
   markContactReadAction,
   saveSectionImageAction,
-  updateReviewAction,
   updateSectionImageAction,
 } from "@/app/admin/action";
 import AdminSectionImages from "./AdminSectionImage";
+import { updateReviewApi } from "@/lib/api";
 
 interface AdminClientProps {
   reviews: Review[];
@@ -77,7 +77,7 @@ export default function AdminClient({
         {section === "reviews" && (
           <AdminReviewsSection
             reviews={reviews}
-            onUpdateReview={updateReviewAction}
+            onUpdateReview={updateReviewApi}
             onDeleteReview={deleteReviewAction}
           />
         )}

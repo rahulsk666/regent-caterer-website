@@ -273,6 +273,7 @@ interface UnderlineRatingProps {
   required?: boolean;
   error?: string;
   value: number;
+  size?: number;
   onChange: (value: number) => void;
 }
 
@@ -281,12 +282,13 @@ function UnderlineRating({
   required,
   error,
   value,
+  size,
   onChange,
 }: UnderlineRatingProps) {
   return (
     <FieldWrapper label={label} required={required} error={error} hideUnderline>
       <div className="pt-1 pb-2">
-        <StarRatingInput value={value} onChange={onChange} />
+        <StarRatingInput value={value} onChange={onChange} size={size} />
       </div>
     </FieldWrapper>
   );

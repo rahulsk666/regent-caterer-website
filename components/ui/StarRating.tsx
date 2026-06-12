@@ -7,28 +7,27 @@ const STAR_PATH =
 
 function StarIcon({
   fill,
-  // size = 20,
-  classname,
+  size = 20,
 }: {
   fill: "none" | "half" | "full";
-  classname?: string;
+  size?: number;
 }) {
   return (
-    <div className={`relative ${classname}`}>
+    <div className="relative" style={{ width: size, height: size }}>
       <svg
         viewBox="0 0 24 24"
-        width={20}
-        height={20}
-        className={`absolute inset-0 text-gray-200 ${classname}`}
+        width={size}
+        height={size}
+        className="absolute inset-0 text-gray-200"
       >
         <path d={STAR_PATH} fill="currentColor" />
       </svg>
       {fill !== "none" && (
         <svg
           viewBox="0 0 24 24"
-          width={20}
-          height={20}
-          className={`absolute inset-0 text-yellow-400 ${classname}`}
+          width={size}
+          height={size}
+          className="absolute inset-0 text-yellow-400"
           style={{ clipPath: fill === "half" ? "inset(0 50% 0 0)" : undefined }}
         >
           <path d={STAR_PATH} fill="currentColor" />
@@ -40,17 +39,17 @@ function StarIcon({
 
 export function StarDisplay({
   rating,
-  classname,
+  size = 16,
 }: {
   rating: number;
-  classname?: string;
+  size?: number;
 }) {
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((k) => (
         <StarIcon
           key={k}
-          classname={classname}
+          size={size}
           fill={rating >= k ? "full" : rating >= k - 0.5 ? "half" : "none"}
         />
       ))}
@@ -59,9 +58,11 @@ export function StarDisplay({
 }
 
 export function StarRatingInput({
+  size,
   value,
   onChange,
 }: {
+  size?: number;
   value: number;
   onChange: (v: number) => void;
 }) {
@@ -73,11 +74,12 @@ export function StarRatingInput({
       {[1, 2, 3, 4, 5].map((k) => (
         <div
           key={k}
-          className="relative cursor-pointer md:w-8 md:h-8 w-4 h-4"
+          className="relative cursor-pointer"
+          style={{ width: size, height: size }}
           onMouseLeave={() => setHover(null)}
         >
           <StarIcon
-            classname="md:w-8 md:h-8 w-4 h-4"
+            size={size}
             fill={
               displayed >= k ? "full" : displayed >= k - 0.5 ? "half" : "none"
             }

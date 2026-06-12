@@ -36,6 +36,9 @@ export default function ReviewForm() {
       toast.error("Failed to submit review.");
     }
   }, [state]);
+
+  const isMobile = window.innerWidth < 768;
+
   return (
     <div className="flex h-full w-full items-center justify-center m-10 container-app">
       {!isFormOpen ? (
@@ -108,6 +111,7 @@ export default function ReviewForm() {
                     onChange={setRating}
                     label="Star Rating"
                     required
+                    size={isMobile ? 16 : 32}
                     error={state?.errors?.rating?.[0]}
                   />
                   <input type="hidden" name="rating" value={rating} />
