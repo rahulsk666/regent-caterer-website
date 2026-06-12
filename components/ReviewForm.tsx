@@ -14,6 +14,7 @@ import { createReviewAction } from "@/app/action";
 import { toast } from "sonner";
 
 export default function ReviewForm() {
+  const [isMobile, setIsMobile] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -37,7 +38,9 @@ export default function ReviewForm() {
     }
   }, [state]);
 
-  const isMobile = window.innerWidth < 768;
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   return (
     <div className="flex h-full w-full items-center justify-center m-10 container-app">
