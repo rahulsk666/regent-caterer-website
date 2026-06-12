@@ -14,11 +14,11 @@ import { createReviewAction } from "@/app/action";
 import { toast } from "sonner";
 
 export default function ReviewForm() {
-  const [isMobile, setIsMobile] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [resetKey, setResetKey] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const [state, formAction, isPending] = useActionState(createReviewAction, {
     success: false,
