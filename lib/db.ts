@@ -26,7 +26,7 @@ interface ReviewRow {
   id: number;
   name: string;
   email?: string | null;
-  designation?: string | null;
+  designation: string;
   rating: number;
   review: string;
   image?: string | null;
@@ -101,7 +101,7 @@ function rowToReview(row: ReviewRow): Review {
     id: row.id,
     name: row.name,
     email: row.email || undefined,
-    designation: row.designation || undefined,
+    designation: row.designation,
     rating: row.rating,
     review: row.review,
     image: row.image || undefined,
@@ -700,7 +700,15 @@ export function deleteContact(id: number) {
   db.prepare("DELETE FROM contact_submissions WHERE id = ?").run(id);
 }
 
-// ── Contact Details ────────────────────────────────────────────────────────────────
+// ── Section Images ────────────────────────────────────────────────────────────────
+
+export function getAllSectionImages(): SectionImage[] {
+  return (
+    db
+      .prepare("SELECT * FROM section_images ORDER BY section ASC")
+      .all() as SectionImageRow[]
+  ).map(rowToSectionImage);
+}
 
 export function getSectionImages(
   section: SectionImage["section"],
@@ -717,28 +725,83 @@ export async function saveSectionImage(image: SectionImage): Promise<void> {
     .prepare("SELECT * FROM section_images WHERE id = ?")
     .get(image.id) as SectionImageRow | undefined;
 
-  if (existing && existing.image && existing.image !== image.image) {
-    await deleteFile(existing.image);
+  const oldImage =
+    existing && existing.image && existing.image !== image.image
+      ? existing.image
+      : undefined;
+
+  const saveTransaction = db.transaction((image: SectionImage) => {
+    db.prepare(
+      `
+        INSERT OR REPLACE INTO section_images
+        (
+          id,
+          image,
+          section,
+          featured,
+          published
+        )
+        VALUES (?, ?, ?, ?, ?)
+      `,
+    ).run(
+      image.id,
+      image.image,
+      image.section,
+      image.featured ? 1 : 0,
+      image.published ? 1 : 0,
+    );
+  });
+
+  // If this throws, nothing after it runs
+  saveTransaction(image);
+
+  // Only delete old file after successful commit
+  if (oldImage) {
+    try {
+      await deleteFile(oldImage);
+    } catch (error) {
+      console.error("Failed to delete old image:", oldImage, error);
+    }
+  }
+}
+
+export async function updateSectionImage(
+  id: string,
+  updates: {
+    featured?: boolean;
+    published?: boolean;
+  },
+): Promise<void> {
+  const existing = db
+    .prepare("SELECT * FROM section_images WHERE id = ?")
+    .get(id) as SectionImageRow | undefined;
+
+  if (!existing) {
+    throw new Error("Image not found");
   }
 
   db.prepare(
     `
-    INSERT OR REPLACE INTO section_images
-    (
-      id,
-      image,
-      section,
-      featured,
-      published
-    )
-    VALUES (?, ?, ?, ?, ?)
+    UPDATE section_images
+    SET
+      featured = ?,
+      published = ?
+    WHERE id = ?
   `,
   ).run(
-    image.id,
-    image.image,
-    image.section,
-    image.featured ? 1 : 0,
-    image.published ? 1 : 0,
+    updates.featured === undefined
+      ? existing.featured
+      : updates.featured
+        ? 1
+        : 0,
+
+    updates.published === undefined
+      ? existing.published
+      : updates.published
+        ? 1
+        : 0,
+
+    id,
   );
 }
 
