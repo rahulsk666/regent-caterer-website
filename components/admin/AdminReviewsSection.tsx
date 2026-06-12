@@ -2,7 +2,7 @@ import { Review } from "@/lib/types";
 import { StarDisplay } from "../ui/StarRating";
 import Toggle from "./Toggle";
 import Image from "next/image";
-import { IconTrash } from "@tabler/icons-react";
+import { IconStar, IconTrash } from "@tabler/icons-react";
 
 interface AdminReviewsSectionProps {
   reviews: Review[];
@@ -104,7 +104,7 @@ export default function AdminReviewsSection({
                 </div>
                 <div className="flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-xs">
                   <span className="text-slate-600 flex items-center gap-1">
-                    {/* <Star className="w-3 h-3" />  */}
+                    <IconStar className="w-3 h-3" />
                     Home
                   </span>
                   <Toggle
