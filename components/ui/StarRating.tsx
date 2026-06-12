@@ -7,27 +7,28 @@ const STAR_PATH =
 
 function StarIcon({
   fill,
-  size = 20,
+  // size = 20,
+  classname,
 }: {
   fill: "none" | "half" | "full";
-  size?: number;
+  classname?: string;
 }) {
   return (
-    <div className="relative" style={{ width: size, height: size }}>
+    <div className={`relative ${classname}`}>
       <svg
         viewBox="0 0 24 24"
-        width={size}
-        height={size}
-        className="absolute inset-0 text-gray-200"
+        width={20}
+        height={20}
+        className={`absolute inset-0 text-gray-200 ${classname}`}
       >
         <path d={STAR_PATH} fill="currentColor" />
       </svg>
       {fill !== "none" && (
         <svg
           viewBox="0 0 24 24"
-          width={size}
-          height={size}
-          className="absolute inset-0 text-yellow-400"
+          width={20}
+          height={20}
+          className={`absolute inset-0 text-yellow-400 ${classname}`}
           style={{ clipPath: fill === "half" ? "inset(0 50% 0 0)" : undefined }}
         >
           <path d={STAR_PATH} fill="currentColor" />
@@ -39,17 +40,17 @@ function StarIcon({
 
 export function StarDisplay({
   rating,
-  size = 16,
+  classname,
 }: {
   rating: number;
-  size?: number;
+  classname?: string;
 }) {
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((k) => (
         <StarIcon
           key={k}
-          size={size}
+          classname={classname}
           fill={rating >= k ? "full" : rating >= k - 0.5 ? "half" : "none"}
         />
       ))}
@@ -72,12 +73,11 @@ export function StarRatingInput({
       {[1, 2, 3, 4, 5].map((k) => (
         <div
           key={k}
-          className="relative cursor-pointer"
-          style={{ width: 32, height: 32 }}
+          className="relative cursor-pointer md:w-8 md:h-8 w-4 h-4"
           onMouseLeave={() => setHover(null)}
         >
           <StarIcon
-            size={32}
+            classname="md:w-8 md:h-8 w-4 h-4"
             fill={
               displayed >= k ? "full" : displayed >= k - 0.5 ? "half" : "none"
             }

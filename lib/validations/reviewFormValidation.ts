@@ -15,7 +15,7 @@ export const reviewSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(10, "Please share a bit more about your experience."),
+    .min(5, "Please share a bit more about your experience."),
 
   rating: z
     .number()
