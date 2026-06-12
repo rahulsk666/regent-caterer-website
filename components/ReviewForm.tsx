@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Button from "./ui/Button";
 import { IconPencilFilled } from "@tabler/icons-react";
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import {
   UnderlineFileUpload,
   UnderlineInput,
@@ -11,6 +11,7 @@ import {
   UnderlineTextarea,
 } from "./ui/Input";
 import { createReviewAction } from "@/app/action";
+import { toast } from "sonner";
 
 export default function ReviewForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -21,6 +22,20 @@ export default function ReviewForm() {
   const [state, formAction, isPending] = useActionState(createReviewAction, {
     success: false,
   });
+
+  useEffect(() => {
+    if (state.success) {
+      setIsFormOpen(false);
+      formRef.current?.reset();
+      setRating(0);
+      setResetKey((v) => v + 1);
+      toast.success("Review submitted successfully!");
+    }
+
+    if (state.error) {
+      toast.error("Failed to submit review.");
+    }
+  }, [state]);
   return (
     <div className="flex h-full w-full items-center justify-center m-10 container-app">
       {!isFormOpen ? (
@@ -47,12 +62,7 @@ export default function ReviewForm() {
           <form
             ref={formRef}
             noValidate
-            action={async (formData) => {
-              await formAction(formData);
-              formRef.current?.reset();
-              setRating(0);
-              setResetKey((v) => v + 1);
-            }}
+            action={formAction}
             className="space-y-6 m-2 px-4 py-6 bg-background-elevated rounded-2xl"
           >
             <div className="grid grid-cols-1 gap-8 h-full mt-10 mb-0">
@@ -63,6 +73,8 @@ export default function ReviewForm() {
                     name="name"
                     label="Full Name"
                     placeholder="John Doe"
+                    required
+                    error={state?.errors?.name?.[0]}
                   />
                 </div>
 
@@ -84,6 +96,8 @@ export default function ReviewForm() {
                     name="designation"
                     label="Designation"
                     placeholder="Event Host"
+                    required
+                    error={state?.errors?.designation?.[0]}
                   />
                 </div>
 
@@ -93,6 +107,8 @@ export default function ReviewForm() {
                     value={rating}
                     onChange={setRating}
                     label="Star Rating"
+                    required
+                    error={state?.errors?.rating?.[0]}
                   />
                   <input type="hidden" name="rating" value={rating} />
                 </div>
@@ -105,31 +121,23 @@ export default function ReviewForm() {
                   name="message"
                   placeholder="Type your message here..."
                   rows={6}
+                  required
+                  error={state?.errors?.message?.[0]}
                 />
               </div>
 
               {/* File Upload */}
-              <div className="space-y-2 w-full">
+              <div className="space-y-2 w-[50%]">
                 <UnderlineFileUpload
                   key={resetKey}
                   name="file"
-                  label="Upload Images"
+                  label="Your Photo"
                 />
               </div>
             </div>
-
-            {state.error && (
-              <p className="pt-5 text-sm text-red-500">{state.error}</p>
-            )}
-
-            {state.success && (
-              <p className="pt-5 text-sm text-green-500">
-                Review submitted successfully!
-              </p>
-            )}
             <button
               type="submit"
-              className="w-full h-10 m-5 rounded-xl bg-golden-400 text-white font-medium text-sm shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full h-10 px-3 my-3 rounded-xl bg-golden-400 text-white font-medium text-sm shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 active:translate-y-0"
             >
               {isPending ? "Submitting..." : "Submit Review"}
             </button>

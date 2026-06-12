@@ -44,25 +44,23 @@ export default function AdminReviewsSection({
             key={r.id}
             className={`rounded-3xl border bg-white p-5 shadow-sm ${!r.approved ? "border-amber-200" : "border-slate-200"}`}
           >
-            <div className="flex flex-wrap flex-col md:flex-row  gap-4 items-start md:justify-between">
-              <div className="md:h-full md:w-25 w-full">
+            <div className="flex flex-wrap flex-col md:flex-row gap-4 md:items-stretch items-start md:justify-between">
+              <div className="relative md:w-35 md:h-40 h-60 w-full min-h-full">
                 {r.image ? (
                   <Image
                     src={r.image}
                     alt={r.name}
-                    width={100}
-                    height={100}
-                    className="w-full h-full rounded-lg object-cover shrink-0"
+                    fill
+                    className="rounded-lg object-cover"
                   />
                 ) : (
-                  <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-600 shrink-0">
+                  <div className="w-full h-full rounded-lg bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-600 shrink-0">
                     {r.name.charAt(0).toUpperCase()}
                   </div>
                 )}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1 flex-wrap">
-                  db
                   <div>
                     <p className="font-semibold text-sm">{r.name}</p>
                     {r.email && (

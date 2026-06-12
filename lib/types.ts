@@ -15,7 +15,7 @@ export type Review = {
   id?: number;
   name: string;
   email?: string;
-  designation?: string;
+  designation: string;
   rating: number;
   review: string;
   image?: string;
@@ -29,6 +29,18 @@ export type Testimonial = {
   name: string;
   designation: string;
   src: string;
+};
+
+export type ReviewActionState = {
+  success: boolean;
+  error?: string;
+  errors?: {
+    name?: string[];
+    email?: string[];
+    designation?: string[];
+    message?: string[];
+    rating?: string[];
+  };
 };
 
 // ─────────────────────────────
