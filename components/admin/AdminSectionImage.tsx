@@ -68,16 +68,11 @@ export default function AdminSectionImages({
                   className="hidden"
                   onChange={async (e) => {
                     const file = e.target.files?.[0];
-
                     if (!file) return;
-
                     try {
-                      // setUploading(section.key);
-
                       await onUploadImage(section.key, file);
                       router.refresh();
                     } finally {
-                      // setUploading(null);
                     }
                   }}
                 />
