@@ -1,7 +1,10 @@
-import ContactFormV2 from "@/components/ContactFormV2";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ContactForm from "@/components/ui/ContactForm";
+import { DecorativeStar } from "@/components/ui/DecorativeStar";
 import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -12,35 +15,90 @@ const ContactPage = () => {
   return (
     <div className="flex-1 space-y-4">
       {/* Page Header */}
-      <Header />
+      <Header variant="dark" />
       {/* Main Content */}
-      <section
-        id="contactSection"
-        className="min-h-screen py-10 flex items-center justify-center bg-golden-300"
-      >
-        <div className="container-app grid grid-cols-1 lg:grid-cols-4 gap-5 lg:gap-5 w-full items-center">
-          <div
-            className="
-              lg:col-span-2
-              flex lg:flex-col flex-row
-              justify-center items-center
-              gap-2 lg:gap-3
-              leading-none
-              text-5xl md:text-8xl lg:text-[10vw]
-              font-medium font-galgin uppercase
-            "
-          >
-            <p className="lg:w-full lg:text-start text-center hidden lg:block">
-              Let&apos;s
+      <section id="contactSection" className="min-h-screen container-app">
+        <div className="min-h-full md:gap-30 grid md:grid-cols-2 grid-rows-2 pt-40 items-center justify-center">
+          <div className="flex flex-col gap-2">
+            <p className="font-galgin text-golden-gradient text-3xl lg:text-8xl md:text-5xl">
+              Contact Us
             </p>
-
-            <p className="lg:w-full lg:text-end text-center">Get in</p>
-
-            <p className="lg:w-full lg:text-start text-center">Touch</p>
+            <p className="lg:text-3xl md:text-xl text-sm">
+              Feel Free to contact us and We will get back to you as soon as we
+              can
+            </p>
+            <div className="flex flex-col gap-4 mt-4">
+              <ContactForm />
+            </div>
           </div>
-
-          <div className="col-span-1 lg:col-span-2 w-full">
-            <ContactFormV2 />
+          <div className="flex flex-col lg:pt-40 md:pt-20 gap-20 p-2 relative">
+            <div className="relative md:block hidden">
+              <DecorativeStar
+                alt="star-7"
+                className="md:block absolute hidden lg:w-38 md:w-24 h-auto bottom-[0%] left-[35%] opacity-80"
+              />
+              <DecorativeStar
+                alt="star-8"
+                className="md:block hidden lg:w-10 w-8 h-auto bottom-[0%] left-[35%] opacity-60"
+              />
+            </div>
+            <div className="flex flex-col gap-10">
+              <div className="flex flex-col gap-2">
+                <p className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
+                  Visit Us
+                </p>
+                <p className="text-base lg:text-lg">
+                  Moonlight Building, Mukkom Road Areekode, Malappuram,
+                  <br />
+                  Pin: 673639
+                </p>
+              </div>
+              <div>
+                <p className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
+                  Talk To Us
+                </p>
+                <p className="text-base lg:text-lg">+91 9876543210</p>
+                <p className="text-base lg:text-lg">regentcaterers@gmail.com</p>
+              </div>
+              <div className="flex flex-row gap-4">
+                <Link href={"/"}>
+                  <Image
+                    src={"/svg/whatsapp.svg"}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="w-10 h-auto"
+                  />
+                </Link>
+                <Link href={"/"}>
+                  <Image
+                    src={"/svg/insta.svg"}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="w-10 h-auto"
+                  />
+                </Link>
+                <Link href={"/"}>
+                  <Image
+                    src={"/svg/fb.svg"}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="w-10 h-auto"
+                  />
+                </Link>
+                <Link href={"/"}>
+                  <Image
+                    src={"/svg/phone.svg"}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="w-10 h-auto"
+                  />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

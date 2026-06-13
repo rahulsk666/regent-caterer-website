@@ -214,10 +214,9 @@ interface UnderlineTextareaProps extends React.ComponentProps<"textarea"> {
   label?: string;
   required?: boolean;
   error?: string;
-  /** Number of visible rows. Defaults to 4 */
   rows?: number;
-  /** Allow manual resize. Defaults to "none" */
   resize?: "none" | "vertical" | "horizontal" | "both";
+  variant?: "outlined" | "plain";
 }
 
 function UnderlineTextarea({
@@ -228,6 +227,7 @@ function UnderlineTextarea({
   id,
   rows = 4,
   resize = "none",
+  variant = "outlined",
   ...props
 }: UnderlineTextareaProps) {
   const textareaId = id ?? label?.toLowerCase().replace(/\s+/g, "-");
@@ -245,7 +245,7 @@ function UnderlineTextarea({
       required={required}
       error={error}
       htmlFor={textareaId}
-      hideUnderline
+      hideUnderline={variant === "outlined"}
     >
       <textarea
         id={textareaId}
@@ -255,11 +255,16 @@ function UnderlineTextarea({
         className={cn(
           fieldBaseStyles,
           resizeClass,
-          "mt-1 pt-1 pb-3 pr-1 leading-relaxed",
-          "border! border-dark-100! rounded-sm px-3",
-          "focus:border-foreground-primary/70!",
-          "transition-colors duration-300",
-          "no-scrollbar",
+          "mt-1 pt-1 pb-3 pr-1 leading-relaxed no-scrollbar",
+          variant === "outlined" && [
+            "border border-dark-100 rounded-sm px-3",
+            "focus:border-foreground-primary/70",
+            "transition-colors duration-300",
+          ],
+          variant === "plain" && [
+            "border-none rounded-none px-0",
+            "focus:border-none focus:outline-none",
+          ],
           className,
         )}
         {...props}

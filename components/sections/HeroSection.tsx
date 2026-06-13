@@ -13,7 +13,6 @@ export default function HeroSection() {
         backgroundImage: `linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2)), url('/images/hero-bg.png')`,
       }}
     >
-      <Header />
       <div className="container-app relative z-10 w-full p-10 lg:gap-2 gap-5 flex flex-col items-center">
         <p className="text-sm font-medium text-white">Quality You Can Trust</p>
         <Image

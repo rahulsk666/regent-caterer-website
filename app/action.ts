@@ -18,7 +18,6 @@ export async function createReviewAction(
       message: formData.get("message"),
       rating: Number(formData.get("rating")),
     });
-    console.log("validatedFields", validatedFields);
 
     if (!validatedFields.success) {
       return {
@@ -35,19 +34,13 @@ export async function createReviewAction(
     }
     const data = validatedFields.data;
 
-    console.log("data", data);
-
     const file = formData.get("file") as File;
-
-    console.log("file", file);
 
     let imagePath = "";
 
     if (file && file.size > 0) {
       imagePath = await saveFile(file, "reviews");
     }
-
-    console.log("imagePath", imagePath);
 
     try {
       await saveReview({

@@ -75,6 +75,19 @@ export type ContactSubmission = {
   createdAt?: string;
 };
 
+export type ContactActionState = {
+  success: boolean;
+  error?: string;
+  errors?: Record<string, string[]>;
+  values?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    service?: string;
+    message?: string;
+  };
+};
+
 // ─────────────────────────────
 // Shared Image Sections
 // Delightful Moments

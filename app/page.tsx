@@ -7,10 +7,12 @@ import DelightFulMomentsSection from "@/components/sections/DelightfulMomentsSec
 import SignatureCollectionsSection from "@/components/sections/SignatureCollectionsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import CreateReviewSection from "@/components/sections/CreateReviewSection";
+import Header from "@/components/Header";
 
 export default function Home() {
   return (
     <main>
+      <Header />
       <HeroSection />
       <AboutSection />
       <WhyUsSection />

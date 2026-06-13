@@ -3,33 +3,36 @@
 "use server";
 
 import { saveContact } from "@/lib/db";
+import { ContactActionState } from "@/lib/types";
+import { contactSchema } from "@/lib/validations/contactFormValidation";
 
 export async function createContactAction(
-  prevState: {
-    success: boolean;
-    error?: string;
-  },
+  prevState: ContactActionState,
   formData: FormData,
-) {
-  const name = formData.get("name")?.toString().trim();
-  const email = formData.get("email")?.toString().trim();
-  const phone = formData.get("phone")?.toString().trim();
-  const service = formData.get("service")?.toString().trim();
-  const message = formData.get("message")?.toString().trim();
+): Promise<ContactActionState> {
+  const values = {
+    name: formData.get("name")?.toString(),
+    email: formData.get("email")?.toString(),
+    phone: formData.get("phone")?.toString(),
+    service: formData.get("service")?.toString(),
+    message: formData.get("message")?.toString(),
+  };
+  const validatedFields = contactSchema.safeParse(values);
 
-  if (!name || !phone || !service || !message) {
+  if (!validatedFields.success) {
     return {
       success: false,
-      error: "Please fill all required fields.",
+      errors: validatedFields.error.flatten().fieldErrors,
+      values,
     };
   }
 
   await saveContact({
-    name,
-    email,
-    phone,
-    service,
-    message,
+    name: validatedFields.data.name,
+    email: validatedFields.data.email,
+    phone: validatedFields.data.phone,
+    service: validatedFields.data.service,
+    message: validatedFields.data.message,
     read: false,
   });
 

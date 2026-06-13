@@ -4,8 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Button from "./ui/Button";
+import { twMerge } from "tailwind-merge";
 
-export default function Header() {
+interface HeaderProps {
+  variant?: "light" | "dark";
+}
+
+export default function Header({ variant = "light" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -14,9 +19,16 @@ export default function Header() {
   return (
     <nav
       id="Header"
-      className="container-app flex flex-row md:justify-center justify-end items-center"
+      className="container-app fixed z-50 top-0 right-0 left-0 flex flex-row md:justify-center justify-end items-center"
     >
-      <div className="m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full gap-8 lg:text-lg text-base text-foreground-secondary/75 font-medium bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px] rounded-2xl">
+      <div
+        className={twMerge(
+          "m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full gap-8 lg:text-lg text-base font-medium rounded-2xl",
+          variant === "light"
+            ? "text-foreground-secondary/75 bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px]"
+            : "text-foreground-secondary/75 bg-linear-to-r from-golden-500 from-0% via-golden-300 via-50% to-golden-400 to-100%",
+        )}
+      >
         <Link href="/" className="hover:text-foreground-secondary">
           Menu
         </Link>
@@ -40,7 +52,7 @@ export default function Header() {
         <Link href="/" className="hover:text-foreground-secondary">
           Gallery
         </Link>
-        <Link href="/" className="hover:text-foreground-secondary">
+        <Link href="/contact" className="hover:text-foreground-secondary">
           Contact Us
         </Link>
       </div>
@@ -50,9 +62,21 @@ export default function Header() {
           onClick={toggleMenu}
           className="flex flex-col items-end gap-2 py-2 rounded-lg "
         >
-          <span className="w-2 h-0.5 bg-secondary" />
-          <span className="w-4 h-0.5 bg-secondary" />
-          <span className="w-6 h-0.5 bg-secondary" />
+          <span
+            className={`w-2 h-0.5 ${
+              variant === "light" ? "bg-secondary" : "bg-golden-500"
+            }`}
+          />
+          <span
+            className={`w-4 h-0.5 ${
+              variant === "light" ? "bg-secondary" : "bg-golden-500"
+            }`}
+          />
+          <span
+            className={`w-6 h-0.5 ${
+              variant === "light" ? "bg-secondary" : "bg-golden-500"
+            }`}
+          />
         </button>
       </div>
 
