@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./ui/Button";
 import { twMerge } from "tailwind-merge";
 import { gsap } from "gsap";
@@ -26,32 +26,26 @@ export default function Header({ variant = "light" }: HeaderProps) {
     }
     const mm = gsap.matchMedia();
     mm.add("(min-width: 768px)", () => {
-      gsap.set(".nav-inner", {
-        background:
-          "linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))",
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".nav-inner",
-          start: "+=900",
-          end: "+=2",
-          scrub: 1,
-          markers: true,
-          toggleActions: "play none none reverse",
+      ScrollTrigger.create({
+        start: 850,
+        onEnter: () => {
+          gsap.to(".nav-inner", {
+            backgroundColor: "#ECC869",
+            duration: 0.3,
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(".nav-inner", {
+            backgroundColor: "rgba(255,255,255,.1)",
+            duration: 0.3,
+          });
         },
       });
-
-      tl.to(
-        ".nav-inner",
-        {
-          background:
-            "linear-gradient(90deg, #ECC869 0%, #F1D68F 50%, #ECC869 100%)",
-        },
-        "=1",
-      );
+      return () => {
+        mm.revert();
+      };
     });
-  });
+  }, [variant]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -63,7 +57,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
   return (
     <nav
       id="Header"
-      className="container-app fixed z-50 right-0 left-0 flex flex-row md:justify-center justify-end items-center"
+      className="container-app fixed z-1000 right-0 left-0 flex flex-row md:justify-center justify-end items-center"
     >
       <div
         className={twMerge(

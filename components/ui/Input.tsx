@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import * as React from "react";
 import { StarRatingInput } from "./StarRating";
+import Image from "next/image";
 
 // ─── Shared label + wrapper ───────────────────────────────────────────────────
 
@@ -492,9 +493,11 @@ function FileRow({ preview, name, meta, onRemove }: FileRowProps) {
   return (
     <div className="flex items-center gap-3 rounded-sm border border-dark-100 bg-background-elevated px-3 py-2">
       {preview ? (
-        <img
+        <Image
           src={preview}
           alt={name}
+          width={10}
+          height={10}
           className="h-10 w-10 rounded-sm object-cover shrink-0"
         />
       ) : (
