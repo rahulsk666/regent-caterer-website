@@ -1,31 +1,33 @@
-// lib/file-storage.ts
-
-import fs from "fs/promises";
-import path from "path";
+import { cloudinary } from "./cloudinary";
 
 export async function saveFile(file: File, folder: string): Promise<string> {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  const filename = `${crypto.randomUUID()}-${file.name}`;
+  const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-  const dir = path.join(process.cwd(), "public", "uploads", folder);
+  const result = await cloudinary.uploader.upload(base64, {
+    folder: `regent-caterers/${folder}`,
+    resource_type: "image",
+  });
 
-  await fs.mkdir(dir, { recursive: true });
-
-  await fs.writeFile(path.join(dir, filename), buffer);
-
-  return `/uploads/${folder}/${filename}`;
+  return result.secure_url;
 }
 
-export async function deleteFile(relativePath?: string): Promise<void> {
-  if (!relativePath) return;
+export async function deleteFile(imageUrl?: string): Promise<void> {
+  if (!imageUrl) return;
 
   try {
-    await fs.unlink(
-      path.join(process.cwd(), "public", relativePath.replace(/^\//, "")),
-    );
-  } catch {
-    // ignore
+    const parts = imageUrl.split("/upload/")[1];
+
+    if (!parts) return;
+
+    const publicId = parts.replace(/^v\d+\//, "").replace(/\.[^/.]+$/, "");
+
+    await cloudinary.uploader.destroy(publicId, {
+      resource_type: "image",
+    });
+  } catch (error) {
+    console.error("Failed to delete Cloudinary image:", error);
   }
 }
