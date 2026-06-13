@@ -27,7 +27,12 @@ export default function ContactSection() {
         </p>
         <div className="flex flex-col items-center justify-center lg:gap-20 md:gap-10 gap-5">
           <Button variant="primary" className="lg:w-3xl md:w-xl w-70">
-            <Link href={"/booking"} className="flex items-center gap-5">
+            <Link
+              href={
+                "https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+              }
+              className="flex items-center gap-5"
+            >
               <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">
                 Chat on WhatsApp
               </p>
@@ -41,7 +46,7 @@ export default function ContactSection() {
             </Link>
           </Button>
           <Button variant="primary" className="lg:w-3xl md:w-xl w-70 group">
-            <Link href={"/booking"} className="flex items-center gap-5">
+            <Link href={"/contact"} className="flex items-center gap-5">
               <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">
                 Contact Us Now
               </p>

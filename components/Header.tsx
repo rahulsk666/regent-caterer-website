@@ -23,6 +23,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
     if (variant == "dark") {
       return;
     }
+    let lastDirection = 0;
     const mm = gsap.matchMedia();
     mm.add("(min-width: 680px)", () => {
       ScrollTrigger.create({
@@ -38,6 +39,32 @@ export default function Header({ variant = "light" }: HeaderProps) {
             backgroundColor: "rgba(255,255,255,.1)",
             duration: 0.3,
           });
+        },
+      });
+
+      ScrollTrigger.create({
+        start: 30,
+        end: "max",
+        scrub: 2,
+        onUpdate: (self) => {
+          if (self.direction === lastDirection) return;
+          lastDirection = self.direction;
+
+          if (self.direction === 1) {
+            // scrolling down
+            gsap.to(".nav-inner", {
+              y: -120,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          } else {
+            // scrolling up
+            gsap.to(".nav-inner", {
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
         },
       });
     });
