@@ -9,31 +9,31 @@ export default function Footer() {
           <div className="flex flex-col text-foreground-muted mt-5 lg:text-xl text-lg">
             <p className="text-foreground-secondary">Important Links</p>
             <Link
-              href="#homeSection"
+              href="/#homeSection"
               className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Home
             </Link>
             <Link
-              href="#aboutSection"
+              href="/#aboutSection"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               About Us
             </Link>
             <Link
-              href="#whyUsSection"
+              href="/#whyUsSection"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Why Us
             </Link>
             <Link
-              href="#contactSection"
+              href="/#contactSection"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Contact Us
             </Link>
             <Link
-              href="#signatureCollectionsSections"
+              href="/#signatureCollectionsSections"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Gallery

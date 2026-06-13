@@ -47,7 +47,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
           loading="eager"
           className="w-8 lg:w-10 h-auto "
         />
-        <Link href="/" className="hover:text-foreground-secondary">
+        <Link href="/#whyUsSection" className="hover:text-foreground-secondary">
           Why Us
         </Link>
         <Link href="/" className="hover:text-foreground-secondary">
@@ -112,7 +112,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
               <Link href="/" className="">
                 About US
               </Link>
-              <Link href="/" className="">
+              <Link href="/#whyUsSection" className="">
                 Why Us
               </Link>
               <Link href="/" className="">
