@@ -11,8 +11,6 @@ export async function createReviewAction(
   formData: FormData,
 ): Promise<ReviewActionState> {
   try {
-    const email = formData.get("email")?.toString().trim();
-
     const validatedFields = reviewSchema.safeParse({
       name: formData.get("name"),
       email: formData.get("email"),
@@ -37,15 +35,22 @@ export async function createReviewAction(
       imagePath = await saveFile(file, "reviews");
     }
 
-    await saveReview({
-      name: data.name,
-      email: data.email,
-      designation: data.designation,
-      rating: data.rating,
-      review: data.message,
-      image: imagePath,
-      approved: false,
-    });
+    try {
+      const id = await saveReview({
+        name: data.name,
+        email: data.email,
+        designation: data.designation,
+        rating: data.rating,
+        review: data.message,
+        image: imagePath,
+        approved: false,
+      });
+
+      console.log("Review saved", id);
+    } catch (error) {
+      console.error("saveReview failed", error);
+      throw error;
+    }
 
     revalidatePath("/");
 

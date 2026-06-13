@@ -1,26 +1,24 @@
-import fs from "fs";
-import path from "path";
-import Database from "better-sqlite3";
+// import fs from "fs";
+// import path from "path";
+// import Database from "better-sqlite3";
 import type {
   ContactDetails,
   ContactSubmission,
-  MenuCategory,
-  MenuItem,
   Review,
   SectionImage,
-  Service,
 } from "@/lib/types";
 import { deleteFile } from "./fileStorage";
-import { testimonials } from "./data";
+// import { testimonials } from "./data";
+import { db } from "./turso";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const DB_FILE = path.join(DATA_DIR, "db.sqlite");
+// const DATA_DIR = path.join(process.cwd(), "data");
+// const DB_FILE = path.join(DATA_DIR, "db.sqlite");
 
-function ensureDataDirectory() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-}
+// function ensureDataDirectory() {
+//   if (!fs.existsSync(DATA_DIR)) {
+//     fs.mkdirSync(DATA_DIR, { recursive: true });
+//   }
+// }
 
 interface ReviewRow {
   id: number;
@@ -54,35 +52,35 @@ interface SectionImageRow {
   published: number;
 }
 
-interface MenuCategoryRow {
-  id: string;
-  name: string;
-  description?: string | null;
-  image?: string | null;
-  published: number;
-}
+// interface MenuCategoryRow {
+//   id: string;
+//   name: string;
+//   description?: string | null;
+//   image?: string | null;
+//   published: number;
+// }
 
-interface MenuItemRow {
-  id: string;
-  categoryId: string;
-  name: string;
-  description?: string | null;
-  price: string;
-  image?: string | null;
-  featured: number;
-  published: number;
-}
+// interface MenuItemRow {
+//   id: string;
+//   categoryId: string;
+//   name: string;
+//   description?: string | null;
+//   price: string;
+//   image?: string | null;
+//   featured: number;
+//   published: number;
+// }
 
-interface ServiceRow {
-  id: string;
-  title: string;
-  description: string;
-  image?: string | null;
-  startingPrice?: string | null;
-  features: string;
-  featured: number;
-  published: number;
-}
+// interface ServiceRow {
+//   id: string;
+//   title: string;
+//   description: string;
+//   image?: string | null;
+//   startingPrice?: string | null;
+//   features: string;
+//   featured: number;
+//   published: number;
+// }
 
 interface ContactDetailsRow {
   id: number;
@@ -134,41 +132,41 @@ function rowToSectionImage(row: SectionImageRow): SectionImage {
   };
 }
 
-function rowToMenuCategory(row: MenuCategoryRow): MenuCategory {
-  return {
-    id: row.id,
-    name: row.name,
-    description: row.description || undefined,
-    image: row.image || undefined,
-    published: Boolean(row.published),
-  };
-}
+// function rowToMenuCategory(row: MenuCategoryRow): MenuCategory {
+//   return {
+//     id: row.id,
+//     name: row.name,
+//     description: row.description || undefined,
+//     image: row.image || undefined,
+//     published: Boolean(row.published),
+//   };
+// }
 
-function rowToMenuItem(row: MenuItemRow): MenuItem {
-  return {
-    id: row.id,
-    categoryId: row.categoryId,
-    name: row.name,
-    description: row.description || undefined,
-    price: row.price,
-    image: row.image || undefined,
-    featured: Boolean(row.featured),
-    published: Boolean(row.published),
-  };
-}
+// function rowToMenuItem(row: MenuItemRow): MenuItem {
+//   return {
+//     id: row.id,
+//     categoryId: row.categoryId,
+//     name: row.name,
+//     description: row.description || undefined,
+//     price: row.price,
+//     image: row.image || undefined,
+//     featured: Boolean(row.featured),
+//     published: Boolean(row.published),
+//   };
+// }
 
-function rowToService(row: ServiceRow): Service {
-  return {
-    id: row.id,
-    title: row.title,
-    description: row.description,
-    image: row.image || undefined,
-    startingPrice: row.startingPrice || undefined,
-    features: JSON.parse(row.features),
-    featured: Boolean(row.featured),
-    published: Boolean(row.published),
-  };
-}
+// function rowToService(row: ServiceRow): Service {
+//   return {
+//     id: row.id,
+//     title: row.title,
+//     description: row.description,
+//     image: row.image || undefined,
+//     startingPrice: row.startingPrice || undefined,
+//     features: JSON.parse(row.features),
+//     featured: Boolean(row.featured),
+//     published: Boolean(row.published),
+//   };
+// }
 
 function rowToContactDetails(row: ContactDetailsRow): ContactDetails {
   return {
@@ -184,390 +182,326 @@ function rowToContactDetails(row: ContactDetailsRow): ContactDetails {
   };
 }
 
-function openDatabase() {
-  ensureDataDirectory();
+// function seedDatabase(db: Database.Database) {
+//   try {
+//     // Contact Details
+//     const contactCount = (
+//       db.prepare("SELECT COUNT(*) as count FROM contact_details").get() as {
+//         count: number;
+//       }
+//     ).count;
 
-  const db = new Database(DB_FILE);
+//     if (contactCount === 0) {
+//       db.prepare(
+//         `
+//         INSERT INTO contact_details
+//         (phone, whatsapp, email, address)
+//         VALUES (?, ?, ?, ?)
+//       `,
+//       ).run(
+//         "+91 9876543210",
+//         "+91 9876543210",
+//         "info@yourbusiness.com",
+//         "Thrissur, Kerala",
+//       );
+//     }
 
-  db.exec(`
-    -- Contact Details
-    CREATE TABLE IF NOT EXISTS contact_details (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      phone TEXT NOT NULL,
-      whatsapp TEXT,
-      email TEXT NOT NULL,
-      address TEXT NOT NULL,
-      instagram TEXT,
-      facebook TEXT,
-      youtube TEXT,
-      mapUrl TEXT
-    );
+//     // Reviews
+//     const reviewCount = (
+//       db.prepare("SELECT COUNT(*) as count FROM reviews").get() as {
+//         count: number;
+//       }
+//     ).count;
 
-    -- Reviews
-    CREATE TABLE IF NOT EXISTS reviews (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT DEFAULT '',
-      designation TEXT DEFAULT '',
-      rating REAL NOT NULL,
-      review TEXT NOT NULL,
-      image TEXT DEFAULT '',
-      highlighted_home INTEGER DEFAULT 0,
-      approved INTEGER DEFAULT 0,
-      created_at TEXT DEFAULT (datetime('now'))
-    );
+//     if (reviewCount === 0) {
+//       const reviewStmt = db.prepare(`
+//         INSERT INTO reviews
+//         (name, rating, designation, review, image, highlighted_home, approved)
+//         VALUES (?, ?, ?, ?, ?, 1, 1)
+//       `);
 
-    -- Contact Form Submissions
-    CREATE TABLE IF NOT EXISTS contact_submissions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      phone TEXT NOT NULL,
-      email TEXT DEFAULT '',
-      service TEXT NOT NULL,
-      message TEXT NOT NULL,
-      read INTEGER DEFAULT 0,
-      created_at TEXT DEFAULT (datetime('now'))
-    );
+//       for (const testimonial of testimonials) {
+//         reviewStmt.run(
+//           testimonial.name,
+//           testimonial.rating,
+//           testimonial.designation,
+//           testimonial.review,
+//           testimonial.image,
+//         );
+//       }
+//     }
 
-    -- Delightful Moments / Signature Collections / Gallery
-    CREATE TABLE IF NOT EXISTS section_images (
-      id TEXT PRIMARY KEY,
-      image TEXT NOT NULL,
-      section TEXT NOT NULL,
-      featured INTEGER DEFAULT 0,
-      published INTEGER DEFAULT 1
-    );
+//     // Section Images
+//     const imageCount = (
+//       db.prepare("SELECT COUNT(*) as count FROM section_images").get() as {
+//         count: number;
+//       }
+//     ).count;
 
-    -- Menu Categories
-    CREATE TABLE IF NOT EXISTS menu_categories (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      description TEXT,
-      image TEXT,
-      published INTEGER DEFAULT 1
-    );
+//     if (imageCount === 0) {
+//       const imageStmt = db.prepare(`
+//         INSERT INTO section_images
+//         (id, image, section, featured, published)
+//         VALUES (?, ?, ?, ?, ?)
+//       `);
 
-    -- Menu Items
-    CREATE TABLE IF NOT EXISTS menu_items (
-      id TEXT PRIMARY KEY,
-      categoryId TEXT NOT NULL,
-      name TEXT NOT NULL,
-      description TEXT,
-      price TEXT NOT NULL,
-      image TEXT,
-      featured INTEGER DEFAULT 0,
-      published INTEGER DEFAULT 1,
-      FOREIGN KEY(categoryId) REFERENCES menu_categories(id)
-    );
+//       // Delightful Moments
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/delightful/moments-1.jpg",
+//         "delightful-moments",
+//         0,
+//         1,
+//       );
 
-    -- Services
-    CREATE TABLE IF NOT EXISTS services (
-      id TEXT PRIMARY KEY,
-      title TEXT NOT NULL,
-      description TEXT NOT NULL,
-      image TEXT,
-      startingPrice TEXT,
-      features TEXT NOT NULL,
-      featured INTEGER DEFAULT 0,
-      published INTEGER DEFAULT 1
-    );
-  `);
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/delightful/moments-2.jpg",
+//         "delightful-moments",
+//         0,
+//         1,
+//       );
 
-  return db;
-}
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/delightful/moments-3.jpg",
+//         "delightful-moments",
+//         0,
+//         1,
+//       );
 
-function seedDatabase(db: Database.Database) {
-  try {
-    // Contact Details
-    const contactCount = (
-      db.prepare("SELECT COUNT(*) as count FROM contact_details").get() as {
-        count: number;
-      }
-    ).count;
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/delightful/moments-4.jpg",
+//         "delightful-moments",
+//         0,
+//         1,
+//       );
 
-    if (contactCount === 0) {
-      db.prepare(
-        `
-        INSERT INTO contact_details
-        (phone, whatsapp, email, address)
-        VALUES (?, ?, ?, ?)
-      `,
-      ).run(
-        "+91 9876543210",
-        "+91 9876543210",
-        "info@yourbusiness.com",
-        "Thrissur, Kerala",
-      );
-    }
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/delightful/moments-5.jpg",
+//         "delightful-moments",
+//         0,
+//         1,
+//       );
 
-    // Reviews
-    const reviewCount = (
-      db.prepare("SELECT COUNT(*) as count FROM reviews").get() as {
-        count: number;
-      }
-    ).count;
+//       // Signature Collections
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/signature/food-1.jpg",
+//         "signature-collections",
+//         0,
+//         1,
+//       );
 
-    if (reviewCount === 0) {
-      const reviewStmt = db.prepare(`
-        INSERT INTO reviews
-        (name, rating, designation, review, image, highlighted_home, approved)
-        VALUES (?, ?, ?, ?, ?, 1, 1)
-      `);
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/signature/food-2.jpg",
+//         "signature-collections",
+//         0,
+//         1,
+//       );
 
-      for (const testimonial of testimonials) {
-        reviewStmt.run(
-          testimonial.name,
-          testimonial.rating,
-          testimonial.designation,
-          testimonial.review,
-          testimonial.image,
-        );
-      }
-    }
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/signature/food-3.jpg",
+//         "signature-collections",
+//         0,
+//         1,
+//       );
 
-    // Section Images
-    const imageCount = (
-      db.prepare("SELECT COUNT(*) as count FROM section_images").get() as {
-        count: number;
-      }
-    ).count;
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/signature/food-4.jpg",
+//         "signature-collections",
+//         0,
+//         1,
+//       );
 
-    if (imageCount === 0) {
-      const imageStmt = db.prepare(`
-        INSERT INTO section_images
-        (id, image, section, featured, published)
-        VALUES (?, ?, ?, ?, ?)
-      `);
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/uploads/signature/food-5.jpg",
+//         "signature-collections",
+//         0,
+//         1,
+//       );
 
-      // Delightful Moments
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/delightful/moments-1.jpg",
-        "delightful-moments",
-        0,
-        1,
-      );
+//       // Gallery
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/images/gallery/1.jpg",
+//         "gallery",
+//         1,
+//         1,
+//       );
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/delightful/moments-2.jpg",
-        "delightful-moments",
-        0,
-        1,
-      );
+//       imageStmt.run(
+//         crypto.randomUUID(),
+//         "/images/gallery/2.jpg",
+//         "gallery",
+//         1,
+//         1,
+//       );
+//     }
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/delightful/moments-3.jpg",
-        "delightful-moments",
-        0,
-        1,
-      );
+//     // Services
+//     const serviceCount = (
+//       db.prepare("SELECT COUNT(*) as count FROM services").get() as {
+//         count: number;
+//       }
+//     ).count;
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/delightful/moments-4.jpg",
-        "delightful-moments",
-        0,
-        1,
-      );
+//     if (serviceCount === 0) {
+//       const serviceStmt = db.prepare(`
+//         INSERT INTO services
+//         (id, title, description, startingPrice, features, featured, published)
+//         VALUES (?, ?, ?, ?, ?, ?, ?)
+//       `);
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/delightful/moments-5.jpg",
-        "delightful-moments",
-        0,
-        1,
-      );
+//       serviceStmt.run(
+//         crypto.randomUUID(),
+//         "Wedding Catering",
+//         "Complete wedding catering solution.",
+//         "₹350/person",
+//         JSON.stringify(["Buffet Setup", "Live Counters", "Dessert Station"]),
+//         1,
+//         1,
+//       );
 
-      // Signature Collections
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/signature/food-1.jpg",
-        "signature-collections",
-        0,
-        1,
-      );
+//       serviceStmt.run(
+//         crypto.randomUUID(),
+//         "Corporate Catering",
+//         "Corporate events and conferences.",
+//         "₹250/person",
+//         JSON.stringify(["Lunch Service", "Tea Breaks", "Custom Menu"]),
+//         1,
+//         1,
+//       );
+//     }
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/signature/food-2.jpg",
-        "signature-collections",
-        0,
-        1,
-      );
+//     // Menu Categories
+//     const categoryCount = (
+//       db.prepare("SELECT COUNT(*) as count FROM menu_categories").get() as {
+//         count: number;
+//       }
+//     ).count;
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/signature/food-3.jpg",
-        "signature-collections",
-        0,
-        1,
-      );
+//     if (categoryCount === 0) {
+//       const categoryStmt = db.prepare(`
+//         INSERT INTO menu_categories
+//         (id, name, published)
+//         VALUES (?, ?, ?)
+//       `);
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/signature/food-4.jpg",
-        "signature-collections",
-        0,
-        1,
-      );
+//       categoryStmt.run(crypto.randomUUID(), "Starters", 1);
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/uploads/signature/food-5.jpg",
-        "signature-collections",
-        0,
-        1,
-      );
+//       categoryStmt.run(crypto.randomUUID(), "Main Course", 1);
 
-      // Gallery
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/images/gallery/1.jpg",
-        "gallery",
-        1,
-        1,
-      );
+//       categoryStmt.run(crypto.randomUUID(), "Desserts", 1);
 
-      imageStmt.run(
-        crypto.randomUUID(),
-        "/images/gallery/2.jpg",
-        "gallery",
-        1,
-        1,
-      );
-    }
+//       categoryStmt.run(crypto.randomUUID(), "Beverages", 1);
+//     }
+//   } catch (error) {
+//     console.error("Failed to seed database:", error);
+//   }
+// }
 
-    // Services
-    const serviceCount = (
-      db.prepare("SELECT COUNT(*) as count FROM services").get() as {
-        count: number;
-      }
-    ).count;
-
-    if (serviceCount === 0) {
-      const serviceStmt = db.prepare(`
-        INSERT INTO services
-        (id, title, description, startingPrice, features, featured, published)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-      `);
-
-      serviceStmt.run(
-        crypto.randomUUID(),
-        "Wedding Catering",
-        "Complete wedding catering solution.",
-        "₹350/person",
-        JSON.stringify(["Buffet Setup", "Live Counters", "Dessert Station"]),
-        1,
-        1,
-      );
-
-      serviceStmt.run(
-        crypto.randomUUID(),
-        "Corporate Catering",
-        "Corporate events and conferences.",
-        "₹250/person",
-        JSON.stringify(["Lunch Service", "Tea Breaks", "Custom Menu"]),
-        1,
-        1,
-      );
-    }
-
-    // Menu Categories
-    const categoryCount = (
-      db.prepare("SELECT COUNT(*) as count FROM menu_categories").get() as {
-        count: number;
-      }
-    ).count;
-
-    if (categoryCount === 0) {
-      const categoryStmt = db.prepare(`
-        INSERT INTO menu_categories
-        (id, name, published)
-        VALUES (?, ?, ?)
-      `);
-
-      categoryStmt.run(crypto.randomUUID(), "Starters", 1);
-
-      categoryStmt.run(crypto.randomUUID(), "Main Course", 1);
-
-      categoryStmt.run(crypto.randomUUID(), "Desserts", 1);
-
-      categoryStmt.run(crypto.randomUUID(), "Beverages", 1);
-    }
-  } catch (error) {
-    console.error("Failed to seed database:", error);
-  }
-}
-
-export const db = openDatabase();
-seedDatabase(db);
+// export const db = openDatabase();
+// seedDatabase(db);
 
 // ── Contact Details ────────────────────────────────────────────────────────────────
 
-export function getContactDetails() {
-  const row = db.prepare("SELECT * FROM contact_details LIMIT 1").get() as
-    | ContactDetailsRow
-    | undefined;
+export async function getContactDetails(): Promise<ContactDetails | null> {
+  const result = await db.execute("SELECT * FROM contact_details LIMIT 1");
 
-  return row ? rowToContactDetails(row) : null;
+  const row = result.rows[0];
+
+  if (!row) {
+    return null;
+  }
+
+  return rowToContactDetails(row as unknown as ContactDetailsRow);
 }
 
-export function saveContactDetails(details: ContactDetails): void {
-  db.prepare(
-    `
-    INSERT OR REPLACE INTO contact_details
-    (
-      id,
-      phone,
-      whatsapp,
-      email,
-      address,
-      instagram,
-      facebook,
-      youtube,
-      mapUrl
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `,
-  ).run(
-    details.id ?? 1,
-    details.phone,
-    details.whatsapp ?? "",
-    details.email,
-    details.address,
-    details.instagram ?? "",
-    details.facebook ?? "",
-    details.youtube ?? "",
-    details.mapUrl ?? "",
-  );
+export async function saveContactDetails(
+  details: ContactDetails,
+): Promise<void> {
+  await db.execute({
+    sql: `
+      INSERT INTO contact_details
+      (
+        id,
+        phone,
+        whatsapp,
+        email,
+        address,
+        instagram,
+        facebook,
+        youtube,
+        mapUrl
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(id)
+      DO UPDATE SET
+        phone = excluded.phone,
+        whatsapp = excluded.whatsapp,
+        email = excluded.email,
+        address = excluded.address,
+        instagram = excluded.instagram,
+        facebook = excluded.facebook,
+        youtube = excluded.youtube,
+        mapUrl = excluded.mapUrl
+    `,
+    args: [
+      details.id ?? 1,
+      details.phone,
+      details.whatsapp ?? "",
+      details.email,
+      details.address,
+      details.instagram ?? "",
+      details.facebook ?? "",
+      details.youtube ?? "",
+      details.mapUrl ?? "",
+    ],
+  });
 }
 
 // ── Reviews ────────────────────────────────────────────────────────────────
 
-export function getAllReviews(): Review[] {
-  return (
-    db
-      .prepare("SELECT * FROM reviews ORDER BY created_at DESC")
-      .all() as ReviewRow[]
-  ).map(rowToReview);
+export async function getAllReviews(): Promise<Review[]> {
+  const result = await db.execute(
+    "SELECT * FROM reviews ORDER BY created_at DESC",
+  );
+
+  return result.rows.map((row) => rowToReview(row as unknown as ReviewRow));
 }
 
-export function getFeaturedReviews(): Review[] {
-  return (
-    db
-      .prepare(
-        "SELECT * FROM reviews WHERE highlighted_home = 1 AND approved = 1 ORDER BY created_at DESC",
-      )
-      .all() as ReviewRow[]
-  ).map(rowToReview);
+export async function getFeaturedReviews(): Promise<Review[]> {
+  try {
+    const result = await db.execute({
+      sql: `
+        SELECT *
+        FROM reviews
+        WHERE highlighted_home = ? AND approved = ?
+        ORDER BY created_at DESC
+      `,
+      args: [1, 1],
+    });
+
+    return result.rows.map((row) => rowToReview(row as unknown as ReviewRow));
+  } catch (error) {
+    console.error("getFeaturedReviews failed:", error);
+    throw error;
+  }
 }
 
-export function saveReview(review: Omit<Review, "id" | "createdAt">): number {
-  const result = db
-    .prepare(
-      `
+export async function saveReview(
+  review: Omit<Review, "id" | "createdAt">,
+): Promise<number> {
+  try {
+    const result = await db.execute({
+      sql: `
       INSERT INTO reviews (
         name,
         email,
@@ -577,42 +511,49 @@ export function saveReview(review: Omit<Review, "id" | "createdAt">): number {
         image,
         highlighted_home,
         approved
-      )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `,
-    )
-    .run(
-      review.name,
-      review.email ?? "",
-      review.designation ?? "",
-      review.rating,
-      review.review,
-      review.image ?? "",
-      review.highlightedHome ? 1 : 0,
-      review.approved ? 1 : 0,
-    );
+        )
+        VALUES (?, ?, ?, ?, ?, ?)
+        `,
+      args: [
+        review.name,
+        review.email ?? "",
+        review.designation ?? "",
+        review.rating,
+        review.review,
+        review.image ?? "",
+      ],
+    });
 
-  return result.lastInsertRowid as number;
+    return Number(result.lastInsertRowid);
+  } catch (error) {
+    console.error("Failed to save review:", review, error);
+    throw error;
+  }
 }
 
 export async function updateReview(
   id: number,
   review: Partial<Review>,
 ): Promise<void> {
-  const existing = db.prepare("SELECT * FROM reviews WHERE id = ?").get(id) as
-    | ReviewRow
-    | undefined;
+  try {
+    const existingResult = await db.execute({
+      sql: "SELECT * FROM reviews WHERE id = ?",
+      args: [id],
+    });
 
-  if (!existing) return;
+    const existing = existingResult.rows[0] as unknown as ReviewRow;
 
-  if (review.image && existing.image && review.image !== existing.image) {
-    await deleteFile(existing.image);
-  }
+    if (!existing) return;
 
-  db.prepare(
-    `
-    UPDATE reviews
-    SET
+    const oldImage =
+      review.image && existing.image && review.image !== existing.image
+        ? existing.image
+        : undefined;
+
+    await db.execute({
+      sql: `
+      UPDATE reviews
+      SET
       name = COALESCE(?, name),
       email = COALESCE(?, email),
       designation = COALESCE(?, designation),
@@ -621,141 +562,220 @@ export async function updateReview(
       image = COALESCE(?, image),
       highlighted_home = COALESCE(?, highlighted_home),
       approved = COALESCE(?, approved)
-    WHERE id = ?
-  `,
-  ).run(
-    review.name,
-    review.email,
-    review.designation,
-    review.rating,
-    review.review,
-    review.image,
-    review.highlightedHome === undefined
-      ? null
-      : review.highlightedHome
-        ? 1
-        : 0,
-    review.approved === undefined ? null : review.approved ? 1 : 0,
-    id,
-  );
+      WHERE id = ?
+      `,
+      args: [
+        review.name ?? null,
+        review.email ?? null,
+        review.designation ?? null,
+        review.rating ?? null,
+        review.review ?? null,
+        review.image ?? null,
+        review.highlightedHome === undefined
+          ? null
+          : review.highlightedHome
+            ? 1
+            : 0,
+        review.approved === undefined ? null : review.approved ? 1 : 0,
+        id,
+      ],
+    });
+
+    // delete old image only after successful DB update
+    if (oldImage) {
+      try {
+        await deleteFile(oldImage);
+      } catch (error) {
+        console.error("Failed to delete old image:", oldImage, error);
+      }
+    }
+  } catch (error) {
+    console.error("Failed to update review:", id, review, error);
+    throw error;
+  }
 }
 
 export async function deleteReview(id: number): Promise<void> {
-  const review = db.prepare("SELECT * FROM reviews WHERE id = ?").get(id) as
-    | ReviewRow
-    | undefined;
+  try {
+    const result = await db.execute({
+      sql: "SELECT * FROM reviews WHERE id = ?",
+      args: [id],
+    });
 
-  if (!review) return;
+    const row = result.rows[0];
 
-  await deleteFile(review.image || undefined);
+    if (!row) return;
 
-  db.prepare("DELETE FROM reviews WHERE id = ?").run(id);
+    const review = row as unknown as ReviewRow;
+
+    // Delete DB record first
+    await db.execute({
+      sql: "DELETE FROM reviews WHERE id = ?",
+      args: [id],
+    });
+
+    // Delete image only after successful DB deletion
+    if (review.image) {
+      try {
+        await deleteFile(review.image);
+      } catch (error) {
+        console.error("Failed to delete review image:", review.image, error);
+      }
+    }
+  } catch (error) {
+    console.error(`Failed to delete review ${id}:`, error);
+
+    throw error;
+  }
 }
 
 // ── Contact Submission ────────────────────────────────────────────────────────────────
 
-export function saveContact(
+export async function saveContact(
   contact: Omit<ContactSubmission, "id" | "createdAt">,
-) {
-  db.prepare(
+): Promise<number> {
+  const result = await db.execute({
+    sql: `
+      INSERT INTO contact_submissions
+      (
+        name,
+        phone,
+        email,
+        service,
+        message
+      )
+      VALUES (?, ?, ?, ?, ?)
+    `,
+    args: [
+      contact.name,
+      contact.phone,
+      contact.email ?? "",
+      contact.service,
+      contact.message,
+    ],
+  });
+
+  return Number(result.lastInsertRowid);
+}
+
+export async function getAllContacts(): Promise<ContactSubmission[]> {
+  const result = await db.execute(
     `
-    INSERT INTO contact_submissions
-    (
-      name,
-      phone,
-      email,
-      service,
-      message
-    )
-    VALUES (?, ?, ?, ?, ?)
-  `,
-  ).run(
-    contact.name,
-    contact.phone,
-    contact.email ?? "",
-    contact.service,
-    contact.message,
+      SELECT *
+      FROM contact_submissions
+      ORDER BY created_at DESC
+    `,
   );
+
+  return result.rows.map((row) => rowToContact(row as unknown as ContactRow));
 }
 
-export function getAllContacts() {
-  return (
-    db
-      .prepare("SELECT * FROM contact_submissions ORDER BY created_at DESC")
-      .all() as ContactRow[]
-  ).map(rowToContact);
+export async function updateContact(id: number, read: boolean): Promise<void> {
+  await db.execute({
+    sql: `
+      UPDATE contact_submissions
+      SET read = ?
+      WHERE id = ?
+    `,
+    args: [read ? 1 : 0, id],
+  });
 }
 
-export function updateContact(id: number, read: boolean) {
-  db.prepare(
-    `
-    UPDATE contact_submissions
-    SET read = ?
-    WHERE id = ?
-  `,
-  ).run(read ? 1 : 0, id);
-}
+export async function deleteContact(id: number): Promise<void> {
+  try {
+    await db.execute({
+      sql: `
+        DELETE FROM contact_submissions
+        WHERE id = ?
+      `,
+      args: [id],
+    });
+  } catch (error) {
+    console.error(`Failed to delete contact ${id}:`, error);
 
-export function deleteContact(id: number) {
-  db.prepare("DELETE FROM contact_submissions WHERE id = ?").run(id);
+    throw error;
+  }
 }
 
 // ── Section Images ────────────────────────────────────────────────────────────────
 
-export function getAllSectionImages(): SectionImage[] {
-  return (
-    db
-      .prepare("SELECT * FROM section_images ORDER BY section ASC")
-      .all() as SectionImageRow[]
-  ).map(rowToSectionImage);
+export async function getAllSectionImages(): Promise<SectionImage[]> {
+  const result = await db.execute(
+    `
+      SELECT *
+      FROM section_images
+      ORDER BY section ASC
+    `,
+  );
+
+  return result.rows.map((row) =>
+    rowToSectionImage(row as unknown as SectionImageRow),
+  );
 }
 
-export function getSectionImages(
+export async function getSectionImages(
   section: SectionImage["section"],
-): SectionImage[] {
-  return (
-    db
-      .prepare("SELECT * FROM section_images WHERE section = ?")
-      .all(section) as SectionImageRow[]
-  ).map(rowToSectionImage);
+): Promise<SectionImage[]> {
+  const result = await db.execute({
+    sql: `
+      SELECT *
+      FROM section_images
+      WHERE section = ?
+    `,
+    args: [section],
+  });
+
+  return result.rows.map((row) =>
+    rowToSectionImage(row as unknown as SectionImageRow),
+  );
 }
 
 export async function saveSectionImage(image: SectionImage): Promise<void> {
-  const existing = db
-    .prepare("SELECT * FROM section_images WHERE id = ?")
-    .get(image.id) as SectionImageRow | undefined;
+  const result = await db.execute({
+    sql: `
+      SELECT *
+      FROM section_images
+      WHERE id = ?
+    `,
+    args: [image.id],
+  });
+
+  const row = result.rows[0];
+
+  const existing = row ? (row as unknown as SectionImageRow) : undefined;
 
   const oldImage =
     existing && existing.image && existing.image !== image.image
       ? existing.image
       : undefined;
 
-  const saveTransaction = db.transaction((image: SectionImage) => {
-    db.prepare(
-      `
-        INSERT OR REPLACE INTO section_images
-        (
-          id,
-          image,
-          section,
-          featured,
-          published
-        )
-        VALUES (?, ?, ?, ?, ?)
-      `,
-    ).run(
+  await db.execute({
+    sql: `
+      INSERT INTO section_images
+      (
+        id,
+        image,
+        section,
+        featured,
+        published
+      )
+      VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(id)
+      DO UPDATE SET
+        image = excluded.image,
+        section = excluded.section,
+        featured = excluded.featured,
+        published = excluded.published
+    `,
+    args: [
       image.id,
       image.image,
       image.section,
       image.featured ? 1 : 0,
       image.published ? 1 : 0,
-    );
+    ],
   });
 
-  // If this throws, nothing after it runs
-  saveTransaction(image);
-
-  // Only delete old file after successful commit
   if (oldImage) {
     try {
       await deleteFile(oldImage);
@@ -772,268 +792,287 @@ export async function updateSectionImage(
     published?: boolean;
   },
 ): Promise<void> {
-  const existing = db
-    .prepare("SELECT * FROM section_images WHERE id = ?")
-    .get(id) as SectionImageRow | undefined;
+  const result = await db.execute({
+    sql: `
+      SELECT *
+      FROM section_images
+      WHERE id = ?
+    `,
+    args: [id],
+  });
 
-  if (!existing) {
+  const row = result.rows[0];
+
+  if (!row) {
     throw new Error("Image not found");
   }
 
-  db.prepare(
-    `
-    UPDATE section_images
-    SET
-      featured = ?,
-      published = ?
-    WHERE id = ?
-  `,
-  ).run(
-    updates.featured === undefined
-      ? existing.featured
-      : updates.featured
-        ? 1
-        : 0,
+  const existing = row as unknown as SectionImageRow;
 
-    updates.published === undefined
-      ? existing.published
-      : updates.published
-        ? 1
-        : 0,
+  await db.execute({
+    sql: `
+      UPDATE section_images
+      SET
+        featured = ?,
+        published = ?
+      WHERE id = ?
+    `,
+    args: [
+      updates.featured === undefined
+        ? existing.featured
+        : updates.featured
+          ? 1
+          : 0,
 
-    id,
-  );
+      updates.published === undefined
+        ? existing.published
+        : updates.published
+          ? 1
+          : 0,
+
+      id,
+    ],
+  });
 }
 
 export async function deleteSectionImage(id: string): Promise<void> {
-  const image = db
-    .prepare("SELECT * FROM section_images WHERE id = ?")
-    .get(id) as SectionImageRow | undefined;
+  try {
+    const result = await db.execute({
+      sql: `
+        SELECT *
+        FROM section_images
+        WHERE id = ?
+      `,
+      args: [id],
+    });
 
-  if (!image) return;
+    const row = result.rows[0];
 
-  await deleteFile(image.image);
+    if (!row) return;
 
-  db.prepare("DELETE FROM section_images WHERE id = ?").run(id);
+    const image = row as unknown as SectionImageRow;
+
+    await db.execute({
+      sql: `
+        DELETE FROM section_images
+        WHERE id = ?
+      `,
+      args: [id],
+    });
+
+    if (image.image) {
+      try {
+        await deleteFile(image.image);
+      } catch (error) {
+        console.error("Failed to delete image:", image.image, error);
+      }
+    }
+  } catch (error) {
+    console.error(`Failed to delete section image ${id}:`, error);
+
+    throw error;
+  }
 }
 
 // ── Menu Categories ────────────────────────────────────────────────────────────────
 
-export function getMenuCategories() {
-  return (
-    db
-      .prepare("SELECT * FROM menu_categories ORDER BY name")
-      .all() as MenuCategoryRow[]
-  ).map(rowToMenuCategory);
-}
+// export function getMenuCategories() {
+//   return (
+//     db
+//       .prepare("SELECT * FROM menu_categories ORDER BY name")
+//       .all() as MenuCategoryRow[]
+//   ).map(rowToMenuCategory);
+// }
 
-export async function saveMenuCategory(category: MenuCategory): Promise<void> {
-  const existing = db
-    .prepare("SELECT * FROM menu_categories WHERE id = ?")
-    .get(category.id) as MenuCategoryRow | undefined;
+// export async function saveMenuCategory(category: MenuCategory): Promise<void> {
+//   const existing = db
+//     .prepare("SELECT * FROM menu_categories WHERE id = ?")
+//     .get(category.id) as MenuCategoryRow | undefined;
 
-  if (existing && existing.image && existing.image !== category.image) {
-    await deleteFile(existing.image);
-  }
+//   if (existing && existing.image && existing.image !== category.image) {
+//     await deleteFile(existing.image);
+//   }
 
-  db.prepare(
-    `
-    INSERT OR REPLACE INTO menu_categories
-    (
-      id,
-      name,
-      description,
-      image,
-      published
-    )
-    VALUES (?, ?, ?, ?, ?)
-  `,
-  ).run(
-    category.id,
-    category.name,
-    category.description ?? "",
-    category.image ?? "",
-    category.published ? 1 : 0,
-  );
-}
+//   db.prepare(
+//     `
+//     INSERT OR REPLACE INTO menu_categories
+//     (
+//       id,
+//       name,
+//       description,
+//       image,
+//       published
+//     )
+//     VALUES (?, ?, ?, ?, ?)
+//   `,
+//   ).run(
+//     category.id,
+//     category.name,
+//     category.description ?? "",
+//     category.image ?? "",
+//     category.published ? 1 : 0,
+//   );
+// }
 
-export async function deleteMenuCategory(id: string): Promise<void> {
-  const category = db
-    .prepare("SELECT * FROM menu_categories WHERE id = ?")
-    .get(id) as MenuCategoryRow | undefined;
+// export async function deleteMenuCategory(id: string): Promise<void> {
+//   const category = db
+//     .prepare("SELECT * FROM menu_categories WHERE id = ?")
+//     .get(id) as MenuCategoryRow | undefined;
 
-  if (!category) return;
+//   if (!category) return;
 
-  await deleteFile(category.image || undefined);
+//   await deleteFile(category.image || undefined);
 
-  db.prepare("DELETE FROM menu_categories WHERE id = ?").run(id);
-}
+//   db.prepare("DELETE FROM menu_categories WHERE id = ?").run(id);
+// }
 
-// ── Menu Items ────────────────────────────────────────────────────────────────
-export function getMenuItems() {
-  return (
-    db.prepare("SELECT * FROM menu_items ORDER BY name").all() as MenuItemRow[]
-  ).map(rowToMenuItem);
-}
+// // ── Menu Items ────────────────────────────────────────────────────────────────
+// export function getMenuItems() {
+//   return (
+//     db.prepare("SELECT * FROM menu_items ORDER BY name").all() as MenuItemRow[]
+//   ).map(rowToMenuItem);
+// }
 
-export function getMenuItemsByCategory(categoryId: string) {
-  return (
-    db
-      .prepare("SELECT * FROM menu_items WHERE categoryId = ?")
-      .all(categoryId) as MenuItemRow[]
-  ).map(rowToMenuItem);
-}
+// export function getMenuItemsByCategory(categoryId: string) {
+//   return (
+//     db
+//       .prepare("SELECT * FROM menu_items WHERE categoryId = ?")
+//       .all(categoryId) as MenuItemRow[]
+//   ).map(rowToMenuItem);
+// }
 
-export async function saveMenuItem(item: MenuItem): Promise<void> {
-  const existing = db
-    .prepare("SELECT * FROM menu_items WHERE id = ?")
-    .get(item.id) as MenuItemRow | undefined;
+// export async function saveMenuItem(item: MenuItem): Promise<void> {
+//   const existing = db
+//     .prepare("SELECT * FROM menu_items WHERE id = ?")
+//     .get(item.id) as MenuItemRow | undefined;
 
-  if (existing && existing.image && existing.image !== item.image) {
-    await deleteFile(existing.image);
-  }
+//   if (existing && existing.image && existing.image !== item.image) {
+//     await deleteFile(existing.image);
+//   }
 
-  db.prepare(
-    `
-    INSERT OR REPLACE INTO menu_items
-    (
-      id,
-      categoryId,
-      name,
-      description,
-      price,
-      image,
-      featured,
-      published
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `,
-  ).run(
-    item.id,
-    item.categoryId,
-    item.name,
-    item.description ?? "",
-    item.price,
-    item.image ?? "",
-    item.featured ? 1 : 0,
-    item.published ? 1 : 0,
-  );
-}
+//   db.prepare(
+//     `
+//     INSERT OR REPLACE INTO menu_items
+//     (
+//       id,
+//       categoryId,
+//       name,
+//       description,
+//       price,
+//       image,
+//       featured,
+//       published
+//     )
+//     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+//   `,
+//   ).run(
+//     item.id,
+//     item.categoryId,
+//     item.name,
+//     item.description ?? "",
+//     item.price,
+//     item.image ?? "",
+//     item.featured ? 1 : 0,
+//     item.published ? 1 : 0,
+//   );
+// }
 
-export async function deleteMenuItem(id: string): Promise<void> {
-  const item = db.prepare("SELECT * FROM menu_items WHERE id = ?").get(id) as
-    | MenuItemRow
-    | undefined;
+// export async function deleteMenuItem(id: string): Promise<void> {
+//   const item = db.prepare("SELECT * FROM menu_items WHERE id = ?").get(id) as
+//     | MenuItemRow
+//     | undefined;
 
-  if (!item) return;
+//   if (!item) return;
 
-  await deleteFile(item.image || undefined);
+//   await deleteFile(item.image || undefined);
 
-  db.prepare("DELETE FROM menu_items WHERE id = ?").run(id);
-}
+//   db.prepare("DELETE FROM menu_items WHERE id = ?").run(id);
+// }
 
-// ── Services ────────────────────────────────────────────────────────────────
+// // ── Services ────────────────────────────────────────────────────────────────
 
-export function getServices() {
-  return (
-    db.prepare("SELECT * FROM services ORDER BY title").all() as ServiceRow[]
-  ).map(rowToService);
-}
+// export function getServices() {
+//   return (
+//     db.prepare("SELECT * FROM services ORDER BY title").all() as ServiceRow[]
+//   ).map(rowToService);
+// }
 
-export async function saveService(service: Service): Promise<void> {
-  const existing = db
-    .prepare("SELECT * FROM services WHERE id = ?")
-    .get(service.id) as ServiceRow | undefined;
+// export async function saveService(service: Service): Promise<void> {
+//   const existing = db
+//     .prepare("SELECT * FROM services WHERE id = ?")
+//     .get(service.id) as ServiceRow | undefined;
 
-  if (existing && existing.image && existing.image !== service.image) {
-    await deleteFile(existing.image);
-  }
+//   if (existing && existing.image && existing.image !== service.image) {
+//     await deleteFile(existing.image);
+//   }
 
-  db.prepare(
-    `
-    INSERT OR REPLACE INTO services
-    (
-      id,
-      title,
-      description,
-      image,
-      startingPrice,
-      features,
-      featured,
-      published
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `,
-  ).run(
-    service.id,
-    service.title,
-    service.description,
-    service.image ?? "",
-    service.startingPrice ?? "",
-    JSON.stringify(service.features),
-    service.featured ? 1 : 0,
-    service.published ? 1 : 0,
-  );
-}
+//   db.prepare(
+//     `
+//     INSERT OR REPLACE INTO services
+//     (
+//       id,
+//       title,
+//       description,
+//       image,
+//       startingPrice,
+//       features,
+//       featured,
+//       published
+//     )
+//     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+//   `,
+//   ).run(
+//     service.id,
+//     service.title,
+//     service.description,
+//     service.image ?? "",
+//     service.startingPrice ?? "",
+//     JSON.stringify(service.features),
+//     service.featured ? 1 : 0,
+//     service.published ? 1 : 0,
+//   );
+// }
 
-export async function deleteService(id: string): Promise<void> {
-  const service = db.prepare("SELECT * FROM services WHERE id = ?").get(id) as
-    | ServiceRow
-    | undefined;
+// export async function deleteService(id: string): Promise<void> {
+//   const service = db.prepare("SELECT * FROM services WHERE id = ?").get(id) as
+//     | ServiceRow
+//     | undefined;
 
-  if (!service) return;
+//   if (!service) return;
 
-  await deleteFile(service.image || undefined);
+//   await deleteFile(service.image || undefined);
 
-  db.prepare("DELETE FROM services WHERE id = ?").run(id);
-}
+//   db.prepare("DELETE FROM services WHERE id = ?").run(id);
+// }
 
 // ── Dashboard Stats ────────────────────────────────────────────────────────────────
 
-export function getDashboardStats() {
+export async function getDashboardStats() {
+  const [
+    reviewsResult,
+    pendingReviewsResult,
+    contactsResult,
+    unreadContactsResult,
+    sectionImagesResult,
+  ] = await Promise.all([
+    db.execute("SELECT COUNT(*) AS count FROM reviews"),
+    db.execute("SELECT COUNT(*) AS count FROM reviews WHERE approved = 0"),
+    db.execute("SELECT COUNT(*) AS count FROM contact_submissions"),
+    db.execute(
+      "SELECT COUNT(*) AS count FROM contact_submissions WHERE read = 0",
+    ),
+    db.execute("SELECT COUNT(*) AS count FROM section_images"),
+  ]);
+
   return {
-    reviews: (
-      db.prepare("SELECT COUNT(*) as count FROM reviews").get() as {
-        count: number;
-      }
-    ).count,
+    reviews: Number(reviewsResult.rows[0]?.count ?? 0),
 
-    pendingReviews: (
-      db
-        .prepare("SELECT COUNT(*) as count FROM reviews WHERE approved = 0")
-        .get() as { count: number }
-    ).count,
+    pendingReviews: Number(pendingReviewsResult.rows[0]?.count ?? 0),
 
-    contacts: (
-      db.prepare("SELECT COUNT(*) as count FROM contact_submissions").get() as {
-        count: number;
-      }
-    ).count,
+    contacts: Number(contactsResult.rows[0]?.count ?? 0),
 
-    unreadContacts: (
-      db
-        .prepare(
-          "SELECT COUNT(*) as count FROM contact_submissions WHERE read = 0",
-        )
-        .get() as { count: number }
-    ).count,
+    unreadContacts: Number(unreadContactsResult.rows[0]?.count ?? 0),
 
-    services: (
-      db.prepare("SELECT COUNT(*) as count FROM services").get() as {
-        count: number;
-      }
-    ).count,
-
-    menuItems: (
-      db.prepare("SELECT COUNT(*) as count FROM menu_items").get() as {
-        count: number;
-      }
-    ).count,
-
-    galleryImages: (
-      db.prepare("SELECT COUNT(*) as count FROM section_images").get() as {
-        count: number;
-      }
-    ).count,
+    sectionImages: Number(sectionImagesResult.rows[0]?.count ?? 0),
   };
 }

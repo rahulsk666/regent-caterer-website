@@ -3,6 +3,7 @@ import { IconTrash, IconUpload } from "@tabler/icons-react";
 
 import { SectionImage } from "@/lib/types";
 import Toggle from "./Toggle";
+import { useRouter } from "next/navigation";
 
 interface AdminSectionImagesProps {
   images: SectionImage[];
@@ -45,9 +46,9 @@ export default function AdminSectionImages({
   images,
   onUpdateImage,
   onDeleteImage,
+  onUploadImage,
 }: AdminSectionImagesProps) {
-  // const [uploading, setUploading] = useState<string | null>(null);
-
+  const router = useRouter();
   return (
     <div className="space-y-8">
       {sections.map((section) => {
@@ -65,19 +66,20 @@ export default function AdminSectionImages({
                   type="file"
                   accept="image/*"
                   className="hidden"
-                  // onChange={async (e) => {
-                  //   const file = e.target.files?.[0];
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
 
-                  //   if (!file) return;
+                    if (!file) return;
 
-                  //   try {
-                  //     setUploading(section.key);
+                    try {
+                      // setUploading(section.key);
 
-                  //     await onUploadImage(section.key, file);
-                  //   } finally {
-                  //     setUploading(null);
-                  //   }
-                  // }}
+                      await onUploadImage(section.key, file);
+                      router.refresh();
+                    } finally {
+                      // setUploading(null);
+                    }
+                  }}
                 />
 
                 <span className="inline-flex items-center gap-2 rounded-full bg-slate-900 text-white px-4 py-2 text-sm font-medium">

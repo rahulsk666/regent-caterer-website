@@ -67,7 +67,7 @@ export type ContactSubmission = {
   id?: number;
   name: string;
   email: string | undefined;
-  phone?: string;
+  phone: string;
   service: string;
   message: string;
   read?: boolean;
