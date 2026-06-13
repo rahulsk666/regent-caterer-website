@@ -26,7 +26,10 @@ interface AdminSectionImagesProps {
   onUploadImage: (
     section: SectionImage["section"],
     file: File,
-  ) => Promise<void>;
+  ) => Promise<{
+    success: boolean;
+    error?: string;
+  }>;
 }
 
 const sections: {
@@ -90,9 +93,11 @@ export default function AdminSectionImages({
                       }
                       try {
                         setUploading(section.key);
-
-                        await onUploadImage(section.key, file);
-
+                        const result = await onUploadImage(section.key, file);
+                        if (!result.success) {
+                          toast.error(result.error || "Upload failed");
+                          return;
+                        }
                         toast.success("Image uploaded");
                         router.refresh();
                       } catch (error) {
