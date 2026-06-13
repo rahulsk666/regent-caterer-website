@@ -25,7 +25,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
       return;
     }
     const mm = gsap.matchMedia();
-    mm.add("(min-width: 768px)", () => {
+    mm.add("(min-width: 680px)", () => {
       ScrollTrigger.create({
         start: 850,
         onEnter: () => {
@@ -41,10 +41,30 @@ export default function Header({ variant = "light" }: HeaderProps) {
           });
         },
       });
-      return () => {
-        mm.revert();
-      };
     });
+
+    mm.add("(max-width: 680px)", () => {
+      ScrollTrigger.create({
+        start: 10,
+        scrub: 1,
+        onEnter: () => {
+          gsap.to(".nav-mob", {
+            translateX: 100,
+            opacity: 0,
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(".nav-mob", {
+            translateX: 0,
+            opacity: 1,
+          });
+        },
+      });
+    });
+
+    return () => {
+      mm.revert();
+    };
   }, [variant]);
 
   useEffect(() => {
@@ -97,7 +117,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
         </Link>
       </div>
 
-      <div className="mt-2 py-2 md:hidden">
+      <div className="nav-mob mt-2 py-2 md:hidden">
         <button
           onClick={toggleMenu}
           className="flex flex-col items-end gap-2 py-2 rounded-lg "
