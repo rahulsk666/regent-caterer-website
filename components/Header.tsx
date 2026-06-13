@@ -23,7 +23,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
     >
       <div
         className={twMerge(
-          "m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full space-x-3 lg:text-lg text-base font-medium rounded-2xl",
+          "m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full gap-8 lg:text-lg text-base font-medium rounded-2xl",
           variant === "light"
             ? "text-foreground-secondary/75 bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px]"
             : "text-foreground-secondary/75 bg-linear-to-r from-golden-500 from-0% via-golden-300 via-50% to-golden-400 to-100%",
