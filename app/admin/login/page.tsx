@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex flex-col bg-background  text-theme-text">
-      <Header />
+      <Header variant="dark" />
       <main className="container-app min-h-screen flex justify-center items-center container-px py-16">
         <div className="mx-auto max-w-xl rounded-3xl border border-golden-300 p-10 shadow-xl bg-white">
           <h1 className="text-3xl font-bold mb-4">Admin Login</h1>

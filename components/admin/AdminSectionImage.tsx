@@ -1,9 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
 import { SectionImage } from "@/lib/types";
 import Toggle from "./Toggle";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Spinner from "../ui/Spinner";
+import { toast } from "sonner";
 
 interface AdminSectionImagesProps {
   images: SectionImage[];
@@ -49,6 +54,11 @@ export default function AdminSectionImages({
   onUploadImage,
 }: AdminSectionImagesProps) {
   const router = useRouter();
+
+  const [uploading, setUploading] = useState<SectionImage["section"] | null>(
+    null,
+  );
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
   return (
     <div className="space-y-8">
       {sections.map((section) => {
@@ -61,28 +71,46 @@ export default function AdminSectionImages({
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold">{section.label}</h2>
 
-              <label className="cursor-pointer">
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    try {
-                      await onUploadImage(section.key, file);
-                      router.refresh();
-                    } finally {
-                    }
-                  }}
-                />
+              <div className="flex flex-row items-center justify-center gap-2">
+                <div className={uploading === section.key ? "block" : "hidden"}>
+                  <Spinner size={24} />
+                </div>
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      if (file.size > MAX_FILE_SIZE) {
+                        toast.error("Image size must be less than 10 MB");
+                        e.target.value = "";
+                        return;
+                      }
+                      try {
+                        setUploading(section.key);
 
-                <span className="inline-flex items-center gap-2 rounded-full bg-slate-900 text-white px-4 py-2 text-sm font-medium">
-                  <IconUpload size={16} />
-                  {/* {uploading === section.key ? "Uploading..." : "Add Image"} */}
-                  Add Image
-                </span>
-              </label>
+                        await onUploadImage(section.key, file);
+
+                        toast.success("Image uploaded");
+                        router.refresh();
+                      } catch (error) {
+                        console.error(error);
+                        toast.error("Upload failed");
+                      } finally {
+                        setUploading(null);
+                      }
+                    }}
+                  />
+
+                  <span className="inline-flex items-center gap-2 rounded-full bg-slate-900 text-white px-4 py-2 text-sm font-medium">
+                    <IconUpload size={16} />
+                    {/* {uploading === section.key ? "Uploading..." : "Add Image"} */}
+                    Add Image
+                  </span>
+                </label>
+              </div>
             </div>
 
             {sectionImages.length === 0 ? (

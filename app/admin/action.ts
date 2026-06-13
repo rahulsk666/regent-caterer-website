@@ -48,17 +48,30 @@ export async function saveSectionImageAction(
   section: SectionImage["section"],
   file: File,
 ) {
-  const filePath = await saveFile(file, section);
+  try {
+    const filePath = await saveFile(file, section);
 
-  await saveSectionImage({
-    id: crypto.randomUUID(),
-    image: filePath,
-    section,
-    featured: false,
-    published: true,
-  });
+    await saveSectionImage({
+      id: crypto.randomUUID(),
+      image: filePath,
+      section,
+      featured: false,
+      published: true,
+    });
 
-  revalidatePath("/admin");
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to upload image",
+    };
+  }
 }
 
 export async function updateSectionImageAction(

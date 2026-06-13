@@ -2,18 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import HeroContactButtons from "../HeroContactButtons";
 import Button from "../ui/Button";
-import Header from "../Header";
 
 export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex-1 bg-cover min-h-screen"
+      className="relative flex-1 py-20 bg-cover min-h-screen items-center justify-center"
       style={{
         backgroundImage: `linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2)), url('/images/hero-bg.png')`,
       }}
     >
-      <div className="container-app relative z-10 w-full p-10 lg:gap-2 gap-5 flex flex-col items-center">
+      <div className="container-app relative z-10 w-full p-10 lg:gap-2 gap-5 flex flex-col items-center justify-center">
         <p className="text-sm font-medium text-white">Quality You Can Trust</p>
         <Image
           src={"/svg/logo.svg"}

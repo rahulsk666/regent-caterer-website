@@ -54,16 +54,6 @@ export default function AdminClient({
           />
         )}
 
-        {/* ── SERVICES ─────────────────────────────────────────────────── */}
-        {/* {section === "services" && (
-          <AdminServicesSection
-            services={services}
-            onUpdateService={updateServiceAction}
-            onDeleteService={deleteServiceAction}
-            onUploadService={uploadServiceAction}
-          />
-        )} */}
-
         {section === "images" && (
           <AdminSectionImages
             images={images}
