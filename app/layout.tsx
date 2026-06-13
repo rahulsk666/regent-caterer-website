@@ -11,6 +11,7 @@ import {
 } from "@/lib/font";
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
+import SplashScreen from "@/components/ui/SpashScreen";
 
 export const metadata: Metadata = {
   title: "Regent Caterers",
@@ -40,7 +41,7 @@ export default function RootLayout({
       )}
     >
       <body className="bg-background-base overflow-x-hidden">
-        {children}
+        <SplashScreen>{children}</SplashScreen>
         <Toaster richColors closeButton />
       </body>
     </html>

@@ -19,7 +19,6 @@ export default function Header({ variant = "light" }: HeaderProps) {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // ── Lenis + scroll-triggered dark mode swap ──────────────────────────
   useEffect(() => {
     if (variant == "dark") {
       return;
@@ -88,14 +87,18 @@ export default function Header({ variant = "light" }: HeaderProps) {
             : "text-foreground-secondary/75 bg-linear-to-r from-golden-500 from-0% via-golden-300 via-50% to-golden-400 to-100%",
         )}
       >
-        <Link href="/" className="hover:text-foreground-secondary">
+        {/* <Link href="/" className="hover:text-foreground-secondary">
           Menu
         </Link>
         <Link href="/" className="hover:text-foreground-secondary">
           Services
-        </Link>
+        </Link> */}
         <Link href="/" className="hover:text-foreground-secondary">
           Home
+        </Link>
+
+        <Link href="/#whyUsSection" className="hover:text-foreground-secondary">
+          Why Us
         </Link>
         {/* Logo */}
         <Image
@@ -106,9 +109,6 @@ export default function Header({ variant = "light" }: HeaderProps) {
           loading="eager"
           className="w-8 lg:w-10 h-auto "
         />
-        <Link href="/#whyUsSection" className="hover:text-foreground-secondary">
-          Why Us
-        </Link>
         <Link href="/" className="hover:text-foreground-secondary">
           Gallery
         </Link>
@@ -168,13 +168,13 @@ export default function Header({ variant = "light" }: HeaderProps) {
               <Link href="/" className="">
                 Home
               </Link>
-              <Link href="/" className="">
+              <Link href="/#aboutSection" className="">
                 About US
               </Link>
               <Link href="/#whyUsSection" className="">
                 Why Us
               </Link>
-              <Link href="/" className="">
+              <Link href="/#testimonialsSections" className="">
                 Testomonials
               </Link>
               <Link href="/" className="">

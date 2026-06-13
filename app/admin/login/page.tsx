@@ -4,12 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-// import { Metadata } from "next";
-
-// export const metadata: Metadata = {
-//   title: "Admin Login - Regent Caterers",
-//   description: "Admin Login - Regent Caterers",
-// };
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -36,7 +30,8 @@ export default function AdminLoginPage() {
       }
 
       router.push("/admin");
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       setError("Unable to sign in. Please try again.");
     } finally {
       setLoading(false);
@@ -59,7 +54,7 @@ export default function AdminLoginPage() {
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="mt-2 w-full rounded-2xl border px-4 py-3 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="mt-2 w-full rounded-2xl border px-4 py-3 focus:border-golden-200 focus:outline-none focus:ring-2 focus:ring-golden-200"
                 placeholder="Enter admin password"
                 required
               />
@@ -67,7 +62,7 @@ export default function AdminLoginPage() {
             {error && <p className="text-sm text-destructive">{error}</p>}
             <button
               type="submit"
-              className="inline-flex items-center justify-center rounded-full bg-golden-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:opacity-60"
+              className="inline-flex items-center justify-center rounded-full bg-golden-400 px-6 py-3 text-sm font-semibold text-white transition hover:bg-golden-500 disabled:opacity-60"
               disabled={loading}
             >
               {loading ? "Signing in…" : "Sign in"}
