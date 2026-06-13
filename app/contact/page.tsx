@@ -18,7 +18,7 @@ const ContactPage = () => {
       <Header variant="dark" />
       {/* Main Content */}
       <section id="contactSection" className="min-h-screen container-app">
-        <div className="min-h-full md:gap-30 grid md:grid-cols-2 grid-rows-2 pt-40 items-center justify-center">
+        <div className="min-h-full md:gap-30 grid md:grid-cols-2 md:grid-rows-1 grid-rows-2 pt-40 items-center justify-center">
           <div className="flex flex-col gap-2">
             <p className="font-galgin text-golden-gradient text-3xl lg:text-8xl md:text-5xl">
               Contact Us
@@ -35,11 +35,11 @@ const ContactPage = () => {
             <div className="relative md:block hidden">
               <DecorativeStar
                 alt="star-7"
-                className="md:block absolute hidden lg:w-38 md:w-24 h-auto bottom-[0%] left-[35%] opacity-80"
+                className="md:block absolute hidden lg:w-46 md:w-24 h-auto bottom-[0%] left-[35%] opacity-80"
               />
               <DecorativeStar
                 alt="star-8"
-                className="md:block hidden lg:w-10 w-8 h-auto bottom-[0%] left-[35%] opacity-60"
+                className="md:block hidden lg:w-12 w-8 h-auto bottom-[0%] left-[35%] opacity-60"
               />
             </div>
             <div className="flex flex-col gap-10">
