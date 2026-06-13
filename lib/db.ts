@@ -508,9 +508,7 @@ export async function saveReview(
         designation,
         rating,
         review,
-        image,
-        highlighted_home,
-        approved
+        image
         )
         VALUES (?, ?, ?, ?, ?, ?)
         `,

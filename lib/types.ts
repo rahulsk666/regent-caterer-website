@@ -34,12 +34,13 @@ export type Testimonial = {
 export type ReviewActionState = {
   success: boolean;
   error?: string;
-  errors?: {
-    name?: string[];
-    email?: string[];
-    designation?: string[];
-    message?: string[];
-    rating?: string[];
+  errors?: Record<string, string[]>;
+  values?: {
+    name?: string;
+    email?: string;
+    designation?: string;
+    message?: string;
+    rating?: number;
   };
 };
 

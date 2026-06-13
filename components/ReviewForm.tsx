@@ -22,13 +22,24 @@ export default function ReviewForm() {
 
   const [state, formAction, isPending] = useActionState(createReviewAction, {
     success: false,
+    error: undefined,
+    errors: {},
+    values: {
+      name: "",
+      email: "",
+      designation: "",
+      message: "",
+      rating: "",
+    },
   });
 
   useEffect(() => {
+    console.log(state);
+
     if (state.success) {
       setIsFormOpen(false);
-      formRef.current?.reset();
       setRating(0);
+      formRef.current?.reset();
       setResetKey((v) => v + 1);
       toast.success("Review submitted successfully!");
     }
@@ -80,6 +91,7 @@ export default function ReviewForm() {
                     label="Full Name"
                     placeholder="John Doe"
                     required
+                    defaultValue={state.values?.name}
                     error={state?.errors?.name?.[0]}
                   />
                 </div>
@@ -89,6 +101,7 @@ export default function ReviewForm() {
                   <UnderlineInput
                     label="Email"
                     name="email"
+                    defaultValue={state.values?.email}
                     placeholder="email@example.com"
                     type="email"
                   />
@@ -103,6 +116,7 @@ export default function ReviewForm() {
                     label="Designation"
                     placeholder="Event Host"
                     required
+                    defaultValue={state.values?.designation}
                     error={state?.errors?.designation?.[0]}
                   />
                 </div>
@@ -129,6 +143,7 @@ export default function ReviewForm() {
                   placeholder="Type your message here..."
                   rows={6}
                   required
+                  defaultValue={state.values?.message}
                   error={state?.errors?.message?.[0]}
                 />
               </div>
