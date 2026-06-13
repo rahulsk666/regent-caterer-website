@@ -2,20 +2,64 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./ui/Button";
 import { twMerge } from "tailwind-merge";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 interface HeaderProps {
   variant?: "light" | "dark";
 }
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Header({ variant = "light" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // ── Lenis + scroll-triggered dark mode swap ──────────────────────────
+  useEffect(() => {
+    if (variant == "dark") {
+      return;
+    }
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      gsap.set(".nav-inner", {
+        background:
+          "linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))",
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".nav-inner",
+          start: "+=900",
+          end: "+=2",
+          scrub: 1,
+          markers: true,
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.to(
+        ".nav-inner",
+        {
+          background:
+            "linear-gradient(90deg, #ECC869 0%, #F1D68F 50%, #ECC869 100%)",
+        },
+        "=1",
+      );
+    });
+  });
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isMenuOpen]);
   return (
     <nav
       id="Header"
@@ -23,6 +67,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
     >
       <div
         className={twMerge(
+          "nav-inner",
           "m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full gap-8 lg:text-lg text-base font-medium rounded-2xl",
           variant === "light"
             ? "text-foreground-secondary/75 bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px]"
