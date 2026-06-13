@@ -29,7 +29,7 @@ export default function ReviewForm() {
       email: "",
       designation: "",
       message: "",
-      rating: "",
+      rating: 0,
     },
   });
 
