@@ -1,20 +1,52 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 interface AnimatedImageStackProps {
   images: string[];
+  centerIndex?: number;
 }
 
 export default function AnimatedImageStack({
   images,
+  centerIndex,
 }: AnimatedImageStackProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const centerImageRef = useRef<HTMLDivElement>(null);
+
+  // Default to the middle image if no centerIndex provided
+  const resolvedIndex = centerIndex ?? Math.floor(images.length / 2);
+
+  useEffect(() => {
+    const scroll = () => {
+      const container = containerRef.current;
+      const centerImage = centerImageRef.current;
+      if (!container || !centerImage) return;
+      if (window.innerWidth >= 1024) return;
+
+      const containerCenter = container.offsetWidth / 2;
+      const imageOffsetLeft = centerImage.offsetLeft;
+      const imageHalfWidth = centerImage.offsetWidth / 2;
+
+      container.scrollLeft = imageOffsetLeft - containerCenter + imageHalfWidth;
+    };
+
+    // Small timeout ensures layout is painted before we read offsets
+    const timer = setTimeout(scroll, 50);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="lg:py-20 py-10 overflow-x-auto overflow-y-hidden lg:overflow-visible scrollbar-none">
+    <div
+      ref={containerRef}
+      className="lg:py-20 py-10 overflow-x-auto overflow-y-hidden lg:overflow-visible scrollbar-none"
+    >
       <div className="flex justify-center w-max lg:w-auto">
         {images.map((image, idx) => (
           <motion.div
             key={idx}
+            ref={idx === resolvedIndex ? centerImageRef : null}
             style={{
               rotate: Math.random() * 20 - 10,
             }}
