@@ -20,6 +20,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: ButtonVariant;
   className?: string;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -28,10 +29,12 @@ export default function Button({
   variant = "primary",
   className,
   onClick,
+  disabled = false,
   ...props
 }: ButtonProps) {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={twMerge(baseStyles, buttonVariants[variant], className)}
       {...props}

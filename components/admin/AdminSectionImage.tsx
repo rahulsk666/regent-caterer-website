@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Spinner from "../ui/Spinner";
 import { toast } from "sonner";
+import Button from "../ui/Button";
 
 interface AdminSectionImagesProps {
   images: SectionImage[];
@@ -81,6 +82,7 @@ export default function AdminSectionImages({
       });
     } finally {
       setUploading(null);
+      router.refresh();
     }
   };
 
@@ -91,11 +93,26 @@ export default function AdminSectionImages({
       published?: boolean;
     },
   ) => {
-    await toast.promise(onUpdateImage(id, updates), {
+    const promise = onUpdateImage(id, updates);
+
+    toast.promise(promise, {
       loading: "Updating image...",
-      success: "Image updated",
-      error: "Failed to update image",
+      success: (result) => {
+        if (!result.success) {
+          throw new Error(result.error);
+        }
+
+        return "Image updated";
+      },
+      error: (err) =>
+        err instanceof Error ? err.message : "Failed to update image",
     });
+
+    const result = await promise;
+
+    if (result.success) {
+      router.refresh();
+    }
   };
 
   const handleDeleteImage = async (id: string) => {
@@ -104,6 +121,7 @@ export default function AdminSectionImages({
       success: "Image deleted",
       error: "Failed to delete image",
     });
+    router.refresh();
   };
 
   return (
@@ -113,6 +131,14 @@ export default function AdminSectionImages({
           (img) => img.section === section.key,
         );
         const canDelete = sectionImages.length > 5;
+        // const isProtectedSection =
+        //   section.key === "delightful-moments" ||
+        //   section.key === "signature-collections";
+
+        // const featuredCount = sectionImages.filter(
+        //   (img) => img.featured,
+        // ).length;
+        // const canFeature = !isProtectedSection || featuredCount >= 5;
 
         return (
           <div key={section.key}>
@@ -172,6 +198,7 @@ export default function AdminSectionImages({
                         <span>Approved</span>
 
                         <Toggle
+                          disabled={sectionImages.length <= 5}
                           value={!!image.published}
                           onChange={(value) =>
                             handleUpdateImage(image.id, {
@@ -186,7 +213,9 @@ export default function AdminSectionImages({
 
                         <Toggle
                           value={!!image.featured}
-                          disabled={!image.published}
+                          disabled={
+                            !image.published || sectionImages.length <= 5
+                          }
                           onChange={(value) =>
                             handleUpdateImage(image.id, {
                               featured: value,
@@ -195,7 +224,8 @@ export default function AdminSectionImages({
                         />
                       </div>
 
-                      <button
+                      <Button
+                        variant="custom"
                         disabled={!canDelete}
                         onClick={() => handleDeleteImage(image.id)}
                         className={`w-full flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium ${
@@ -206,7 +236,7 @@ export default function AdminSectionImages({
                       >
                         <IconTrash size={14} />
                         Delete
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 ))}

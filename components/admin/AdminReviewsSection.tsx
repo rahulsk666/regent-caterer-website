@@ -4,6 +4,8 @@ import Toggle from "./Toggle";
 import Image from "next/image";
 import { IconStar, IconTrash } from "@tabler/icons-react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import Button from "../ui/Button";
 
 interface AdminReviewsSectionProps {
   reviews: Review[];
@@ -24,6 +26,7 @@ export default function AdminReviewsSection({
   onUpdateReview,
   onDeleteReview,
 }: AdminReviewsSectionProps) {
+  const router = useRouter();
   const handleReviewUpdate = async (
     id: number,
     updates: {
@@ -36,6 +39,7 @@ export default function AdminReviewsSection({
       success: "Review updated",
       error: "Failed to update review",
     });
+    router.refresh();
   };
 
   const handleReviewDelete = async (id: number) => {
@@ -44,6 +48,7 @@ export default function AdminReviewsSection({
       success: "Review deleted",
       error: "Failed to delete review",
     });
+    router.refresh();
   };
 
   return (
@@ -144,13 +149,19 @@ export default function AdminReviewsSection({
                     }
                   />
                 </div>
-                <button
+                <Button
+                  variant="custom"
+                  disabled={reviews.length <= 1}
                   onClick={() => handleReviewDelete(r.id!)}
-                  className="flex items-center justify-center gap-1.5 rounded-2xl bg-red-50 border border-red-200 px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-100"
+                  className={`w-full flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium ${
+                    reviews.length > 1
+                      ? "border border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
+                      : "border border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed"
+                  }`}
                 >
                   <IconTrash className="w-3.5 h-3.5" />
                   Delete
-                </button>
+                </Button>
               </div>
             </div>
           </div>

@@ -124,6 +124,41 @@ export async function updateSectionImageAction(
   },
 ): Promise<ActionResult> {
   try {
+    if (updates.featured === true) {
+      const images = await getAllSectionImages(); // all images
+
+      const currentImage = images.find((img) => img.id === id);
+
+      if (!currentImage) {
+        return {
+          success: false,
+          error: "Image not found",
+        };
+      }
+
+      const protectedSection =
+        currentImage.section === "delightful-moments" ||
+        currentImage.section === "signature-collections";
+
+      if (protectedSection) {
+        const featuredCount = images.filter(
+          (img) =>
+            img.section === currentImage.section &&
+            img.featured &&
+            img.id !== id,
+        ).length;
+
+        console.log(featuredCount);
+
+        if (featuredCount <= 5) {
+          return {
+            success: false,
+            error: "Atleast 5 featured images are required",
+          };
+        }
+      }
+    }
+
     await updateSectionImage(id, updates);
 
     revalidatePath("/admin");
