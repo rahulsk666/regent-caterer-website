@@ -1,6 +1,5 @@
 import { ActionResult, ContactSubmission } from "@/lib/types";
 import { IconTrash } from "@tabler/icons-react";
-import router from "next/router";
 import { toast } from "sonner";
 
 interface AdminContactsSectionProps {

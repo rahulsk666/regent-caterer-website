@@ -127,14 +127,14 @@ export const AnimatedTestimonials = ({
             <Button
               variant="carousel"
               onClick={handlePrev}
-              className="w-14 h-14 md:w-12 md:h-12"
+              className="w-14 h-14 md:w-12 md:h-12 cursor-pointer"
             >
               <IconArrowLeft className="h-6 w-6 text-golden-500 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
             </Button>
             <Button
               variant="carousel"
               onClick={handleNext}
-              className="w-14 h-14 md:w-12 md:h-12"
+              className="w-14 h-14 md:w-12 md:h-12 cursor-pointer"
             >
               <IconArrowRight className="h-6 w-6 text-golden-500 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
             </Button>

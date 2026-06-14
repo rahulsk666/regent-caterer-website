@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 const baseStyles =
-  "flex items-center justify-center font-medium transition-all duration-200 ease-in-out";
+  "flex items-center justify-center font-medium transition-all duration-200 ease-in-out cursor-pointer";
 
 const glassStyles =
   "text-foreground-secondary bg-linear-to-br from-white/40 to-white/5 hover:bg-linear-to-bl hover:from-white/40 hover:to-white/5 backdrop-blur-[20px]";

@@ -40,11 +40,14 @@ export default function ContactSection() {
           className="absoluter lg:w-4 md:w-4 w-4 lg:top-[29%] lg:right-[27%] md:top-[31%] md:right-[19%] top-[30%] right-[5%] opacity-40"
         />
 
-        <p className="text-golden-gradient font-galgin lg:text-6xl md:text-5xl text-3xl md:pt-0 pt-40">
+        <p className="text-golden-gradient font-galgin lg:text-6xl md:text-5xl text-3xl p-2 md:pt-0 pt-40">
           Let’s plan together
         </p>
         <div className="flex flex-col items-center justify-center my-10 lg:gap-20 md:gap-10 gap-5">
-          <Button variant="primary" className="lg:w-3xl md:w-xl w-70">
+          <Button
+            variant="primary"
+            className="lg:w-3xl md:w-xl w-70 cursor-pointer"
+          >
             <Link
               href={
                 "https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
@@ -63,7 +66,10 @@ export default function ContactSection() {
               />
             </Link>
           </Button>
-          <Button variant="primary" className="lg:w-3xl md:w-xl w-70 group">
+          <Button
+            variant="primary"
+            className="lg:w-3xl md:w-xl w-70 group cursor-pointer"
+          >
             <Link href={"/contact"} className="flex items-center gap-5">
               <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">
                 Contact Us Now

@@ -33,7 +33,7 @@ export default function HeroSection() {
         </p>
         <div className="flex md:flex-row flex-col items-center mt-4 gap-10">
           <Link
-            className="group order-2 md:order-1 text-xl text-white font-medium flex flex-row md:gap-2 gap-1 items-center"
+            className="group order-2 md:order-1 text-xl text-white font-medium flex flex-row md:gap-2 gap-1 items-center cursor-pointer"
             href={"/#whyUsSection"}
           >
             Explore our Services
