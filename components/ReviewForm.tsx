@@ -89,6 +89,7 @@ export default function ReviewForm() {
                     label="Email"
                     name="email"
                     defaultValue={state.values?.email}
+                    error={state.values?.email}
                     placeholder="email@example.com"
                     type="email"
                   />
