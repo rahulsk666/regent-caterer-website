@@ -181,6 +181,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
                 alt="logo"
                 width={10}
                 height={10}
+                loading="eager"
                 className="object-contain sm:w-24 xs:w-20 h-auto"
               />
               <p

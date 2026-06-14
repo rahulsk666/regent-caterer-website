@@ -34,11 +34,11 @@ const ContactPage = () => {
           <div className="flex flex-col lg:pt-40 md:pt-20 gap-20 p-2 relative">
             <div className="relative md:block hidden">
               <DecorativeStar
-                alt="star-7"
+                alt="star-1"
                 className="md:block absolute hidden lg:w-46 md:w-24 h-auto bottom-[0%] left-[35%] opacity-80"
               />
               <DecorativeStar
-                alt="star-8"
+                alt="star-2"
                 className="md:block hidden lg:w-12 w-8 h-auto bottom-[0%] left-[35%] opacity-60"
               />
             </div>

@@ -9,11 +9,11 @@ export default function TestomonialsSection() {
     >
       <DecorativeStar
         alt="star-1"
-        className="lg:w-5 md:w-5 w-5 h-auto lg:top-[10%] lg:right-[28%] md:top-[12%] md:right-[11%] top-[9%] right-[14%] opacity-40"
+        className="lg:w-5 md:w-5 w-5 h-auto lg:top-[10%] lg:right-[28%] md:top-[12%] md:right-[11%] top-[4%] right-[14%] opacity-40"
       />
       <DecorativeStar
         alt="star-2"
-        className="lg:w-12 md:w-10 w-10 h-auto lg:top-[12%] lg:right-[26%] md:top-[14%] md:right-[7%] top-[10%] right-[8%] opacity-60"
+        className="lg:w-12 md:w-10 w-10 h-auto lg:top-[12%] lg:right-[26%] md:top-[14%] md:right-[7%] top-[5%] right-[8%] opacity-60"
       />
       <DecorativeStar
         alt="star-3"
