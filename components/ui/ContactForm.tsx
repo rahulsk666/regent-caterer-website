@@ -32,38 +32,47 @@ export default function ContactForm() {
     }
   });
   return (
-    <form action={formAction} className="space-y-4">
+    <form noValidate action={formAction} className="space-y-4">
       <UnderlineInput
         name="name"
         defaultValue={state.values?.name}
         error={state.errors?.name?.[0]}
         placeholder="Name"
+        className="font-monteserrat"
+        required
       />
       <UnderlineInput
         name="email"
         defaultValue={state.values?.email}
         error={state.errors?.email?.[0]}
+        className="font-monteserrat"
         placeholder="Email"
       />
       <UnderlineInput
         name="phone"
         defaultValue={state.values?.phone}
         error={state.errors?.phone?.[0]}
+        className="font-monteserrat"
         placeholder="Phone"
+        required
       />
       <UnderlineInput
         name="service"
         defaultValue={state.values?.service}
         error={state.errors?.service?.[0]}
+        className="font-monteserrat"
         placeholder="Service"
+        required
       />
       <UnderlineTextarea
         variant="plain"
         rows={3}
         defaultValue={state.values?.message}
         error={state.errors?.message?.[0]}
+        className="font-monteserrat"
         placeholder="Message"
         name="message"
+        required
       />
       <Button
         type="submit"

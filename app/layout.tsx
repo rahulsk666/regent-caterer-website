@@ -8,6 +8,7 @@ import {
   redHatDisplay,
   poppins,
   helmorin,
+  monteserrat,
 } from "@/lib/font";
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
@@ -37,6 +38,7 @@ export default function RootLayout({
         kapakana.variable,
         redHatDisplay.variable,
         helmorin.variable,
+        monteserrat.variable,
         "font-sans",
       )}
     >

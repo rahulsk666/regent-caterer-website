@@ -1,4 +1,4 @@
-import { Caveat, Inter, Poppins } from "next/font/google";
+import { Caveat, Inter, Montserrat, Poppins } from "next/font/google";
 import localFont from "next/font/local";
 
 export const poppins = Poppins({
@@ -20,6 +20,13 @@ export const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-inter",
+  style: ["normal"],
+});
+
+export const monteserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-monteserrat",
   style: ["normal"],
 });
 

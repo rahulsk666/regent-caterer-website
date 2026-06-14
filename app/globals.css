@@ -71,6 +71,7 @@
   --font-red-hat-display: var(--font-red-hat-display);
   --font-kapakana: var(--font-kapakana);
   --font-helmorin: var(--font-helmorin);
+  --font-monteserrat: var(--font-monteserrat);
 
   --color-button-gradient-primary: linear-gradient(
     to right,

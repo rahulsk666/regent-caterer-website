@@ -23,7 +23,7 @@ const ContactPage = () => {
             <p className="font-galgin text-golden-gradient text-3xl lg:text-8xl md:text-5xl">
               Contact Us
             </p>
-            <p className="lg:text-3xl md:text-xl text-sm">
+            <p className="lg:text-2xl md:text-xl text-sm font-monteserrat font-normal">
               Feel Free to contact us and We will get back to you as soon as we
               can
             </p>
@@ -47,7 +47,7 @@ const ContactPage = () => {
                 <p className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
                   Visit Us
                 </p>
-                <p className="text-base lg:text-lg">
+                <p className="text-base lg:text-lg font-monteserrat font-medium">
                   Moonlight Building, Mukkom Road Areekode, Malappuram,
                   <br />
                   Pin: 673639
@@ -57,8 +57,12 @@ const ContactPage = () => {
                 <p className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
                   Talk To Us
                 </p>
-                <p className="text-base lg:text-lg">+91 9876543210</p>
-                <p className="text-base lg:text-lg">regentcaterers@gmail.com</p>
+                <p className="text-base lg:text-lg font-monteserrat font-medium">
+                  +91 9876543210
+                </p>
+                <p className="text-base lg:text-lg font-monteserrat font-medium">
+                  regentcaterers@gmail.com
+                </p>
               </div>
               <div className="flex flex-row gap-4">
                 <Link href={"/"}>
