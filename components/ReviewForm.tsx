@@ -34,8 +34,6 @@ export default function ReviewForm() {
   });
 
   useEffect(() => {
-    console.log(state);
-
     if (state.success) {
       setIsFormOpen(false);
       setRating(0);
