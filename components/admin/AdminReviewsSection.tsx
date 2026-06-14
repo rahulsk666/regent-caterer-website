@@ -1,20 +1,22 @@
-import { Review } from "@/lib/types";
+import { ActionResult, Review } from "@/lib/types";
 import { StarDisplay } from "../ui/StarRating";
 import Toggle from "./Toggle";
 import Image from "next/image";
 import { IconStar, IconTrash } from "@tabler/icons-react";
+import { toast } from "sonner";
 
 interface AdminReviewsSectionProps {
   reviews: Review[];
+
   onUpdateReview: (
     id: number,
     updates: {
       approved?: boolean;
       highlightedHome?: boolean;
     },
-  ) => Promise<void>;
+  ) => Promise<ActionResult>;
 
-  onDeleteReview: (id: number) => Promise<void>;
+  onDeleteReview: (id: number) => Promise<ActionResult>;
 }
 
 export default function AdminReviewsSection({
@@ -22,6 +24,28 @@ export default function AdminReviewsSection({
   onUpdateReview,
   onDeleteReview,
 }: AdminReviewsSectionProps) {
+  const handleReviewUpdate = async (
+    id: number,
+    updates: {
+      approved?: boolean;
+      highlightedHome?: boolean;
+    },
+  ) => {
+    toast.promise(onUpdateReview(id, updates), {
+      loading: "Updating review...",
+      success: "Review updated",
+      error: "Failed to update review",
+    });
+  };
+
+  const handleReviewDelete = async (id: number) => {
+    toast.promise(onDeleteReview(id), {
+      loading: "Deleting review...",
+      success: "Review deleted",
+      error: "Failed to delete review",
+    });
+  };
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -74,6 +98,9 @@ export default function AdminReviewsSection({
                     </span>
                   )}
                 </div>
+                {r.designation && (
+                  <p className="text-xs text-slate-400">{r.designation}</p>
+                )}
                 <p className="text-sm text-slate-700 mt-2 leading-relaxed">
                   {r.review}
                 </p>
@@ -95,7 +122,7 @@ export default function AdminReviewsSection({
                   <Toggle
                     value={!!r.approved}
                     onChange={(v) =>
-                      onUpdateReview(r.id!, {
+                      handleReviewUpdate(r.id!, {
                         approved: v,
                         highlightedHome: false,
                       })
@@ -111,12 +138,14 @@ export default function AdminReviewsSection({
                     value={!!r.highlightedHome}
                     disabled={!r.approved}
                     onChange={(v) =>
-                      onUpdateReview(r.id!, { highlightedHome: v })
+                      handleReviewUpdate(r.id!, {
+                        highlightedHome: v,
+                      })
                     }
                   />
                 </div>
                 <button
-                  onClick={() => onDeleteReview(r.id!)}
+                  onClick={() => handleReviewDelete(r.id!)}
                   className="flex items-center justify-center gap-1.5 rounded-2xl bg-red-50 border border-red-200 px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-100"
                 >
                   <IconTrash className="w-3.5 h-3.5" />

@@ -5,13 +5,14 @@ import {
   deleteContact,
   deleteReview,
   deleteSectionImage,
+  getAllSectionImages,
   saveSectionImage,
   updateContact,
   updateReview,
   updateSectionImage,
 } from "@/lib/db";
 import { saveFile } from "@/lib/fileStorage";
-import { SectionImage } from "@/lib/types";
+import { ActionResult, SectionImage } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 
 export async function updateReviewAction(
@@ -21,15 +22,33 @@ export async function updateReviewAction(
     highlightedHome?: boolean;
   },
 ) {
-  await updateReview(id, updates);
+  try {
+    await updateReview(id, updates);
 
-  revalidatePath("/admin");
+    revalidatePath("/admin");
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to update review",
+    };
+  }
 }
 
 export async function deleteReviewAction(id: number) {
-  await deleteReview(id);
+  try {
+    await deleteReview(id);
 
-  revalidatePath("/admin");
+    revalidatePath("/admin");
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to delete review",
+    };
+  }
 }
 
 export async function markContactReadAction(id: number, read: boolean) {
@@ -47,7 +66,7 @@ export async function deleteContactAction(id: number) {
 export async function saveSectionImageAction(
   section: SectionImage["section"],
   file: File,
-) {
+): Promise<ActionResult> {
   try {
     const filePath = await saveFile(file, section);
 
@@ -80,14 +99,70 @@ export async function updateSectionImageAction(
     featured?: boolean;
     published?: boolean;
   },
-) {
-  await updateSectionImage(id, updates);
+): Promise<ActionResult> {
+  try {
+    await updateSectionImage(id, updates);
 
-  revalidatePath("/admin");
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to update image",
+    };
+  }
 }
 
-export async function deleteSectionImageAction(id: string) {
-  await deleteSectionImage(id);
+export async function deleteSectionImageAction(
+  id: string,
+): Promise<ActionResult> {
+  try {
+    const images = await getAllSectionImages();
 
-  revalidatePath("/admin");
+    const image = images.find((img) => img.id === id);
+
+    if (!image) {
+      return {
+        success: false,
+        error: "Image not found",
+      };
+    }
+
+    const protectedSection =
+      image.section === "delightful-moments" ||
+      image.section === "signature-collections";
+
+    if (protectedSection) {
+      const sectionCount = images.filter(
+        (img) => img.section === image.section,
+      ).length;
+
+      if (sectionCount <= 5) {
+        return {
+          success: false,
+          error: `At least 5 images are required in ${image.section}`,
+        };
+      }
+    }
+
+    await deleteSectionImage(id);
+
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to delete image",
+    };
+  }
 }

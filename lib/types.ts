@@ -7,6 +7,10 @@ export interface PointCardProps {
   point: Point;
 }
 
+export type ActionResult = {
+  success: boolean;
+  error?: string;
+};
 // ─────────────────────────────
 // Reviews
 // ─────────────────────────────

@@ -13,5 +13,6 @@ export default async function Testimonials() {
       src: review.image || "",
     };
   });
+
   return <AnimatedTestimonials testimonials={testomonial} />;
 }

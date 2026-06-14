@@ -18,7 +18,6 @@ export default function ReviewForm() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [resetKey, setResetKey] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
   const [state, formAction, isPending] = useActionState(createReviewAction, {
     success: false,
@@ -46,10 +45,6 @@ export default function ReviewForm() {
       toast.error("Failed to submit review.");
     }
   }, [state]);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   return (
     <div className="flex h-full w-full items-center justify-center m-10 container-app">

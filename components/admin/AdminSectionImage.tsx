@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
-import { SectionImage } from "@/lib/types";
+import { ActionResult, SectionImage } from "@/lib/types";
 import Toggle from "./Toggle";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,17 +19,14 @@ interface AdminSectionImagesProps {
       featured?: boolean;
       published?: boolean;
     },
-  ) => Promise<void>;
+  ) => Promise<ActionResult>;
 
-  onDeleteImage: (id: string) => Promise<void>;
+  onDeleteImage: (id: string) => Promise<ActionResult>;
 
   onUploadImage: (
     section: SectionImage["section"],
     file: File,
-  ) => Promise<{
-    success: boolean;
-    error?: string;
-  }>;
+  ) => Promise<ActionResult>;
 }
 
 const sections: {
@@ -62,12 +59,60 @@ export default function AdminSectionImages({
     null,
   );
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  const handleUpload = async (section: SectionImage["section"], file: File) => {
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error("Image size must be less than 10 MB");
+      return;
+    }
+
+    setUploading(section);
+
+    try {
+      toast.promise(onUploadImage(section, file), {
+        loading: "Uploading image...",
+        success: (result) => {
+          if (!result.success) {
+            throw new Error(result.error);
+          }
+          return "Image uploaded successfully";
+        },
+        error: (error) =>
+          error instanceof Error ? error.message : "Failed to upload image",
+      });
+    } finally {
+      setUploading(null);
+    }
+  };
+
+  const handleUpdateImage = async (
+    id: string,
+    updates: {
+      featured?: boolean;
+      published?: boolean;
+    },
+  ) => {
+    await toast.promise(onUpdateImage(id, updates), {
+      loading: "Updating image...",
+      success: "Image updated",
+      error: "Failed to update image",
+    });
+  };
+
+  const handleDeleteImage = async (id: string) => {
+    await toast.promise(onDeleteImage(id), {
+      loading: "Deleting image...",
+      success: "Image deleted",
+      error: "Failed to delete image",
+    });
+  };
+
   return (
     <div className="space-y-8">
       {sections.map((section) => {
         const sectionImages = images.filter(
           (img) => img.section === section.key,
         );
+        const canDelete = sectionImages.length > 5;
 
         return (
           <div key={section.key}>
@@ -86,26 +131,10 @@ export default function AdminSectionImages({
                     onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
-                      if (file.size > MAX_FILE_SIZE) {
-                        toast.error("Image size must be less than 10 MB");
-                        e.target.value = "";
-                        return;
-                      }
-                      try {
-                        setUploading(section.key);
-                        const result = await onUploadImage(section.key, file);
-                        if (!result.success) {
-                          toast.error(result.error || "Upload failed");
-                          return;
-                        }
-                        toast.success("Image uploaded");
-                        router.refresh();
-                      } catch (error) {
-                        console.error(error);
-                        toast.error("Upload failed");
-                      } finally {
-                        setUploading(null);
-                      }
+
+                      await handleUpload(section.key, file);
+
+                      e.target.value = "";
                     }}
                   />
 
@@ -145,7 +174,7 @@ export default function AdminSectionImages({
                         <Toggle
                           value={!!image.published}
                           onChange={(value) =>
-                            onUpdateImage(image.id, {
+                            handleUpdateImage(image.id, {
                               published: value,
                             })
                           }
@@ -159,7 +188,7 @@ export default function AdminSectionImages({
                           value={!!image.featured}
                           disabled={!image.published}
                           onChange={(value) =>
-                            onUpdateImage(image.id, {
+                            handleUpdateImage(image.id, {
                               featured: value,
                             })
                           }
@@ -167,8 +196,13 @@ export default function AdminSectionImages({
                       </div>
 
                       <button
-                        onClick={() => onDeleteImage(image.id)}
-                        className="w-full flex items-center justify-center gap-2 rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-100"
+                        disabled={!canDelete}
+                        onClick={() => handleDeleteImage(image.id)}
+                        className={`w-full flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium ${
+                          canDelete
+                            ? "border border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
+                            : "border border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed"
+                        }`}
                       >
                         <IconTrash size={14} />
                         Delete
