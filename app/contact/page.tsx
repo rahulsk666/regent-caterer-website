@@ -24,7 +24,7 @@ const ContactPage = () => {
               Contact Us
             </p>
             <p className="lg:text-2xl md:text-xl text-sm font-monteserrat font-normal">
-              Feel Free to contact us and We will get back to you as soon as we
+              Feel free to contact us and We will get back to you as soon as we
               can
             </p>
             <div className="flex flex-col gap-4 mt-4">
