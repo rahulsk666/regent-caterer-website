@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="flex flex-col text-foreground-muted mt-5 lg:text-xl text-lg">
             <p className="text-foreground-secondary">Important Links</p>
             <Link
-              href="/#homeSection"
+              href="/#home"
               className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Home
@@ -123,7 +123,7 @@ export default function Footer() {
               <p className="text-foreground-secondary">Important Links</p>
               <Link
                 href="/#homeSection"
-                as={"/"}
+                as={"/#home"}
                 className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
               >
                 Home
