@@ -187,8 +187,9 @@ export default function AdminSectionImages({
                     <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                       <Image
                         src={image.image}
-                        alt=""
+                        alt="images"
                         fill
+                        sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                         className="object-cover"
                       />
                     </div>
