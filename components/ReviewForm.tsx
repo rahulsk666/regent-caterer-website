@@ -82,7 +82,7 @@ export default function ReviewForm() {
           >
             <div className="grid grid-cols-1 gap-8 h-full mt-10 mb-0">
               {/* Name */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-8">
                 <div className="space-y-2 w-full">
                   <UnderlineInput
                     name="name"
@@ -106,7 +106,7 @@ export default function ReviewForm() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-8">
                 {/* Designation */}
                 <div className="space-y-2 w-full">
                   <UnderlineInput
@@ -126,7 +126,7 @@ export default function ReviewForm() {
                     onChange={setRating}
                     label="Star Rating"
                     required
-                    size={isMobile ? 16 : 32}
+                    size={32}
                     error={state?.errors?.rating?.[0]}
                   />
                   <input type="hidden" name="rating" value={rating} />

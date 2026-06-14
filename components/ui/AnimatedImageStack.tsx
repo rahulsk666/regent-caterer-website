@@ -11,7 +11,7 @@ export default function AnimatedImageStack({
 }: AnimatedImageStackProps) {
   return (
     <div className="lg:py-20 py-10 overflow-x-auto overflow-y-hidden lg:overflow-visible scrollbar-none">
-      <div className="flex justify-center md:justify-center w-max lg:w-auto">
+      <div className="flex justify-center w-max lg:w-auto">
         {images.map((image, idx) => (
           <motion.div
             key={idx}

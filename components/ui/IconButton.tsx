@@ -34,6 +34,7 @@ export default function IconButton({
           alt={alt}
           width={100}
           height={100}
+          loading="eager"
           className={`w-full h-full rounded-full object-contain transition-all duration-300 ${imageClassname}`}
         />
       </div>

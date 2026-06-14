@@ -5,7 +5,7 @@ export default function TestomonialsSection() {
   return (
     <section
       id="testimonialsSections"
-      className="min-h-full relative py-30 bg-peach-50 overflow-hidden"
+      className="min-h-full relative md:pt-30 pt-10 bg-peach-50 overflow-hidden"
     >
       <DecorativeStar
         alt="star-1"

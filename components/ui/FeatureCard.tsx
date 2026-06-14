@@ -18,7 +18,7 @@ export default function FeatureCard({
     <div
       className={twMerge(
         className,
-        "absolute lg:relative inset-x-0 lg:inset-auto flex flex-col gap-1 p-4 shadow-lg rounded-2xl bg-dark-200 lg:h-full lg:w-full md:w-[50vh] md:h-[20vh] w-[35vh] h-[25vh]",
+        "absolute lg:relative inset-x-0 lg:inset-auto flex flex-col lg:gap-2 gap-4 p-4 shadow-lg rounded-2xl bg-card-background lg:h-full lg:w-full",
       )}
     >
       <div className="m-1">
@@ -31,11 +31,11 @@ export default function FeatureCard({
         />
       </div>
 
-      <p className="font-bold lg:text-xl text-xl whitespace-nowrap text-foreground-primary">
+      <p className="font-bold text-xl whitespace-nowrap text-foreground-primary">
         {title}
       </p>
 
-      <p className="lg:text-lg text-base">{description}</p>
+      <p className="lg:text-lg text-xl pr-2 pb-5">{description}</p>
     </div>
   );
 }

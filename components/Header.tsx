@@ -20,11 +20,32 @@ export default function Header({ variant = "light" }: HeaderProps) {
   };
 
   useEffect(() => {
+    let lastDirection = 0;
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width: 680px)", () => {
+      ScrollTrigger.create({
+        start: 10,
+        scrub: 1,
+        onEnter: () => {
+          gsap.to(".nav-mob", {
+            translateX: 100,
+            opacity: 0,
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(".nav-mob", {
+            translateX: 0,
+            opacity: 1,
+          });
+        },
+      });
+    });
+
     if (variant == "dark") {
       return;
     }
-    let lastDirection = 0;
-    const mm = gsap.matchMedia();
+
     mm.add("(min-width: 680px)", () => {
       ScrollTrigger.create({
         start: 850,
@@ -65,25 +86,6 @@ export default function Header({ variant = "light" }: HeaderProps) {
               ease: "power2.out",
             });
           }
-        },
-      });
-    });
-
-    mm.add("(max-width: 680px)", () => {
-      ScrollTrigger.create({
-        start: 10,
-        scrub: 1,
-        onEnter: () => {
-          gsap.to(".nav-mob", {
-            translateX: 100,
-            opacity: 0,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(".nav-mob", {
-            translateX: 0,
-            opacity: 1,
-          });
         },
       });
     });

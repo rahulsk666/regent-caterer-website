@@ -78,9 +78,13 @@ export default function ContactForm() {
         type="submit"
         variant="custom"
         disabled={isPending}
-        className="group/submit w-full h-10 mb-5 gap-2 rounded-xl bg-golden-200 font-galgin text-2xl disabled:opacity-70 disabled:cursor-not-allowed"
+        className="group/submit w-full h-10 py-7 mb-5 gap-2 rounded-full font-galgin text-2xl disabled:opacity-70 disabled:cursor-not-allowed"
+        style={{
+          background:
+            "linear-gradient(108.46deg, rgba(241, 214, 143, 0.33) 0%, rgba(250, 241, 218, 0.33) 100% )",
+        }}
       >
-        <p className="text-golden-gradient">Submit</p>
+        <p className="text-golden-gradient">Send</p>
         <IconArrowUpRight className="w-6 h-auto text-golden-400 group-hover/submit:rotate-45 transition-all duration-300 ease-in-out" />
       </Button>
     </form>

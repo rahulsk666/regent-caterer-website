@@ -17,8 +17,8 @@ const ContactPage = () => {
       {/* Page Header */}
       <Header variant="dark" />
       {/* Main Content */}
-      <section id="contactSection" className="min-h-screen container-app">
-        <div className="min-h-full md:gap-30 grid md:grid-cols-2 md:grid-rows-1 grid-rows-2 pt-40 items-center justify-center">
+      <section id="contactSection" className="min-h-full container-app">
+        <div className="min-h-full md:gap-30 grid md:grid-cols-2 md:grid-rows-1 grid-rows-2 lg:pt-40 md:pt-30 pt-20 md:pb-20 pb-5 md:items-center justify-center">
           <div className="flex flex-col gap-2">
             <p className="font-galgin text-golden-gradient text-3xl lg:text-8xl md:text-5xl">
               Contact Us

@@ -15,8 +15,8 @@ export default async function SignatureCollectionsSection() {
       id="signatureCollectionsSections"
       className="min-h-full bg-peach-50 overflow-hidden"
     >
-      <div className="h-full flex flex-col lg:py-15 py-10">
-        <p className="text-2xl md:text-6xl p-10 text-center font-galgin text-golden-gradient container-app">
+      <div className="h-full flex flex-col lg:py-15 py-10 ">
+        <p className="text-3xl md:text-6xl p-10 text-center font-galgin text-golden-gradient container-app">
           Signature Cultures & Premium <br /> Counter Collections
         </p>
         <AnimatedImageStack images={images} />
