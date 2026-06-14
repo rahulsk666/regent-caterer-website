@@ -1,18 +1,37 @@
-import { ContactSubmission } from "@/lib/types";
+import { ActionResult, ContactSubmission } from "@/lib/types";
 import { IconTrash } from "@tabler/icons-react";
+import router from "next/router";
+import { toast } from "sonner";
 
 interface AdminContactsSectionProps {
   contacts: ContactSubmission[];
 
-  onMarkRead: (id: number, read: boolean) => Promise<void>;
+  onMarkRead: (id: number, read: boolean) => Promise<ActionResult>;
 
-  onDelete: (id: number) => void;
+  onDeleteContact: (id: number) => Promise<ActionResult>;
 }
 export default function AdminContactSection({
   contacts,
   onMarkRead,
-  onDelete,
+  onDeleteContact,
 }: AdminContactsSectionProps) {
+  const handleMarkRead = async (id: number, read: boolean) => {
+    toast.promise(onMarkRead(id, read), {
+      loading: "Updating contact...",
+      success: (result) =>
+        result.success ? "Contact updated" : (result.error ?? "Update failed"),
+      error: "Failed to update contact",
+    });
+  };
+
+  const handleDeleteContact = async (id: number) => {
+    toast.promise(onDeleteContact(id), {
+      loading: "Deleting contact...",
+      success: (result) =>
+        result.success ? "Contact deleted" : (result.error ?? "Delete failed"),
+      error: "Failed to delete contact",
+    });
+  };
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -67,7 +86,7 @@ export default function AdminContactSection({
               </div>
               <div className="flex flex-col gap-2 shrink-0">
                 <button
-                  onClick={() => onMarkRead(c.id!, !c.read)}
+                  onClick={() => handleMarkRead(c.id!, !c.read)}
                   className="rounded-2xl border border-slate-200 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
                 >
                   {c.read ? "Mark unread" : "Mark read"}
@@ -79,7 +98,7 @@ export default function AdminContactSection({
                   Reply by email
                 </a>
                 <button
-                  onClick={() => onDelete(c.id!)}
+                  onClick={() => handleDeleteContact(c.id!)}
                   className="flex items-center justify-center gap-1.5 rounded-2xl bg-red-50 border border-red-200 px-4 py-2 text-xs font-medium text-red-600 hover:bg-red-100"
                 >
                   <IconTrash className="w-3.5 h-3.5" />

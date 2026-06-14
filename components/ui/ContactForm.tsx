@@ -27,10 +27,12 @@ export default function ContactForm() {
         "Thank you for contacting us! We will get back to you soon.",
       );
     }
+
     if (state.error) {
       toast.error(state.error);
     }
-  });
+  }, [state]);
+
   return (
     <form noValidate action={formAction} className="space-y-4">
       <UnderlineInput

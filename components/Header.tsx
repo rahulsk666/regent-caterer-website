@@ -216,16 +216,20 @@ export default function Header({ variant = "light" }: HeaderProps) {
                   : "text-golden-gradient",
               )}
             >
-              <Link href="/" className="">
+              <Link href="/" onClick={toggleMenu} className="">
                 Home
               </Link>
-              <Link href="/#aboutSection" className="">
+              <Link href="/#aboutSection" onClick={toggleMenu} className="">
                 About US
               </Link>
-              <Link href="/#whyUsSection" className="">
+              <Link href="/#whyUsSection" onClick={toggleMenu} className="">
                 Why Us
               </Link>
-              <Link href="/#testimonialsSections" className="">
+              <Link
+                href="/#testimonialsSections"
+                onClick={toggleMenu}
+                className=""
+              >
                 Testomonials
               </Link>
               <Link href="/" className="">

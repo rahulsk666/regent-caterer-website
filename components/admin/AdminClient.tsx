@@ -77,7 +77,7 @@ export default function AdminClient({
           <AdminContactSection
             contacts={contacts}
             onMarkRead={markContactReadAction}
-            onDelete={deleteContactAction}
+            onDeleteContact={deleteContactAction}
           />
         )}
       </div>

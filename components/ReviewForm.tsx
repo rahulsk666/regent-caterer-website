@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Button from "./ui/Button";
 import { IconPencilFilled } from "@tabler/icons-react";
 import { useActionState, useEffect, useRef, useState } from "react";
@@ -52,17 +51,12 @@ export default function ReviewForm() {
         <Button
           onClick={() => setIsFormOpen(true)}
           variant="custom"
-          className="bg-linear-[108deg] from-golden-200 from-0% to-golden-100 to-100% px-20"
+          className="bg-linear-[108deg] from-golden-200 from-0% to-golden-100 to-100% px-20 gap-2"
         >
-          <Link
-            className="flex flex-row justify-center items-center gap-2"
-            href={"/"}
-          >
-            <p className="text-golden-gradient lg:text-3xl md:text-xl text-xl">
-              Write a Review
-            </p>
-            <IconPencilFilled className="lg:w-8 w-6 h-auto text-golden-500" />
-          </Link>
+          <p className="text-golden-gradient lg:text-3xl md:text-xl text-xl">
+            Write a Review
+          </p>
+          <IconPencilFilled className="lg:w-8 w-6 h-auto text-golden-500" />
         </Button>
       ) : (
         <div className="lg:w-[75%] w-full h-full">

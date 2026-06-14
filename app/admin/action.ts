@@ -51,16 +51,39 @@ export async function deleteReviewAction(id: number) {
   }
 }
 
-export async function markContactReadAction(id: number, read: boolean) {
-  await updateContact(id, read);
+export async function markContactReadAction(
+  id: number,
+  read: boolean,
+): Promise<ActionResult> {
+  try {
+    await updateContact(id, read);
 
-  revalidatePath("/admin");
+    revalidatePath("/admin");
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Failed to update contact",
+    };
+  }
 }
 
-export async function deleteContactAction(id: number) {
-  await deleteContact(id);
+export async function deleteContactAction(id: number): Promise<ActionResult> {
+  try {
+    await deleteContact(id);
 
-  revalidatePath("/admin");
+    revalidatePath("/admin");
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Failed to delete contact",
+    };
+  }
 }
 
 export async function saveSectionImageAction(
