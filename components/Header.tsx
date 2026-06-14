@@ -173,25 +173,46 @@ export default function Header({ variant = "light" }: HeaderProps) {
           <div className="p-6 m-2">
             <div className="flex flex-row justify-center w-full">
               <Image
-                src={"/svg/logo-white.svg"}
-                alt="logo-white"
+                src={
+                  variant == "light" ? "/svg/logo-white.svg" : "/svg/logo.svg"
+                }
+                alt="logo"
                 width={10}
                 height={10}
                 className="object-contain sm:w-24 xs:w-20 h-auto"
               />
-              <p className="font-galgin sm:text-5xl xs:text-4xl text-foreground-secondary">
+              <p
+                className={twMerge(
+                  "font-galgin sm:text-5xl xs:text-4xl",
+                  variant == "light"
+                    ? "text-foreground-secondary"
+                    : "text-golden-gradient",
+                )}
+              >
                 Regent Caterers
               </p>
 
               <Button
                 variant="rounded"
                 onClick={toggleMenu}
-                className="sm:size-12 xs:size-10 m-0"
+                className={twMerge(
+                  "sm:size-12 xs:size-10 m-0",
+                  variant == "light"
+                    ? "text-foreground-secondary"
+                    : "text-golden-gradient",
+                )}
               >
                 ✕
               </Button>
             </div>
-            <div className="flex flex-col gap-10 sm:text-4xl xs:text-3xl mt-10 m-5 font-caveat text-foreground-secondary">
+            <div
+              className={twMerge(
+                "flex flex-col gap-10 sm:text-4xl xs:text-3xl mt-10 m-5 font-caveat",
+                variant == "light"
+                  ? "text-foreground-secondary"
+                  : "text-golden-gradient",
+              )}
+            >
               <Link href="/" className="">
                 Home
               </Link>
