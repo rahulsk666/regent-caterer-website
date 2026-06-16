@@ -137,9 +137,10 @@ export default function ReviewForm() {
               </div>
 
               {/* File Upload */}
-              <div className="space-y-2 w-[50%]">
+              <div className="space-y-2 w-full md:w-[50%]">
                 <UnderlineFileUpload
                   key={resetKey}
+                  accept="image/*"
                   name="file"
                   label="Your Photo"
                 />

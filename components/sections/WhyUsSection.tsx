@@ -60,7 +60,7 @@ export default function WhyUsSection() {
         });
 
         tl.to(".feature-stack", {
-          height: "40vh",
+          height: "48vh",
         });
 
         tl.to(".stats-stack", {
@@ -78,7 +78,7 @@ export default function WhyUsSection() {
             right: 0,
           });
           gsap.set(".feature-stack", {
-            height: "60vh",
+            height: "40vh",
           });
           gsap.set(".stats-stack", {
             opacity: 0,
@@ -108,7 +108,7 @@ export default function WhyUsSection() {
         });
 
         tl.to(".feature-stack", {
-          height: "40vh",
+          height: "35vh",
         });
 
         tl.to(".stats-stack", {

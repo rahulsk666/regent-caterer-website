@@ -42,7 +42,7 @@ export const AnimatedTestimonials = ({
 
   return (
     <div className="mx-auto max-w-sm px-4 md:py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
-      <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
+      <div className="relative grid grid-cols-1 md:gap-20 gap-10 md:grid-cols-2">
         <div>
           <div className="relative h-80 w-full">
             <AnimatePresence>
@@ -91,7 +91,7 @@ export const AnimatedTestimonials = ({
             </AnimatePresence>
           </div>
         </div>
-        <div className="flex flex-col justify-between py-4">
+        <div className="flex flex-col justify-between md:pb-4">
           <motion.div
             key={active}
             initial={{ y: 20, opacity: 0 }}
@@ -123,18 +123,18 @@ export const AnimatedTestimonials = ({
               ))}
             </motion.p>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-6 md:justify-start justify-center">
+          <div className="flex gap-4 pt-6 md:justify-start justify-center">
             <Button
               variant="carousel"
               onClick={handlePrev}
-              className="w-14 h-14 md:w-12 md:h-12 cursor-pointer"
+              className="w-14 h-14 cursor-pointer"
             >
               <IconArrowLeft className="h-6 w-6 text-golden-500 transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
             </Button>
             <Button
               variant="carousel"
               onClick={handleNext}
-              className="w-14 h-14 md:w-12 md:h-12 cursor-pointer"
+              className="w-14 h-14 cursor-pointer"
             >
               <IconArrowRight className="h-6 w-6 text-golden-500 transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
             </Button>
