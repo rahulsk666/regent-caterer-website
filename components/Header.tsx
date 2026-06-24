@@ -268,7 +268,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
               >
                 Testomonials
               </Link>
-              <Link href="/" className="">
+              <Link href="/gallery/all" className="">
                 Gallery
               </Link>
               <Link href="/contact" className="">
