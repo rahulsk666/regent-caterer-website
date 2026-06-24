@@ -4,8 +4,10 @@
 import type {
   ContactDetails,
   ContactSubmission,
+  GalleryType,
   Review,
   SectionImage,
+  SectionVideo,
 } from "@/lib/types";
 import { deleteFile } from "./fileStorage";
 // import { testimonials } from "./data";
@@ -46,10 +48,22 @@ interface ContactRow {
 
 interface SectionImageRow {
   id: string;
-  image: string;
+  url: string;
   section: "delightful-moments" | "signature-collections" | "gallery";
   featured: number;
   published: number;
+  media_type?: "image" | "video";
+  gallery_type?: GalleryType;
+}
+
+interface SectionVideoRow {
+  id: string;
+  url: string;
+  section: "delightful-moments" | "signature-collections" | "gallery";
+  featured: number;
+  published: number;
+  media_type?: "image" | "video";
+  gallery_type?: GalleryType;
 }
 
 // interface MenuCategoryRow {
@@ -125,48 +139,26 @@ function rowToContact(row: ContactRow): ContactSubmission {
 function rowToSectionImage(row: SectionImageRow): SectionImage {
   return {
     id: row.id,
-    image: row.image,
+    url: row.url,
     section: row.section,
     featured: Boolean(row.featured),
     published: Boolean(row.published),
+    mediaType: row.media_type,
+    galleryType: row.gallery_type as GalleryType,
   };
 }
 
-// function rowToMenuCategory(row: MenuCategoryRow): MenuCategory {
-//   return {
-//     id: row.id,
-//     name: row.name,
-//     description: row.description || undefined,
-//     image: row.image || undefined,
-//     published: Boolean(row.published),
-//   };
-// }
-
-// function rowToMenuItem(row: MenuItemRow): MenuItem {
-//   return {
-//     id: row.id,
-//     categoryId: row.categoryId,
-//     name: row.name,
-//     description: row.description || undefined,
-//     price: row.price,
-//     image: row.image || undefined,
-//     featured: Boolean(row.featured),
-//     published: Boolean(row.published),
-//   };
-// }
-
-// function rowToService(row: ServiceRow): Service {
-//   return {
-//     id: row.id,
-//     title: row.title,
-//     description: row.description,
-//     image: row.image || undefined,
-//     startingPrice: row.startingPrice || undefined,
-//     features: JSON.parse(row.features),
-//     featured: Boolean(row.featured),
-//     published: Boolean(row.published),
-//   };
-// }
+function rowToSectionVideo(row: SectionVideoRow): SectionVideo {
+  return {
+    id: row.id,
+    url: row.url,
+    section: row.section,
+    featured: Boolean(row.featured),
+    published: Boolean(row.published),
+    mediaType: row.media_type,
+    galleryType: row.gallery_type as GalleryType,
+  };
+}
 
 function rowToContactDetails(row: ContactDetailsRow): ContactDetails {
   return {
@@ -582,7 +574,7 @@ export async function updateReview(
     // delete old image only after successful DB update
     if (oldImage) {
       try {
-        await deleteFile(oldImage);
+        await deleteFile({ url: oldImage });
       } catch (error) {
         console.error("Failed to delete old image:", oldImage, error);
       }
@@ -615,7 +607,7 @@ export async function deleteReview(id: number): Promise<void> {
     // Delete image only after successful DB deletion
     if (review.image) {
       try {
-        await deleteFile(review.image);
+        await deleteFile({ url: review.image });
       } catch (error) {
         console.error("Failed to delete review image:", review.image, error);
       }
@@ -695,6 +687,191 @@ export async function deleteContact(id: number): Promise<void> {
   }
 }
 
+// ── Section Videos ────────────────────────────────────────────────────────────────
+
+export async function getAllSectionVideos(): Promise<SectionVideo[]> {
+  const result = await db.execute(`
+    SELECT *
+    FROM section_images
+    WHERE media_type = 'video'
+    ORDER BY section ASC
+  `);
+
+  return result.rows.map((row) =>
+    rowToSectionVideo(row as unknown as SectionVideoRow),
+  );
+}
+
+export async function getSectionVideos(
+  galleryType: GalleryType,
+): Promise<SectionVideo[]> {
+  const result = await db.execute({
+    sql: `
+        SELECT *
+        FROM section_images
+        WHERE section = 'gallery'
+        AND media_type = 'video'
+        AND published = true
+        AND gallery_type = ?
+      `,
+    args: [galleryType],
+  });
+
+  return result.rows.map((row) =>
+    rowToSectionVideo(row as unknown as SectionVideoRow),
+  );
+}
+
+export async function saveSectionVideo(video: SectionVideo): Promise<void> {
+  const result = await db.execute({
+    sql: `
+      SELECT *
+      FROM section_images
+      WHERE id = ?
+    `,
+    args: [video.id],
+  });
+
+  const row = result.rows[0];
+
+  const existing = row ? (row as unknown as SectionVideoRow) : undefined;
+
+  const oldVideo =
+    existing && existing.url && existing.url !== video.url
+      ? existing.url
+      : undefined;
+
+  await db.execute({
+    sql: `
+      INSERT INTO section_images
+      (
+        id,
+        url,
+        section,
+        featured,
+        published,
+        media_type,
+        gallery_type
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(id)
+      DO UPDATE SET
+        url = excluded.url,
+        section = excluded.section,
+        featured = excluded.featured,
+        published = excluded.published,
+        media_type = excluded.media_type,
+        gallery_type = excluded.gallery_type
+    `,
+    args: [
+      video.id,
+      video.url,
+      video.section,
+      video.featured ? 1 : 0,
+      video.published ? 1 : 0,
+      video.mediaType || "video",
+      video.galleryType || "none",
+    ],
+  });
+
+  if (oldVideo) {
+    try {
+      await deleteFile({ url: oldVideo });
+    } catch (error) {
+      console.error("Failed to delete old video:", oldVideo, error);
+    }
+  }
+}
+
+export async function updateSectionVideo(
+  id: string,
+  updates: {
+    featured?: boolean;
+    published?: boolean;
+  },
+): Promise<void> {
+  const result = await db.execute({
+    sql: `
+      SELECT *
+      FROM section_images
+      WHERE id = ?
+    `,
+    args: [id],
+  });
+
+  const row = result.rows[0];
+
+  if (!row) {
+    throw new Error("Video not found");
+  }
+
+  const existing = row as unknown as SectionVideoRow;
+
+  await db.execute({
+    sql: `
+      UPDATE section_images
+      SET
+        featured = ?,
+        published = ?
+      WHERE id = ?
+    `,
+    args: [
+      updates.featured === undefined
+        ? existing.featured
+        : updates.featured
+          ? 1
+          : 0,
+
+      updates.published === undefined
+        ? existing.published
+        : updates.published
+          ? 1
+          : 0,
+
+      id,
+    ],
+  });
+}
+
+export async function deleteSectionVideo(id: string): Promise<void> {
+  try {
+    const result = await db.execute({
+      sql: `
+        SELECT *
+        FROM section_images
+        WHERE id = ?
+      `,
+      args: [id],
+    });
+
+    const row = result.rows[0];
+
+    if (!row) return;
+
+    const video = row as unknown as SectionVideoRow;
+
+    await db.execute({
+      sql: `
+        DELETE FROM section_images
+        WHERE id = ?
+      `,
+      args: [id],
+    });
+
+    if (video.url) {
+      try {
+        await deleteFile({ url: video.url });
+      } catch (error) {
+        console.error("Failed to delete video:", video.url, error);
+      }
+    }
+  } catch (error) {
+    console.error(`Failed to delete section video ${id}:`, error);
+
+    throw error;
+  }
+}
+
 // ── Section Images ────────────────────────────────────────────────────────────────
 
 export async function getAllSectionImages(): Promise<SectionImage[]> {
@@ -702,6 +879,7 @@ export async function getAllSectionImages(): Promise<SectionImage[]> {
     `
       SELECT *
       FROM section_images
+      WHERE media_type = 'image'
       ORDER BY section ASC
     `,
   );
@@ -713,12 +891,31 @@ export async function getAllSectionImages(): Promise<SectionImage[]> {
 
 export async function getSectionImages(
   section: SectionImage["section"],
+  galleryType?: GalleryType,
 ): Promise<SectionImage[]> {
+  if (section === "gallery" && galleryType && galleryType !== "none") {
+    const result = await db.execute({
+      sql: `
+      SELECT *
+      FROM section_images
+      WHERE section = ?
+      AND published = true
+      AND media_type = 'image'
+      AND gallery_type = ?
+    `,
+      args: [section, galleryType],
+    });
+    return result.rows.map((row) =>
+      rowToSectionImage(row as unknown as SectionImageRow),
+    );
+  }
   const result = await db.execute({
     sql: `
       SELECT *
       FROM section_images
       WHERE section = ?
+      AND published = true
+      AND media_type = 'image'
     `,
     args: [section],
   });
@@ -743,8 +940,8 @@ export async function saveSectionImage(image: SectionImage): Promise<void> {
   const existing = row ? (row as unknown as SectionImageRow) : undefined;
 
   const oldImage =
-    existing && existing.image && existing.image !== image.image
-      ? existing.image
+    existing && existing.url && existing.url !== image.url
+      ? existing.url
       : undefined;
 
   await db.execute({
@@ -752,31 +949,37 @@ export async function saveSectionImage(image: SectionImage): Promise<void> {
       INSERT INTO section_images
       (
         id,
-        image,
+        url,
         section,
         featured,
-        published
+        published,
+        media_type,
+        gallery_type
       )
-      VALUES (?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(id)
       DO UPDATE SET
-        image = excluded.image,
+        url = excluded.url,
         section = excluded.section,
         featured = excluded.featured,
-        published = excluded.published
+        published = excluded.published,
+        media_type = excluded.media_type,
+        gallery_type = excluded.gallery_type
     `,
     args: [
       image.id,
-      image.image,
+      image.url,
       image.section,
       image.featured ? 1 : 0,
       image.published ? 1 : 0,
+      image.mediaType || "image",
+      image.galleryType || "none",
     ],
   });
 
   if (oldImage) {
     try {
-      await deleteFile(oldImage);
+      await deleteFile({ url: oldImage });
     } catch (error) {
       console.error("Failed to delete old image:", oldImage, error);
     }
@@ -858,11 +1061,11 @@ export async function deleteSectionImage(id: string): Promise<void> {
       args: [id],
     });
 
-    if (image.image) {
+    if (image.url) {
       try {
-        await deleteFile(image.image);
+        await deleteFile({ url: image.url });
       } catch (error) {
-        console.error("Failed to delete image:", image.image, error);
+        console.error("Failed to delete image:", image.url, error);
       }
     }
   } catch (error) {

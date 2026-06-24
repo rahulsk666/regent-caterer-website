@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Button from "../ui/Button";
+import Button from "../ui/CustomButton";
 import Image from "next/image";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { DecorativeStar } from "../ui/DecorativeStar";

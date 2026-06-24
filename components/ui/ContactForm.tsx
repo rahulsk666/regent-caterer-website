@@ -1,7 +1,7 @@
 "use client";
 
 import { IconArrowUpRight } from "@tabler/icons-react";
-import Button from "./Button";
+import Button from "./CustomButton";
 import { UnderlineInput, UnderlineTextarea } from "./Input";
 import { useActionState, useEffect } from "react";
 import { createContactAction } from "@/app/contact/action";

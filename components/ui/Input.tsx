@@ -311,6 +311,7 @@ interface UnderlineFileUploadProps extends Omit<
   error?: string;
   /** URL of an already-saved image (e.g. when editing an existing record) */
   existingImage?: string;
+  existingImageName?: string;
   /** Called when the user clears the existing image */
   onClearExisting?: () => void;
   resetTrigger?: number;
@@ -325,6 +326,7 @@ function UnderlineFileUpload({
   multiple,
   onChange,
   existingImage,
+  existingImageName,
   onClearExisting,
   ...props
 }: UnderlineFileUploadProps) {
@@ -341,7 +343,8 @@ function UnderlineFileUpload({
   }, [existingImage]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFiles(Array.from(e.target.files ?? []));
+    const selectedFiles = Array.from(e.target.files ?? []);
+    setFiles(selectedFiles);
     onChange?.(e);
   };
 
@@ -370,6 +373,9 @@ function UnderlineFileUpload({
   const showExisting = !!existingImage && files.length === 0;
   const hasFiles = files.length > 0;
   const isEmpty = !showExisting && !hasFiles;
+  const existingFileName = existingImageName
+    ? existingImageName
+    : existingImage?.split("/").pop();
 
   return (
     <FieldWrapper
@@ -425,7 +431,7 @@ function UnderlineFileUpload({
           <div className="w-full space-y-2">
             <FileRow
               preview={existingImage}
-              name={existingImage.split("/").pop() ?? "Current image"}
+              name={existingFileName ?? "Current image"}
               onRemove={handleClearExisting}
             />
             <ReplaceHint />
@@ -487,9 +493,10 @@ interface FileRowProps {
   name: string;
   meta?: string;
   onRemove: (e: React.MouseEvent) => void;
+  disabled?: boolean;
 }
 
-function FileRow({ preview, name, meta, onRemove }: FileRowProps) {
+function FileRow({ preview, name, meta, onRemove, disabled }: FileRowProps) {
   return (
     <div className="flex items-center gap-3 rounded-sm border border-dark-100 bg-background-elevated px-3 py-2">
       {preview ? (
@@ -518,12 +525,13 @@ function FileRow({ preview, name, meta, onRemove }: FileRowProps) {
       )}
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-medium font-poppins">{name}</p>
+        <p className="text-xs font-medium font-poppins">{name}</p>
         {meta && <p className="text-xs text-foreground-primary/50">{meta}</p>}
       </div>
 
       <button
         type="button"
+        disabled={disabled}
         onClick={onRemove}
         className="shrink-0 rounded-full p-1 text-foreground-primary/40 hover:bg-dark-100 hover:text-foreground-primary transition-colors"
         aria-label="Remove file"

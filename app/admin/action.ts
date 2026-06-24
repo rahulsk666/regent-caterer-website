@@ -5,14 +5,23 @@ import {
   deleteContact,
   deleteReview,
   deleteSectionImage,
+  deleteSectionVideo,
   getAllSectionImages,
+  getAllSectionVideos,
   saveSectionImage,
+  saveSectionVideo,
   updateContact,
   updateReview,
   updateSectionImage,
+  updateSectionVideo,
 } from "@/lib/db";
 import { saveFile } from "@/lib/fileStorage";
-import { ActionResult, SectionImage } from "@/lib/types";
+import {
+  ActionResult,
+  GalleryType,
+  SectionImage,
+  SectionVideo,
+} from "@/lib/types";
 import { revalidatePath } from "next/cache";
 
 export async function updateReviewAction(
@@ -89,16 +98,23 @@ export async function deleteContactAction(id: number): Promise<ActionResult> {
 export async function saveSectionImageAction(
   section: SectionImage["section"],
   file: File,
+  galleryType: GalleryType,
 ): Promise<ActionResult> {
   try {
-    const filePath = await saveFile(file, section);
+    const filePath = await saveFile({
+      file,
+      folder: section,
+      mediaType: "image",
+    });
 
     await saveSectionImage({
       id: crypto.randomUUID(),
-      image: filePath,
+      url: filePath,
       section,
       featured: false,
       published: true,
+      mediaType: "image",
+      galleryType,
     });
 
     revalidatePath("/admin");
@@ -124,43 +140,6 @@ export async function updateSectionImageAction(
   },
 ): Promise<ActionResult> {
   try {
-    // if (updates.featured === true) {
-    //   const images = await getAllSectionImages(); // all images
-
-    //   const currentImage = images.find((img) => img.id === id);
-
-    //   if (!currentImage) {
-    //     return {
-    //       success: false,
-    //       error: "Image not found",
-    //     };
-    //   }
-
-    //   const protectedSection =
-    //     currentImage.section === "delightful-moments" ||
-    //     currentImage.section === "signature-collections";
-
-    //   if (protectedSection) {
-    //     const featuredCount = images.filter(
-    //       (img) =>
-    //         img.section === currentImage.section &&
-    //         img.featured &&
-    //         img.id !== id,
-    //     ).length;
-    //     console.log("images : ", images);
-    //     console.log("currentImage : ", currentImage);
-
-    //     console.log(featuredCount);
-
-    //     if (featuredCount <= 5) {
-    //       return {
-    //         success: false,
-    //         error: "Atleast 5 featured images are required",
-    //       };
-    //     }
-    //   }
-    // }
-
     await updateSectionImage(id, updates);
 
     revalidatePath("/admin");
@@ -223,6 +202,100 @@ export async function deleteSectionImageAction(
     return {
       success: false,
       error: error instanceof Error ? error.message : "Failed to delete image",
+    };
+  }
+}
+
+export async function saveSectionVideoAction(
+  section: SectionVideo["section"],
+  file: File,
+  galleryType?: GalleryType,
+): Promise<ActionResult> {
+  try {
+    const filePath = await saveFile({
+      file,
+      folder: section,
+      mediaType: "video",
+    });
+
+    await saveSectionVideo({
+      id: crypto.randomUUID(),
+      url: filePath,
+      section,
+      featured: false,
+      published: true,
+      mediaType: "video",
+      galleryType,
+    });
+
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to upload image",
+    };
+  }
+}
+
+export async function updateSectionVideoAction(
+  id: string,
+  updates: {
+    featured?: boolean;
+    published?: boolean;
+  },
+): Promise<ActionResult> {
+  try {
+    await updateSectionVideo(id, updates);
+
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to update image",
+    };
+  }
+}
+
+export async function deleteSectionVideoAction(
+  id: string,
+): Promise<ActionResult> {
+  try {
+    const videos = await getAllSectionVideos();
+
+    const video = videos.find((video) => video.id === id);
+
+    if (!video) {
+      return {
+        success: false,
+        error: "Video not found",
+      };
+    }
+
+    await deleteSectionVideo(id);
+
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to delete video",
     };
   }
 }

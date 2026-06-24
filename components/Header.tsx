@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Button from "./ui/Button";
+import Button from "./ui/CustomButton";
 import { twMerge } from "tailwind-merge";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -27,16 +27,52 @@ export default function Header({ variant = "light" }: HeaderProps) {
       ScrollTrigger.create({
         start: 10,
         scrub: 1,
+        onUpdate: (self) => {
+          if (self.direction === lastDirection) return;
+          lastDirection = self.direction;
+
+          if (self.direction === 1) {
+            // scrolling down
+            gsap.to(".nav-mob", {
+              y: -120,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          } else {
+            // scrolling up
+            gsap.to(".nav-mob", {
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+        },
+
+        // onEnter: () => {
+        //   gsap.to(".nav-mob", {
+        //     translateX: 100,
+        //     opacity: 0,
+        //   });
+        // },
+        // onLeaveBack: () => {
+        //   gsap.to(".nav-mob", {
+        //     translateX: 0,
+        //     opacity: 1,
+        //   });
+        // },
+      });
+      ScrollTrigger.create({
+        start: 900,
         onEnter: () => {
-          gsap.to(".nav-mob", {
-            translateX: 100,
-            opacity: 0,
+          gsap.to(".nav-mob-item", {
+            backgroundColor: "#ECC869",
+            duration: 0.3,
           });
         },
         onLeaveBack: () => {
-          gsap.to(".nav-mob", {
-            translateX: 0,
-            opacity: 1,
+          gsap.to(".nav-mob-item", {
+            backgroundColor: "var(--secondary)",
+            duration: 0.3,
           });
         },
       });
@@ -105,7 +141,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
   return (
     <nav
       id="Header"
-      className="container-app fixed z-1000 right-0 left-0 flex flex-row md:justify-center justify-end items-center"
+      className="container-app fixed z-100 right-0 left-0 flex flex-row md:justify-center justify-end items-center"
     >
       <div
         className={twMerge(
@@ -138,7 +174,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
           loading="eager"
           className="w-8 lg:w-10 h-auto "
         />
-        <Link href="/" className="hover:text-foreground-secondary">
+        <Link href="/gallery/all" className="hover:text-foreground-secondary">
           Gallery
         </Link>
         <Link href="/contact" className="hover:text-foreground-secondary">
@@ -152,17 +188,17 @@ export default function Header({ variant = "light" }: HeaderProps) {
           className="flex flex-col items-end gap-2 py-2 rounded-lg "
         >
           <span
-            className={`w-2 h-0.5 ${
+            className={`nav-mob-item w-2 h-0.5 ${
               variant === "light" ? "bg-secondary" : "bg-golden-500"
             }`}
           />
           <span
-            className={`w-4 h-0.5 ${
+            className={`nav-mob-item w-4 h-0.5 ${
               variant === "light" ? "bg-secondary" : "bg-golden-500"
             }`}
           />
           <span
-            className={`w-6 h-0.5 ${
+            className={`nav-mob-item w-6 h-0.5 ${
               variant === "light" ? "bg-secondary" : "bg-golden-500"
             }`}
           />

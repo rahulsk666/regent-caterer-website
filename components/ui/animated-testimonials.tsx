@@ -4,7 +4,7 @@ import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
-import Button from "./Button";
+import Button from "./CustomButton";
 import { Testimonial } from "@/lib/types";
 
 // Generated once at module level — stable across all renders

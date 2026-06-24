@@ -1,7 +1,7 @@
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
 import AnimatedImageStack from "../ui/AnimatedImageStack";
-import Button from "../ui/Button";
+import Button from "../ui/CustomButton";
 import { getSectionImages } from "@/lib/db";
 import { SectionImage } from "@/lib/types";
 import { DecorativeStar } from "../ui/DecorativeStar";
@@ -9,7 +9,7 @@ import { DecorativeStar } from "../ui/DecorativeStar";
 export default async function SignatureCollectionsSection() {
   const sectionImages = await getSectionImages("signature-collections");
   const images = sectionImages.map((sectionImage: SectionImage) => {
-    return sectionImage.image;
+    return sectionImage.url;
   });
   return (
     <section

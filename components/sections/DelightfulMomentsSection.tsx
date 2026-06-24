@@ -1,4 +1,4 @@
-import Button from "../ui/Button";
+import Button from "../ui/CustomButton";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
 import AnimatedImageStack from "../ui/AnimatedImageStack";
@@ -9,7 +9,7 @@ import { DecorativeStar } from "../ui/DecorativeStar";
 export default async function DelightFulMomentsSection() {
   const sectionImages = await getSectionImages("delightful-moments");
   const images = sectionImages.map((sectionImage: SectionImage) => {
-    return sectionImage.image;
+    return sectionImage.url;
   });
 
   return (

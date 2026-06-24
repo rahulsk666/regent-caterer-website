@@ -101,11 +101,51 @@ export type ContactActionState = {
 
 export type SectionImage = {
   id: string;
-  image: string;
+  url: string;
   section: "delightful-moments" | "signature-collections" | "gallery";
   featured?: boolean;
   published?: boolean;
+  mediaType?: "image" | "video";
+  galleryType?: GalleryType;
 };
+
+export type SectionVideo = {
+  id: string;
+  url: string;
+  section: "delightful-moments" | "signature-collections" | "gallery";
+  featured?: boolean;
+  published?: boolean;
+  mediaType?: "image" | "video";
+  galleryType?: GalleryType;
+};
+
+export const galleryTypes = [
+  { key: "none", label: "All Gallery" },
+  {
+    key: "ingredients",
+    label: "Ingredients",
+  },
+  {
+    key: "food-presentation",
+    label: "Food Presentation",
+  },
+  {
+    key: "hospitality",
+    label: "Hospitality",
+  },
+  {
+    key: "service-excellence",
+    label: "Service Excellence",
+  },
+  {
+    key: "events-celebrations",
+    label: "Events & Celebrations",
+  },
+] as const;
+
+export type GalleryType = "none" | (typeof galleryTypes)[number]["key"];
+
+export type MediaType = "image" | "video";
 
 // ─────────────────────────────
 // Menu
@@ -153,6 +193,7 @@ export type AdminsSection =
   | "overview"
   | "Menu"
   | "images"
+  | "videos"
   | "services"
   | "reviews"
   | "contacts";

@@ -1,6 +1,6 @@
 "use client";
 
-import type { AdminsSection, SectionImage } from "@/lib/types";
+import type { AdminsSection, SectionImage, SectionVideo } from "@/lib/types";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminOverview from "@/components/admin/AdminOverview";
 import AdminReviewsSection from "@/components/admin/AdminReviewsSection";
@@ -11,17 +11,22 @@ import {
   deleteContactAction,
   deleteReviewAction,
   deleteSectionImageAction,
+  deleteSectionVideoAction,
   markContactReadAction,
   saveSectionImageAction,
+  saveSectionVideoAction,
   updateReviewAction,
   updateSectionImageAction,
+  updateSectionVideoAction,
 } from "@/app/admin/action";
 import AdminSectionImages from "./AdminSectionImage";
+import AdminSectionVideo from "./AdminSectionVideo";
 
 interface AdminClientProps {
   reviews: Review[];
   contacts: ContactSubmission[];
   images: SectionImage[];
+  videos: SectionVideo[];
   stats: {
     reviews: number;
     pendingReviews: number;
@@ -34,6 +39,7 @@ export default function AdminClient({
   reviews,
   contacts,
   images,
+  videos,
   stats,
 }: AdminClientProps) {
   const [section, setSection] = useState<AdminsSection>("overview");
@@ -54,12 +60,23 @@ export default function AdminClient({
           />
         )}
 
+        {/* ── Images ──────────────────────────────────────────────────── */}
         {section === "images" && (
           <AdminSectionImages
             images={images}
             onUpdateImage={updateSectionImageAction}
             onDeleteImage={deleteSectionImageAction}
             onUploadImage={saveSectionImageAction}
+          />
+        )}
+
+        {/* ── Videos ──────────────────────────────────────────────────── */}
+        {section === "videos" && (
+          <AdminSectionVideo
+            videos={videos}
+            onUpdateVideo={updateSectionVideoAction}
+            onDeleteVideo={deleteSectionVideoAction}
+            onUploadVideo={saveSectionVideoAction}
           />
         )}
 

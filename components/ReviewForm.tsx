@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "./ui/Button";
+import Button from "./ui/CustomButton";
 import { IconPencilFilled } from "@tabler/icons-react";
 import { useActionState, useEffect, useRef, useState } from "react";
 import {

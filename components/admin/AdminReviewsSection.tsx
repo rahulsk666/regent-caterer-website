@@ -5,7 +5,7 @@ import Image from "next/image";
 import { IconStar, IconTrash } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import Button from "../ui/Button";
+import Button from "../ui/CustomButton";
 
 interface AdminReviewsSectionProps {
   reviews: Review[];

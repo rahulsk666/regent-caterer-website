@@ -1,6 +1,16 @@
+import { ResourceType } from "cloudinary";
 import { cloudinary } from "./cloudinary";
+import { MediaType } from "./types";
 
-export async function saveFile(file: File, folder: string): Promise<string> {
+export async function saveFile({
+  file,
+  folder,
+  mediaType = "image",
+}: {
+  file: File;
+  folder: string;
+  mediaType?: MediaType;
+}): Promise<string> {
   try {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -9,7 +19,7 @@ export async function saveFile(file: File, folder: string): Promise<string> {
 
     const result = await cloudinary.uploader.upload(base64, {
       folder: `regent-caterers/${folder}`,
-      resource_type: "image",
+      resource_type: mediaType || "auto",
     });
 
     return result.secure_url;
@@ -19,18 +29,28 @@ export async function saveFile(file: File, folder: string): Promise<string> {
   }
 }
 
-export async function deleteFile(imageUrl?: string): Promise<void> {
-  if (!imageUrl) return;
+export async function deleteFile({
+  url,
+  type = "image",
+}: {
+  url?: string;
+  type?: ResourceType;
+}): Promise<void> {
+  if (!url) return;
 
   try {
-    const parts = imageUrl.split("/upload/")[1];
+    const parts = url.split("/upload/")[1];
 
     if (!parts) return;
 
-    const publicId = parts.replace(/^v\d+\//, "").replace(/\.[^/.]+$/, "");
+    const publicId = parts
+      .split("/")
+      .filter((segment) => !segment.startsWith("v"))
+      .join("/")
+      .replace(/\.[^/.]+$/, "");
 
     await cloudinary.uploader.destroy(publicId, {
-      resource_type: "image",
+      resource_type: type,
     });
   } catch (error) {
     console.error("Failed to delete Cloudinary image:", error);
