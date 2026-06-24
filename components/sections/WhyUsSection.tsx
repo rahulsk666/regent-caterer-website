@@ -152,6 +152,7 @@ export default function WhyUsSection() {
               <FeatureCard
                 title={feature.title}
                 description={feature.description}
+                url={feature.url}
               />
             </div>
           ))}
@@ -180,6 +181,7 @@ export default function WhyUsSection() {
                   key={feature.title}
                   title={feature.title}
                   description={feature.description}
+                  url={feature.url}
                   className="feature-card border"
                 />
               ))}

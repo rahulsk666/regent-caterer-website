@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
 import {
@@ -24,7 +23,7 @@ import {
 } from "../ui/dialog";
 import Button from "../ui/CustomButton";
 import { Button as ShadCnButton } from "@/components/ui/button";
-import { UnderlineFileUpload, UnderlineSelect } from "../ui/Input";
+import { UnderlineFileUpload } from "../ui/Input";
 
 interface AdminSectionVideoProps {
   videos: SectionVideo[];

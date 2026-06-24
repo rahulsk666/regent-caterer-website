@@ -82,26 +82,31 @@ export const features = [
     title: "Premium Ingredients",
     description:
       "We use only the highest quality, freshest ingredients sourced from trusted local suppliers.",
+    url: "/gallery/ingredients",
   },
   {
     title: "Elegant Food Presentation",
     description:
       "Every dish is presented beautifully to elevate the event experience.",
+    url: "/gallery/food-presentation",
   },
   {
     title: "Professional Hospitality",
     description:
       "Experienced staff ensuring smooth coordination and guest satisfaction.",
+    url: "/gallery/hospitality",
   },
   {
     title: "Trusted Service",
     description:
       "Reliable catering backed by customer trust and successful event experiences.",
+    url: "/gallery/service-excellence",
   },
   {
     title: "Custom Event Solutions",
     description:
       "Menus and arrangements tailored to your preferences and event style.",
+    url: "/gallery/events-celebrations",
   },
 ];
 

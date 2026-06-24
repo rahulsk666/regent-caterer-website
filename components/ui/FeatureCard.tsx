@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 type FeatureCardProps = {
@@ -6,6 +7,7 @@ type FeatureCardProps = {
   description: string;
   icon?: string;
   className?: string;
+  url?: string;
 };
 
 export default function FeatureCard({
@@ -13,9 +15,12 @@ export default function FeatureCard({
   description,
   icon = "/svg/star.svg",
   className = "",
+  url = "",
 }: FeatureCardProps) {
+  console.log("url", url);
   return (
-    <div
+    <Link
+      href={url}
       className={twMerge(
         className,
         "absolute lg:relative inset-x-0 lg:inset-auto flex flex-col lg:gap-2 gap-4 p-4 shadow-lg rounded-2xl bg-card-background lg:h-full lg:w-full",
@@ -36,6 +41,6 @@ export default function FeatureCard({
       </p>
 
       <p className="lg:text-lg text-xl pr-2 pb-5">{description}</p>
-    </div>
+    </Link>
   );
 }

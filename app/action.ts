@@ -39,7 +39,11 @@ export async function createReviewAction(
     let imagePath = "";
 
     if (file && file.size > 0) {
-      imagePath = await saveFile(file, "reviews");
+      imagePath = await saveFile({
+        file,
+        folder: "reviews",
+        mediaType: "image",
+      });
     }
 
     try {

@@ -6,10 +6,11 @@ import ImageLightbox from "./ImageLightBox";
 
 type Props = {
   images: string[];
+  video: string;
   title: string;
 };
 
-export default function ClientGallery({ images, title }: Props) {
+export default function ClientGallery({ images, video, title }: Props) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
@@ -26,10 +27,22 @@ export default function ClientGallery({ images, title }: Props) {
               alt=""
               width={100}
               height={100}
+              loading="eager"
               className="w-full h-full object-cover hover:opacity-90 transition"
             />
           </div>
         ))}
+      </div>
+      <div className="flex items-center justify-center my-6">
+        <video
+          loop
+          muted
+          autoPlay
+          playsInline
+          className="object-cover w-full h-full rounded-3xl shadow-lg"
+        >
+          <source src={video} type="video/mp4" />
+        </video>
       </div>
       {activeIndex !== null && (
         <ImageLightbox
