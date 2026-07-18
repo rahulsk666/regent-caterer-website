@@ -130,11 +130,32 @@ export default function WhyUsSection() {
         </div>
         <div className="bento-grid">
           <div className="item hero">
-            <p className="font-red-hat-display lg:text-3xl md:text-lg text-base">
-              Combining premium ingredients, refined presentation, and dedicated
+            <p className="font-red-hat-display lg:text-xl md:text-lg text-base">
+              {/* Combining premium ingredients, refined presentation, and dedicated
               hospitality, Regent Caterers creates memorable dining experiences
               that elevate every celebration and leave a lasting impression on
-              guests.
+              guests. */}
+              It&apos;s not just a brand, but the quality you can tasted the
+              serviceyou can trust. Our Professional chefs will make sure that,
+              your evry bite is memorable. Our trained service team will
+              guarantee your satisfaction with the excellent service . WIth
+              years of experience with teh excellent service in this field, we
+              have earned lots of love and respect from our beloved clients. Our
+              team is well established and has the full source and potential to
+              make youre function spectacular.
+              {/* It&apos;s not just a brand—it&apos;s a promise of exceptional
+            quality and service you can trust. Our experienced chefs carefully
+            craft every dish using the finest ingredients, ensuring that every
+            bite is rich in flavor and truly memorable.
+            <br /> Our professionally trained service team is committed to
+            delivering seamless hospitality and ensuring every guest enjoys an
+            outstanding experience. With years of expertise in the catering
+            industry, we have earned the love, trust, and appreciation of
+            countless clients. <br />
+            Backed by a dedicated team, modern resources, and a passion for
+            excellence, we have everything needed to make your special occasion
+            truly spectacular. From intimate gatherings to grand celebrations,
+            we are committed to making every event unforgettable. */}
             </p>
           </div>
 
@@ -168,11 +189,32 @@ export default function WhyUsSection() {
           </div>
         </div>
         <div className="lg:hidden flex flex-col gap-4">
-          <p className="font-red-hat-display my-5 md:text-xl text-base">
-            Combining premium ingredients, refined presentation, and dedicated
+          <p className="font-red-hat-display my-5 md:text-xl text-sm">
+            {/* Combining premium ingredients, refined presentation, and dedicated
             hospitality, Regent Caterers creates memorable dining experiences
             that elevate every celebration and leave a lasting impression on
-            guests.
+            guests. */}
+            It&apos;s not just a brand, but the quality you can tasted the
+            serviceyou can trust. Our Professional chefs will make sure that,
+            your evry bite is memorable. Our trained service team will guarantee
+            your satisfaction with the excellent service . WIth years of
+            experience with teh excellent service in this field, we have earned
+            lots of love and respect from our beloved clients. Our team is well
+            established and has the full source and potential to make youre
+            function spectacular.
+            {/* It&apos;s not just a brand—it&apos;s a promise of exceptional
+            quality and service you can trust. Our experienced chefs carefully
+            craft every dish using the finest ingredients, ensuring that every
+            bite is rich in flavor and truly memorable.
+            <br /> Our professionally trained service team is committed to
+            delivering seamless hospitality and ensuring every guest enjoys an
+            outstanding experience. With years of expertise in the catering
+            industry, we have earned the love, trust, and appreciation of
+            countless clients. <br />
+            Backed by a dedicated team, modern resources, and a passion for
+            excellence, we have everything needed to make your special occasion
+            truly spectacular. From intimate gatherings to grand celebrations,
+            we are committed to making every event unforgettable. */}
           </p>
           <div>
             <div className="feature-stack relative p-2 px-5 flex flex-col items-center">
