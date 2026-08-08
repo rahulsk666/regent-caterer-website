@@ -57,7 +57,7 @@ export default function Footer() {
               Instagram
             </Link>
             <Link
-              href="https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+              href="https://wa.me/9495559777?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -65,7 +65,7 @@ export default function Footer() {
               Whats App
             </Link>
             <Link
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/regentcatering/"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -73,14 +73,14 @@ export default function Footer() {
               Facebook
             </Link>
             <Link
-              href="mailto:hello@example.com"
+              href="mailto:regentcaterers@gmail.com"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Email
             </Link>
             <Link
-              href="tel:9876543210"
+              href="tel:9495559777"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
@@ -101,7 +101,7 @@ export default function Footer() {
           <p>
             ©{new Date().getFullYear()} Regent Caterers. All rights reserved.
           </p>
-          <p>+9876543210</p>
+          <p>+9495559777</p>
         </div>
       </div>
       <div className="flex flex-col md:hidden min-h-full py-5">

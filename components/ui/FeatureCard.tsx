@@ -17,7 +17,6 @@ export default function FeatureCard({
   className = "",
   url = "",
 }: FeatureCardProps) {
-  console.log("url", url);
   return (
     <Link
       href={url}

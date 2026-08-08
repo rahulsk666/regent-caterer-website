@@ -7,7 +7,10 @@ import {
   ActionResult,
   GalleryType,
   galleryTypes,
+  MIN_PROTECTED_SECTION_IMAGES,
+  protectedSections,
   SectionImage,
+  sectionKeys,
 } from "@/lib/types";
 import Toggle from "./Toggle";
 import { useRouter } from "next/navigation";
@@ -24,7 +27,7 @@ import {
 } from "../ui/dialog";
 import Button from "../ui/CustomButton";
 import { Button as ShadCnButton } from "@/components/ui/button";
-import { UnderlineFileUpload, UnderlineSelect } from "../ui/Input";
+import { UnderlineFileUpload } from "../ui/Input";
 
 interface AdminSectionImagesProps {
   images: SectionImage[];
@@ -46,23 +49,153 @@ interface AdminSectionImagesProps {
   ) => Promise<ActionResult>;
 }
 
-const sections: {
-  key: SectionImage["section"];
+interface MediaGroupProps {
   label: string;
-}[] = [
-  {
-    key: "delightful-moments",
-    label: "Delightful Moments",
-  },
-  {
-    key: "signature-collections",
-    label: "Signature Collections",
-  },
-  {
-    key: "gallery",
-    label: "Gallery",
-  },
-];
+  items: SectionImage[];
+  locked: boolean;
+  uploading: boolean;
+  updating: boolean;
+  deleting: boolean;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSubmitUpload: (file: File) => Promise<void>;
+  onToggleApprove: (id: string, value: boolean) => void;
+  onDelete: (id: string) => void;
+}
+
+function MediaGroup({
+  label,
+  items,
+  locked,
+  uploading,
+  updating,
+  deleting,
+  isOpen,
+  onOpenChange,
+  onSubmitUpload,
+  onToggleApprove,
+  onDelete,
+}: MediaGroupProps) {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xl font-semibold">{label}</h3>
+
+        <div className="flex flex-row items-center justify-center gap-2">
+          <Dialog open={isOpen} onOpenChange={onOpenChange}>
+            <DialogTrigger>
+              <span className="cursor-pointer inline-flex items-center gap-2 text-xs rounded-full bg-slate-900 text-white px-4 py-2 md:text-sm font-medium">
+                <IconUpload size={16} className="" />
+                Add Image
+              </span>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Upload Image</DialogTitle>
+                <DialogDescription>
+                  Upload the image you want to add to {label}.
+                </DialogDescription>
+              </DialogHeader>
+              <form
+                className="space-y-4"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+
+                  const formData = new FormData(e.currentTarget);
+                  const image = formData.get("image") as File;
+
+                  if (!image || image.size === 0) {
+                    toast.error("Please select an image");
+                    return;
+                  }
+
+                  await onSubmitUpload(image);
+                }}
+              >
+                <div className="space-y-2">
+                  <UnderlineFileUpload
+                    label="Image"
+                    accept="image/*"
+                    name="image"
+                    required
+                    disabled={uploading}
+                    className="w-full"
+                  />
+                </div>
+
+                <DialogFooter>
+                  <ShadCnButton
+                    onClick={() => onOpenChange(false)}
+                    type="button"
+                    variant="outline"
+                    disabled={uploading}
+                  >
+                    Cancel
+                  </ShadCnButton>
+
+                  <ShadCnButton type="submit" disabled={uploading}>
+                    {uploading ? "Uploading..." : "Upload"}
+                  </ShadCnButton>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
+
+      {items.length === 0 ? (
+        <div className="rounded-3xl border bg-white p-10 text-center text-slate-400">
+          No images uploaded
+        </div>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {items.map((image) => (
+            <div
+              key={image.id}
+              className="rounded-3xl border bg-white p-4 shadow-sm"
+            >
+              <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
+                <Image
+                  src={image.url}
+                  alt="images"
+                  fill
+                  sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="mt-4 space-y-2">
+                <div className="flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-xs">
+                  <span>Approved</span>
+
+                  <Toggle
+                    disabled={updating || (image.published && locked)}
+                    value={!!image.published}
+                    onChange={(value) => onToggleApprove(image.id, value)}
+                  />
+                </div>
+
+                <Button
+                  variant="custom"
+                  disabled={deleting || (image.published && locked)}
+                  onClick={() => onDelete(image.id)}
+                  className={`w-full flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium ${
+                    deleting || (image.published && locked)
+                      ? "border border-slate-200 bg-slate-100 hover:bg-slate-100 text-slate-400 cursor-not-allowed"
+                      : "border border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
+                  }`}
+                >
+                  <IconTrash size={14} />
+                  Delete
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function AdminSectionImages({
   images,
@@ -74,15 +207,13 @@ export default function AdminSectionImages({
   const [uploading, setUploading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [updating, setUpdating] = useState(false);
-  const [openSection, setOpenSection] = useState<
-    SectionImage["section"] | null
-  >(null);
+  const [openTarget, setOpenTarget] = useState<string | null>(null);
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
   const handleUpload = async (
     section: SectionImage["section"],
     file: File,
-    galleryType?: GalleryType,
+    galleryType: GalleryType,
   ) => {
     try {
       if (file.size > MAX_FILE_SIZE) {
@@ -91,7 +222,7 @@ export default function AdminSectionImages({
       }
       setUploading(true);
 
-      toast.promise(onUploadImage(section, file, galleryType as GalleryType), {
+      toast.promise(onUploadImage(section, file, galleryType), {
         loading: "Uploading image...",
         success: (result) => {
           if (!result.success) {
@@ -99,7 +230,7 @@ export default function AdminSectionImages({
             throw new Error(result.error);
           }
           setUploading(false);
-          setOpenSection(null);
+          setOpenTarget(null);
           router.refresh();
           return "Image uploaded successfully";
         },
@@ -183,196 +314,78 @@ export default function AdminSectionImages({
     }
   };
 
-  // const resetForm = () => {
-  //   setFile(null);
-  //   // setGalleryType("none");
-  // };
-
   return (
-    <div className="space-y-8">
-      {sections.map((section) => {
-        const sectionImages = images.filter(
-          (img) => img.section === section.key,
-        );
-        const approvedImages = sectionImages.filter((img) => img.published);
+    <div className="space-y-10">
+      {sectionKeys.map((section) => {
+        if (section.key !== "gallery") {
+          const sectionImages = images.filter(
+            (img) => img.section === section.key,
+          );
+          const approvedImages = sectionImages.filter((img) => img.published);
+          const locked =
+            protectedSections.includes(section.key) &&
+            approvedImages.length <= MIN_PROTECTED_SECTION_IMAGES;
+
+          return (
+            <MediaGroup
+              key={section.key}
+              label={section.label}
+              items={sectionImages}
+              locked={locked}
+              uploading={uploading}
+              updating={updating}
+              deleting={deleting}
+              isOpen={openTarget === section.key}
+              onOpenChange={(open) =>
+                setOpenTarget(open ? section.key : null)
+              }
+              onSubmitUpload={(file) =>
+                handleUpload(section.key, file, "none")
+              }
+              onToggleApprove={(id, value) =>
+                handleUpdateImage(id, { published: value })
+              }
+              onDelete={handleDeleteImage}
+            />
+          );
+        }
 
         return (
-          <div key={section.key}>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">{section.label}</h2>
+          <div key="gallery" className="space-y-6">
+            <h2 className="text-2xl font-bold">Gallery</h2>
+            <div className="space-y-8 pl-0 md:pl-6 md:border-l md:border-border">
+              {galleryTypes.map((type) => {
+                const target = `gallery:${type.key}`;
+                const typeImages = images.filter(
+                  (img) =>
+                    img.section === "gallery" &&
+                    (img.galleryType ?? "none") === type.key,
+                );
 
-              <div className="flex flex-row items-center justify-center gap-2">
-                <Dialog
-                  open={openSection === section.key}
-                  onOpenChange={(open) =>
-                    setOpenSection(open ? section.key : null)
-                  }
-                >
-                  <DialogTrigger>
-                    <span className="cursor-pointer inline-flex items-center gap-2 text-xs rounded-full bg-slate-900 text-white px-4 py-2 md:text-sm font-medium">
-                      <IconUpload size={16} className="" />
-                      Add Image
-                    </span>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Upload Image</DialogTitle>
-                      <DialogDescription>
-                        Upload the image you want to add to the section.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <form
-                      className="space-y-4"
-                      onSubmit={async (e) => {
-                        e.preventDefault();
-
-                        const formData = new FormData(e.currentTarget);
-
-                        const galleryType = formData.get(
-                          "galleryType",
-                        ) as GalleryType;
-
-                        const image = formData.get("image") as File;
-
-                        if (!image || image.size === 0) {
-                          toast.error("Please select an image");
-                          return;
-                        }
-
-                        await handleUpload(
-                          section.key,
-                          image,
-                          galleryType || "none",
-                        );
-                      }}
-                    >
-                      {section.key === "gallery" && (
-                        <div className="space-y-2">
-                          <UnderlineSelect
-                            label="Gallery Type"
-                            required
-                            name="galleryType"
-                            options={galleryTypes
-                              // .filter((type) => type.key !== "none")
-                              .map((type) => ({
-                                value: type.key,
-                                label: type.label,
-                              }))}
-                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                          />
-                        </div>
-                      )}
-
-                      <div className="space-y-2">
-                        <UnderlineFileUpload
-                          label="Image"
-                          accept="image/*"
-                          name="image"
-                          required
-                          disabled={uploading}
-                          className="w-full"
-                        />
-                      </div>
-
-                      <DialogFooter>
-                        <ShadCnButton
-                          onClick={() => setOpenSection(null)}
-                          type="button"
-                          variant="outline"
-                          disabled={uploading}
-                        >
-                          Cancel
-                        </ShadCnButton>
-
-                        <ShadCnButton type="submit" disabled={uploading}>
-                          {uploading ? "Uploading..." : "Upload"}
-                        </ShadCnButton>
-                      </DialogFooter>
-                    </form>
-                  </DialogContent>
-                </Dialog>
-              </div>
+                return (
+                  <MediaGroup
+                    key={target}
+                    label={type.label}
+                    items={typeImages}
+                    locked={false}
+                    uploading={uploading}
+                    updating={updating}
+                    deleting={deleting}
+                    isOpen={openTarget === target}
+                    onOpenChange={(open) =>
+                      setOpenTarget(open ? target : null)
+                    }
+                    onSubmitUpload={(file) =>
+                      handleUpload("gallery", file, type.key)
+                    }
+                    onToggleApprove={(id, value) =>
+                      handleUpdateImage(id, { published: value })
+                    }
+                    onDelete={handleDeleteImage}
+                  />
+                );
+              })}
             </div>
-
-            {sectionImages.length === 0 ? (
-              <div className="rounded-3xl border bg-white p-10 text-center text-slate-400">
-                No images uploaded
-              </div>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {sectionImages.map((image) => (
-                  <div
-                    key={image.id}
-                    className="rounded-3xl border bg-white p-4 shadow-sm"
-                  >
-                    <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
-                      <Image
-                        src={image.url}
-                        alt="images"
-                        fill
-                        sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-                        className="object-cover"
-                      />
-                    </div>
-
-                    <div className="mt-4 space-y-2">
-                      {section.key === "gallery" && (
-                        <div className="flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-xs">
-                          <span>Gallery Type</span>
-                          <span>
-                            {
-                              galleryTypes.find(
-                                (item) => item.key === image.galleryType,
-                              )?.label
-                            }
-                          </span>
-                        </div>
-                      )}
-                      <div className="flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-xs">
-                        <span>Approved</span>
-
-                        <Toggle
-                          disabled={
-                            updating ||
-                            (section.key !== "gallery" &&
-                              image.published &&
-                              approvedImages.length <= 5)
-                          }
-                          value={!!image.published}
-                          onChange={(value) =>
-                            handleUpdateImage(image.id, {
-                              published: value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <Button
-                        variant="custom"
-                        disabled={
-                          deleting ||
-                          (section.key !== "gallery" &&
-                            image.published &&
-                            approvedImages.length <= 5)
-                        }
-                        onClick={() => handleDeleteImage(image.id)}
-                        className={`w-full flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium ${
-                          deleting ||
-                          (section.key !== "gallery" &&
-                            image.published &&
-                            approvedImages.length <= 5)
-                            ? "border border-slate-200 bg-slate-100 hover:bg-slate-100 text-slate-400 cursor-not-allowed"
-                            : "border border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
-                        }`}
-                      >
-                        <IconTrash size={14} />
-                        Delete
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         );
       })}

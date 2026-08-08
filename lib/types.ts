@@ -97,12 +97,31 @@ export type ContactActionState = {
 // Delightful Moments
 // Signature Collections
 // Gallery
+// Hospitality
+// Ingredients
+// Events & Celebrations
 // ─────────────────────────────
+
+export const sectionKeys = [
+  { key: "delightful-moments", label: "Delightful Moments" },
+  { key: "signature-collections", label: "Signature Collections" },
+  { key: "gallery", label: "Gallery" },
+] as const;
+
+export type SectionKey = (typeof sectionKeys)[number]["key"];
+
+// Sections whose published image count the home page depends on and must
+// not drop below the minimum. Mirrors app/admin/action.ts deleteSectionImageAction.
+export const protectedSections: SectionKey[] = [
+  "delightful-moments",
+  "signature-collections",
+];
+export const MIN_PROTECTED_SECTION_IMAGES = 5;
 
 export type SectionImage = {
   id: string;
   url: string;
-  section: "delightful-moments" | "signature-collections" | "gallery";
+  section: SectionKey;
   featured?: boolean;
   published?: boolean;
   mediaType?: "image" | "video";
@@ -112,7 +131,7 @@ export type SectionImage = {
 export type SectionVideo = {
   id: string;
   url: string;
-  section: "delightful-moments" | "signature-collections" | "gallery";
+  section: SectionKey;
   featured?: boolean;
   published?: boolean;
   mediaType?: "image" | "video";

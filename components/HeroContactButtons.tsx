@@ -10,19 +10,19 @@ export default function HeroContactButtons() {
         classname="w-14 h-auto"
       />
       <IconButton
-        link=""
+        link="https://www.facebook.com/regentcatering/"
         imageSrc="/svg/fb.svg"
         alt="facebook"
         classname="w-14 h-auto"
       />
       <IconButton
-        link=""
+        link="https://wa.me/9495559777?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
         imageSrc="/svg/whatsapp.svg"
         alt="whatsapp"
         classname="w-14 h-auto"
       />
       <IconButton
-        link=""
+        link="tel:9495559777"
         imageSrc="/svg/phone.svg"
         alt="phone"
         classname="w-14 h-auto"

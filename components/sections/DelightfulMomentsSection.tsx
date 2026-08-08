@@ -61,7 +61,7 @@ export default async function DelightFulMomentsSection() {
           >
             <Link
               className="flex flex-row justify-center items-center gap-2"
-              href={"/"}
+              href={"/gallery/food-presentation"}
             >
               <p className="text-golden-gradient lg:text-3xl md:text-xl text-xl">
                 Explore More

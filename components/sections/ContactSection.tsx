@@ -52,6 +52,8 @@ export default function ContactSection() {
               href={
                 "https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
               }
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-5"
             >
               <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">

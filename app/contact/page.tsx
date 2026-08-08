@@ -60,14 +60,18 @@ const ContactPage = () => {
                   Talk To Us
                 </p>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
-                  +91 9876543210
+                  +91 9495559777
                 </p>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
                   regentcaterers@gmail.com
                 </p>
               </div>
               <div className="flex flex-row gap-4">
-                <Link href={"/"}>
+                <Link
+                  href="https://wa.me/9495559777?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Image
                     src={"/svg/whatsapp.svg"}
                     alt=""
@@ -76,7 +80,11 @@ const ContactPage = () => {
                     className="w-10 h-auto"
                   />
                 </Link>
-                <Link href={"/"}>
+                <Link
+                  href={"https://www.instagram.com/regentcaterers/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Image
                     src={"/svg/insta.svg"}
                     alt=""
@@ -85,7 +93,11 @@ const ContactPage = () => {
                     className="w-10 h-auto"
                   />
                 </Link>
-                <Link href={"/"}>
+                <Link
+                  href={"https://www.facebook.com/regentcatering/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Image
                     src={"/svg/fb.svg"}
                     alt=""
@@ -94,7 +106,7 @@ const ContactPage = () => {
                     className="w-10 h-auto"
                   />
                 </Link>
-                <Link href={"/"}>
+                <Link href={"tel:9495559777"}>
                   <Image
                     src={"/svg/phone.svg"}
                     alt=""

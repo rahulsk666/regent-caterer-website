@@ -7,6 +7,7 @@ import type {
   GalleryType,
   Review,
   SectionImage,
+  SectionKey,
   SectionVideo,
 } from "@/lib/types";
 import { deleteFile } from "./fileStorage";
@@ -49,7 +50,7 @@ interface ContactRow {
 interface SectionImageRow {
   id: string;
   url: string;
-  section: "delightful-moments" | "signature-collections" | "gallery";
+  section: SectionKey;
   featured: number;
   published: number;
   media_type?: "image" | "video";
@@ -59,7 +60,7 @@ interface SectionImageRow {
 interface SectionVideoRow {
   id: string;
   url: string;
-  section: "delightful-moments" | "signature-collections" | "gallery";
+  section: SectionKey;
   featured: number;
   published: number;
   media_type?: "image" | "video";

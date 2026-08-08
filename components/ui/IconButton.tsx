@@ -19,6 +19,8 @@ export default function IconButton({
   classname,
   imageClassname,
 }: Props) {
+  const isExternal = !link.startsWith("tel:") && !link.startsWith("mailto:");
+
   return (
     <Link
       className={twMerge(
@@ -27,6 +29,7 @@ export default function IconButton({
       )}
       href={link}
       role="button"
+      {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
     >
       <div className="rounded-2xl">
         <Image
