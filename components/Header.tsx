@@ -197,7 +197,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
                 ✕
               </Button>
             </div>
-            <div className="flex flex-col gap-10 sm:text-4xl xs:text-3xl mt-10 m-5 font-galgin text-foreground-primary">
+            <div className="flex flex-col gap-10 sm:text-4xl xs:text-3xl mt-2 m-5 font-galgin text-foreground-primary">
               <Link href="/" onClick={toggleMenu} className="">
                 Home
               </Link>
