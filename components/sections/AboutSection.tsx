@@ -8,7 +8,7 @@ export default function AboutSection() {
         <div className="text-6xl lg:h-20 w-full md:text-9xl font-kapakana text-left text-foreground-golden">
           <p>About Us</p>
         </div>
-        <div className="lg:my-20 md:mt-10 md:mb-20 my-5 w-full md:w-2/3 ml-auto lg:text-3xl md:text-lg text-base text-right">
+        <div className="lg:my-20 md:mt-10 md:mb-20 my-5 w-full md:w-2/3 ml-auto lg:text-3xl md:text-lg text-base md:text-right">
           <p>
             {/* At Regent Caterers, we believe food is more than a meal. It is the
             centerpiece of every celebration. We combine authentic flavors,
