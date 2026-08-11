@@ -44,14 +44,17 @@ export default async function GalleryPage({
         />
       </div> */}
       <div className="container-app py-25">
-        <h1 className="font-galgin md:text-7xl text-6xl mt-10 text-center mb-20 ">
+        <h1 className="font-galgin md:text-7xl text-golden-600 text-6xl mt-10 text-center mb-20 ">
           {TypeName === "all"
             ? "All Gallery"
             : galleryTypes.find((item) => item.key === TypeName)?.label}
         </h1>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          <GalleryCategoryDropdown categories={categories} activeType={TypeName} />
+          <GalleryCategoryDropdown
+            categories={categories}
+            activeType={TypeName}
+          />
           <div className="hidden lg:flex gap-8">
             <aside className="w-60 shrink-0">
               <div className="sticky top-28 rounded-3xl border border-border bg-background-elevated p-6 shadow-sm">
