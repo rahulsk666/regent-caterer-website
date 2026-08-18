@@ -1,4 +1,8 @@
+"use client";
+
+import { useOptimistic, useTransition } from "react";
 import { ActionResult, ContactSubmission } from "@/lib/types";
+import { unwrap } from "@/lib/actionResult";
 import { IconTrash } from "@tabler/icons-react";
 import { toast } from "sonner";
 
@@ -9,26 +13,70 @@ interface AdminContactsSectionProps {
 
   onDeleteContact: (id: number) => Promise<ActionResult>;
 }
+
+type OptimisticAction =
+  | { type: "read"; id: number; read: boolean }
+  | { type: "delete"; id: number };
+
+function optimisticContactsReducer(
+  state: ContactSubmission[],
+  action: OptimisticAction,
+): ContactSubmission[] {
+  switch (action.type) {
+    case "read":
+      return state.map((c) =>
+        c.id === action.id ? { ...c, read: action.read } : c,
+      );
+    case "delete":
+      return state.filter((c) => c.id !== action.id);
+  }
+}
+
 export default function AdminContactSection({
   contacts,
   onMarkRead,
   onDeleteContact,
 }: AdminContactsSectionProps) {
-  const handleMarkRead = async (id: number, read: boolean) => {
-    toast.promise(onMarkRead(id, read), {
-      loading: "Updating contact...",
-      success: (result) =>
-        result.success ? "Contact updated" : (result.error ?? "Update failed"),
-      error: "Failed to update contact",
+  const [optimisticContacts, applyOptimistic] = useOptimistic(
+    contacts,
+    optimisticContactsReducer,
+  );
+  const [, startTransition] = useTransition();
+
+  const handleMarkRead = (id: number, read: boolean) => {
+    startTransition(async () => {
+      applyOptimistic({ type: "read", id, read });
+
+      const promise = unwrap(onMarkRead(id, read), "Failed to update contact");
+
+      toast.promise(promise, {
+        loading: "Updating contact...",
+        success: "Contact updated",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to update contact",
+      });
+
+      await promise.catch(() => {});
     });
   };
 
-  const handleDeleteContact = async (id: number) => {
-    toast.promise(onDeleteContact(id), {
-      loading: "Deleting contact...",
-      success: (result) =>
-        result.success ? "Contact deleted" : (result.error ?? "Delete failed"),
-      error: "Failed to delete contact",
+  const handleDeleteContact = (id: number) => {
+    startTransition(async () => {
+      applyOptimistic({ type: "delete", id });
+
+      const promise = unwrap(
+        onDeleteContact(id),
+        "Failed to delete contact",
+      );
+
+      toast.promise(promise, {
+        loading: "Deleting contact...",
+        success: "Contact deleted",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to delete contact",
+      });
+
+      await promise.catch(() => {});
     });
   };
   return (
@@ -36,14 +84,14 @@ export default function AdminContactSection({
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold">Contact Messages</h2>
         <span className="rounded-full bg-rose-100 px-3 py-1 text-sm font-medium text-rose-700">
-          {contacts.filter((c) => !c.read).length} unread
+          {optimisticContacts.filter((c) => !c.read).length} unread
         </span>
       </div>
       <div className="space-y-3">
-        {contacts.length === 0 && (
+        {optimisticContacts.length === 0 && (
           <p className="text-center py-20 text-slate-400">No messages yet</p>
         )}
-        {contacts.map((c) => (
+        {optimisticContacts.map((c) => (
           <div
             key={c.id}
             className={`rounded-3xl border bg-white p-5 shadow-sm ${!c.read ? "border-blue-200 bg-blue-50/30" : "border-slate-200"}`}

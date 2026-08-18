@@ -12,9 +12,9 @@ import {
   SectionImage,
   sectionKeys,
 } from "@/lib/types";
+import { unwrap } from "@/lib/actionResult";
 import Toggle from "./Toggle";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -54,8 +54,6 @@ interface MediaGroupProps {
   items: SectionImage[];
   locked: boolean;
   uploading: boolean;
-  updating: boolean;
-  deleting: boolean;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmitUpload: (file: File) => Promise<void>;
@@ -68,8 +66,6 @@ function MediaGroup({
   items,
   locked,
   uploading,
-  updating,
-  deleting,
   isOpen,
   onOpenChange,
   onSubmitUpload,
@@ -169,7 +165,7 @@ function MediaGroup({
                   <span>Approved</span>
 
                   <Toggle
-                    disabled={updating || (image.published && locked)}
+                    disabled={image.published && locked}
                     value={!!image.published}
                     onChange={(value) => onToggleApprove(image.id, value)}
                   />
@@ -177,10 +173,10 @@ function MediaGroup({
 
                 <Button
                   variant="custom"
-                  disabled={deleting || (image.published && locked)}
+                  disabled={image.published && locked}
                   onClick={() => onDelete(image.id)}
                   className={`w-full flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium ${
-                    deleting || (image.published && locked)
+                    image.published && locked
                       ? "border border-slate-200 bg-slate-100 hover:bg-slate-100 text-slate-400 cursor-not-allowed"
                       : "border border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
                   }`}
@@ -197,16 +193,40 @@ function MediaGroup({
   );
 }
 
+type OptimisticAction =
+  | {
+      type: "update";
+      id: string;
+      updates: { featured?: boolean; published?: boolean };
+    }
+  | { type: "delete"; id: string };
+
+function optimisticImagesReducer(
+  state: SectionImage[],
+  action: OptimisticAction,
+): SectionImage[] {
+  switch (action.type) {
+    case "update":
+      return state.map((img) =>
+        img.id === action.id ? { ...img, ...action.updates } : img,
+      );
+    case "delete":
+      return state.filter((img) => img.id !== action.id);
+  }
+}
+
 export default function AdminSectionImages({
   images,
   onUpdateImage,
   onDeleteImage,
   onUploadImage,
 }: AdminSectionImagesProps) {
-  const router = useRouter();
+  const [optimisticImages, applyOptimistic] = useOptimistic(
+    images,
+    optimisticImagesReducer,
+  );
+  const [, startTransition] = useTransition();
   const [uploading, setUploading] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-  const [updating, setUpdating] = useState(false);
   const [openTarget, setOpenTarget] = useState<string | null>(null);
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
@@ -222,103 +242,72 @@ export default function AdminSectionImages({
       }
       setUploading(true);
 
-      toast.promise(onUploadImage(section, file, galleryType), {
+      const promise = unwrap(
+        onUploadImage(section, file, galleryType),
+        "Failed to upload image",
+      );
+
+      toast.promise(promise, {
         loading: "Uploading image...",
-        success: (result) => {
-          if (!result.success) {
-            console.error(result.error);
-            throw new Error(result.error);
-          }
-          setUploading(false);
-          setOpenTarget(null);
-          router.refresh();
-          return "Image uploaded successfully";
-        },
-        error: (error) => {
-          console.error(
-            error instanceof Error ? error.message : "Failed to upload image",
-          );
-          return "Failed to upload image";
-        },
+        success: "Image uploaded successfully",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to upload image",
       });
+
+      await promise;
+      setOpenTarget(null);
     } catch (error) {
-      toast.error("Failed to upload image");
-      setUploading(false);
       console.error(error);
+    } finally {
+      setUploading(false);
     }
   };
 
-  const handleUpdateImage = async (
+  const handleUpdateImage = (
     id: string,
     updates: {
       featured?: boolean;
       published?: boolean;
     },
   ) => {
-    try {
-      setUpdating(true);
-      const promise = onUpdateImage(id, updates);
+    startTransition(async () => {
+      applyOptimistic({ type: "update", id, updates });
+
+      const promise = unwrap(onUpdateImage(id, updates), "Failed to update image");
 
       toast.promise(promise, {
         loading: "Updating image...",
-        success: (result) => {
-          if (!result.success) {
-            throw new Error(result.error);
-          }
-          setUpdating(false);
-
-          return "Image updated";
-        },
-        error: (err) =>
-          err instanceof Error ? err.message : "Failed to update image",
+        success: "Image updated",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to update image",
       });
 
-      const result = await promise;
-
-      if (result.success) {
-        router.refresh();
-      }
-    } catch (error) {
-      toast.error("Failed to update image");
-      console.error(error);
-      setUpdating(false);
-    }
+      await promise.catch(() => {});
+    });
   };
 
-  const handleDeleteImage = async (id: string) => {
-    try {
-      setDeleting(true);
+  const handleDeleteImage = (id: string) => {
+    startTransition(async () => {
+      applyOptimistic({ type: "delete", id });
 
-      const promise = onDeleteImage(id);
-      await toast.promise(promise, {
+      const promise = unwrap(onDeleteImage(id), "Failed to delete image");
+
+      toast.promise(promise, {
         loading: "Deleting image...",
-        success: (result) => {
-          if (!result.success) {
-            throw new Error(result.error);
-          }
-          setDeleting(false);
-
-          return "Image updated";
-        },
-        error: (err) =>
-          err instanceof Error ? err.message : "Failed to update image",
+        success: "Image deleted",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to delete image",
       });
-      const result = await promise;
-      if (result.success) {
-        router.refresh();
-      }
-    } catch (error) {
-      toast.error("Failed to delete image");
-      setDeleting(false);
-      console.error(error);
-    }
+
+      await promise.catch(() => {});
+    });
   };
 
   return (
     <div className="space-y-10">
       {sectionKeys.map((section) => {
         if (section.key !== "gallery") {
-          const sectionImages = images.filter(
+          const sectionImages = optimisticImages.filter(
             (img) => img.section === section.key,
           );
           const approvedImages = sectionImages.filter((img) => img.published);
@@ -333,8 +322,6 @@ export default function AdminSectionImages({
               items={sectionImages}
               locked={locked}
               uploading={uploading}
-              updating={updating}
-              deleting={deleting}
               isOpen={openTarget === section.key}
               onOpenChange={(open) =>
                 setOpenTarget(open ? section.key : null)
@@ -356,7 +343,7 @@ export default function AdminSectionImages({
             <div className="space-y-8 pl-0 md:pl-6 md:border-l md:border-border">
               {galleryTypes.map((type) => {
                 const target = `gallery:${type.key}`;
-                const typeImages = images.filter(
+                const typeImages = optimisticImages.filter(
                   (img) =>
                     img.section === "gallery" &&
                     (img.galleryType ?? "none") === type.key,
@@ -369,8 +356,6 @@ export default function AdminSectionImages({
                     items={typeImages}
                     locked={false}
                     uploading={uploading}
-                    updating={updating}
-                    deleting={deleting}
                     isOpen={openTarget === target}
                     onOpenChange={(open) =>
                       setOpenTarget(open ? target : null)

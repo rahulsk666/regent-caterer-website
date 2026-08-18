@@ -14,13 +14,12 @@ export default async function GalleryPage({
 
   const TypeName = decodeURIComponent(type);
 
-  const images = await getSectionImages(
-    "gallery",
-    TypeName == "all" ? "none" : (TypeName as GalleryType),
-  );
-  const video = await getSectionVideos(
-    TypeName == "all" ? "none" : (TypeName as GalleryType),
-  );
+  const galleryType = TypeName === "all" ? "none" : (TypeName as GalleryType);
+
+  const [images, video] = await Promise.all([
+    getSectionImages("gallery", galleryType),
+    getSectionVideos(galleryType),
+  ]);
 
   const categories = [
     { key: "all", label: "All Gallery" },

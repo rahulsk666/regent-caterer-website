@@ -35,6 +35,7 @@ export async function updateReviewAction(
     await updateReview(id, updates);
 
     revalidatePath("/admin");
+    revalidatePath("/");
 
     return { success: true };
   } catch (error) {
@@ -50,6 +51,7 @@ export async function deleteReviewAction(id: number) {
     await deleteReview(id);
 
     revalidatePath("/admin");
+    revalidatePath("/");
 
     return { success: true };
   } catch (error) {

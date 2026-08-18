@@ -8,10 +8,12 @@ import SignatureCollectionsSection from "@/components/sections/SignatureCollecti
 import ContactSection from "@/components/sections/ContactSection";
 import CreateReviewSection from "@/components/sections/CreateReviewSection";
 import Header from "@/components/Header";
+import ScrollToHash from "@/components/ScrollToHash";
 
 export default function Home() {
   return (
     <main>
+      <ScrollToHash />
       <Header />
       <HeroSection />
       <AboutSection />

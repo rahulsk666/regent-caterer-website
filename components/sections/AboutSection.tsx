@@ -10,22 +10,15 @@ export default function AboutSection() {
         </div>
         <div className="lg:my-20 md:mt-10 md:mb-20 my-5 w-full md:w-2/3 ml-auto lg:text-3xl md:text-lg text-base md:text-right">
           <p>
-            {/* At Regent Caterers, we believe food is more than a meal. It is the
-            centerpiece of every celebration. We combine authentic flavors,
-            premium ingredients, elegant presentation, and professional
-            hospitality to create unforgettable catering experiences tailored
-            for every occasion. Whether it&apos;s a wedding, engagement,
-            corporate gathering, birthday celebration, or family event, our
-            focus remains the same */}
             {/* Since 2000, We are successfully serving high quality food along with
             warm service throughout India. Our energetic team is located in
             Irinjalakuda,Thrissur. */}
             Since 2000, we have been proudly serving exceptional cuisine paired
             with warm, attentive hospitality. Over the years, our commitment to
             quality, taste, and customer satisfaction has earned the trust of
-            clients across India. Based in Irinjalakuda, Thrissur, our
-            passionate and dedicated team works tirelessly to create memorable
-            dining experiences for every occasion. Whether it&apos;s an intimate
+            clients across India. Based in Thrissur, our passionate and
+            dedicated team works tirelessly to create memorable dining
+            experiences for every occasion. Whether it&apos;s an intimate
             gathering or a grand celebration, we bring the same dedication,
             authenticity, and excellence to every event we cater.
           </p>

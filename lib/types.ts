@@ -97,9 +97,11 @@ export type ContactActionState = {
 // Delightful Moments
 // Signature Collections
 // Gallery
-// Hospitality
-// Ingredients
-// Events & Celebrations
+// Delicious Cuisine
+// Luscious Desserts
+// Healthy Salad Counters
+// Elegant Food Counters
+// Premium Cutleries
 // ─────────────────────────────
 
 export const sectionKeys = [
@@ -141,24 +143,24 @@ export type SectionVideo = {
 export const galleryTypes = [
   { key: "none", label: "All Gallery" },
   {
-    key: "ingredients",
-    label: "Ingredients",
+    key: "delicious-cuisine",
+    label: "Delicious Cuisine",
   },
   {
-    key: "food-presentation",
-    label: "Food Presentation",
+    key: "luscious-desserts",
+    label: "Luscious Desserts",
   },
   {
-    key: "hospitality",
-    label: "Hospitality",
+    key: "healthy-salad-counters",
+    label: "Healthy Salad Counters",
   },
   {
-    key: "service-excellence",
-    label: "Service Excellence",
+    key: "elegant-food-counters",
+    label: "Elegant Food Counters",
   },
   {
-    key: "events-celebrations",
-    label: "Events & Celebrations",
+    key: "premium-cutleries",
+    label: "Premium Cutleries",
   },
 ] as const;
 

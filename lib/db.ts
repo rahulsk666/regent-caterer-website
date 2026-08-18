@@ -476,10 +476,10 @@ export async function getFeaturedReviews(): Promise<Review[]> {
       sql: `
         SELECT *
         FROM reviews
-        WHERE highlighted_home = ? AND approved = ?
+        WHERE highlighted_home = ?
         ORDER BY created_at DESC
       `,
-      args: [1, 1],
+      args: [1],
     });
 
     return result.rows.map((row) => rowToReview(row as unknown as ReviewRow));
@@ -527,19 +527,27 @@ export async function updateReview(
   review: Partial<Review>,
 ): Promise<void> {
   try {
-    const existingResult = await db.execute({
-      sql: "SELECT * FROM reviews WHERE id = ?",
-      args: [id],
-    });
+    let oldImage: string | undefined;
 
-    const existing = existingResult.rows[0] as unknown as ReviewRow;
+    // Only pay for the extra round trip when an image is actually being
+    // replaced — the approve / highlightedHome toggles never send `image`.
+    if (review.image) {
+      const existingResult = await db.execute({
+        sql: "SELECT image FROM reviews WHERE id = ?",
+        args: [id],
+      });
 
-    if (!existing) return;
+      const existing = existingResult.rows[0] as unknown as
+        | Pick<ReviewRow, "image">
+        | undefined;
 
-    const oldImage =
-      review.image && existing.image && review.image !== existing.image
-        ? existing.image
-        : undefined;
+      if (!existing) return;
+
+      oldImage =
+        existing.image && review.image !== existing.image
+          ? existing.image
+          : undefined;
+    }
 
     await db.execute({
       sql: `

@@ -9,11 +9,11 @@ import AdminClient from "@/components/admin/AdminClient";
 
 export default async function AdminDashboard() {
   const [reviews, contacts, stats, images, videos] = await Promise.all([
-    await getAllReviews(),
-    await getAllContacts(),
-    await getDashboardStats(),
-    await getAllSectionImages(),
-    await getAllSectionVideos(),
+    getAllReviews(),
+    getAllContacts(),
+    getDashboardStats(),
+    getAllSectionImages(),
+    getAllSectionVideos(),
   ]);
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 import gsap from "gsap";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function SplashScreen({
@@ -8,9 +9,13 @@ export default function SplashScreen({
 }: {
   children: React.ReactNode;
 }) {
-  const [isMounted, setIsMounted] = useState(true);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const [isMounted, setIsMounted] = useState(isHome);
 
   useEffect(() => {
+    if (!isHome) return;
+
     gsap.fromTo(
       ".splash-logo",
       {
@@ -37,16 +42,18 @@ export default function SplashScreen({
         ease: "power3.out",
       },
     );
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
+    if (!isHome) return;
+
     // Set duration for the splash screen view (e.g., 2.5 seconds)
     const timeout = setTimeout(() => {
       setIsMounted(false);
     }, 2500);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [isHome]);
 
   if (isMounted) {
     return (

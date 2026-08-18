@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import HeroContactButtons from "../HeroContactButtons";
 import Button from "../ui/CustomButton";
+import { scrollToSection } from "@/lib/scroll";
 
 export default function HeroSection() {
   return (
@@ -35,6 +38,7 @@ export default function HeroSection() {
           <Link
             className="group order-2 md:order-1 text-xl text-white font-medium flex flex-row md:gap-2 gap-1 items-center cursor-pointer"
             href={"/#whyUsSection"}
+            onClick={scrollToSection("whyUsSection")}
           >
             Explore our Services
             <Image

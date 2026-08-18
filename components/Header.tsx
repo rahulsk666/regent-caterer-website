@@ -7,6 +7,7 @@ import Button from "./ui/CustomButton";
 import { twMerge } from "tailwind-merge";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { scrollToSection } from "@/lib/scroll";
 
 interface HeaderProps {
   variant?: "light" | "dark";
@@ -17,14 +18,6 @@ export default function Header({ variant = "light" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const scrollToSection = (id: string) => (e: React.MouseEvent) => {
-    if (window.location.pathname === "/") {
-      e.preventDefault();
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      history.replaceState(null, "", `/#${id}`);
-    }
   };
 
   useEffect(() => {
@@ -152,6 +145,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
         <Link
           href="/#whyUsSection"
           onClick={scrollToSection("whyUsSection")}
+          scroll={false}
           className="hover:text-foreground-secondary"
         >
           Why Us
@@ -203,6 +197,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
               </Link>
               <Link
                 href="/#aboutSection"
+                scroll={false}
                 onClick={(e) => {
                   scrollToSection("aboutSection")(e);
                   toggleMenu();
@@ -213,6 +208,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
               </Link>
               <Link
                 href="/#whyUsSection"
+                scroll={false}
                 onClick={(e) => {
                   scrollToSection("whyUsSection")(e);
                   toggleMenu();
@@ -223,6 +219,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
               </Link>
               <Link
                 href="/#testimonialsSections"
+                scroll={false}
                 onClick={(e) => {
                   scrollToSection("testimonialsSections")(e);
                   toggleMenu();

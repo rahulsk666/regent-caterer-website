@@ -315,6 +315,10 @@ interface UnderlineFileUploadProps extends Omit<
   /** Called when the user clears the existing image */
   onClearExisting?: () => void;
   resetTrigger?: number;
+  /** Empty-state primary text (defaults to "Upload file(s)") */
+  emptyStateTitle?: string;
+  /** Empty-state secondary text (defaults to "Click to browse") */
+  emptyStateSubtitle?: string;
 }
 
 function UnderlineFileUpload({
@@ -328,6 +332,8 @@ function UnderlineFileUpload({
   existingImage,
   existingImageName,
   onClearExisting,
+  emptyStateTitle,
+  emptyStateSubtitle,
   ...props
 }: UnderlineFileUploadProps) {
   const inputId = id ?? label?.toLowerCase().replace(/\s+/g, "-");
@@ -417,10 +423,10 @@ function UnderlineFileUpload({
             </svg>
             <div className="text-center">
               <p className="text-sm font-medium font-poppins">
-                Upload file{multiple ? "s" : ""}
+                {emptyStateTitle ?? `Upload file${multiple ? "s" : ""}`}
               </p>
               <p className="text-xs text-foreground-primary/50">
-                Click to browse
+                {emptyStateSubtitle ?? "Click to browse"}
               </p>
             </div>
           </>

@@ -60,7 +60,7 @@ export default async function SignatureCollectionsSection() {
           >
             <Link
               className="flex flex-row justify-center items-center gap-2"
-              href={"/gallery/service-excellence"}
+              href={"/gallery/premium-cutleries"}
             >
               <p className="text-golden-gradient lg:text-3xl md:text-xl text-xl">
                 Explore More

@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "./ui/CustomButton";
-import { IconPencilFilled } from "@tabler/icons-react";
+import { IconPencilFilled, IconX } from "@tabler/icons-react";
 import { useActionState, useEffect, useRef, useState } from "react";
 import {
   UnderlineFileUpload,
@@ -45,6 +45,13 @@ export default function ReviewForm() {
     }
   }, [state]);
 
+  const handleClose = () => {
+    setIsFormOpen(false);
+    setRating(0);
+    formRef.current?.reset();
+    setResetKey((v) => v + 1);
+  };
+
   return (
     <div className="flex h-full w-full items-center justify-center m-10 container-app">
       {!isFormOpen ? (
@@ -59,7 +66,15 @@ export default function ReviewForm() {
           <IconPencilFilled className="lg:w-8 w-6 h-auto text-golden-500" />
         </Button>
       ) : (
-        <div className="lg:w-[75%] w-full h-full">
+        <div className="lg:w-[75%] w-full h-full relative">
+          <button
+            type="button"
+            onClick={handleClose}
+            aria-label="Close"
+            className="absolute right-2 top-2 z-10 rounded-full p-1.5 text-foreground-primary/60 hover:bg-dark-100 hover:text-foreground-primary transition-colors"
+          >
+            <IconX className="w-5 h-5" />
+          </button>
           <p className="text-golden-gradient py-10 text-4xl font-galgin text-center">
             Share Your Experience
           </p>
@@ -89,7 +104,7 @@ export default function ReviewForm() {
                     label="Email"
                     name="email"
                     defaultValue={state.values?.email}
-                    error={state.values?.email}
+                    error={state?.errors?.email?.[0]}
                     placeholder="email@example.com"
                     type="email"
                   />
@@ -143,6 +158,8 @@ export default function ReviewForm() {
                   accept="image/*"
                   name="file"
                   label="Your Photo"
+                  emptyStateTitle="Upload your photo (optional)"
+                  emptyStateSubtitle="PNG or JPG"
                 />
               </div>
             </div>

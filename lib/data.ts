@@ -79,34 +79,34 @@ export const stats = [
 
 export const features = [
   {
-    title: "Premium Ingredients",
+    title: "Delicious Cuisine",
     description:
-      "We use only the highest quality, freshest ingredients sourced from trusted local suppliers.",
-    url: "/gallery/ingredients",
+      "Multi-cuisine menus cooked fresh, tuned to the occasion and the guest list.",
+    url: "/gallery/delicious-cuisine",
   },
   {
-    title: "Elegant Food Presentation",
+    title: "Luscious Desserts",
     description:
-      "Every dish is presented beautifully to elevate the event experience.",
-    url: "/gallery/food-presentation",
+      "Live and plated dessert spreads, from traditional sweets to modern patisserie.",
+    url: "/gallery/luscious-desserts",
   },
   {
-    title: "Professional Hospitality",
+    title: "Healthy Salad Counters",
     description:
-      "Experienced staff ensuring smooth coordination and guest satisfaction.",
-    url: "/gallery/hospitality",
+      "Fresh salad and grazing counters built from crisp, seasonal produce.",
+    url: "/gallery/healthy-salad-counters",
   },
   {
-    title: "Trusted Service",
+    title: "Elegant Food Counters",
     description:
-      "Reliable catering backed by customer trust and successful event experiences.",
-    url: "/gallery/service-excellence",
+      "Themed, styled counters that make the buffet part of the decor.",
+    url: "/gallery/elegant-food-counters",
   },
   {
-    title: "Custom Event Solutions",
+    title: "Premium Cutleries",
     description:
-      "Menus and arrangements tailored to your preferences and event style.",
-    url: "/gallery/events-celebrations",
+      "Polished tableware and serveware that lift the whole table setting.",
+    url: "/gallery/premium-cutleries",
   },
 ];
 

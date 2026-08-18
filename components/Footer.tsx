@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { scrollToSection } from "@/lib/scroll";
 
 export default function Footer() {
   return (
@@ -10,18 +13,24 @@ export default function Footer() {
             <p className="text-foreground-secondary">Important Links</p>
             <Link
               href="/#home"
+              onClick={scrollToSection("home")}
+              scroll={false}
               className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Home
             </Link>
             <Link
               href="/#aboutSection"
+              onClick={scrollToSection("aboutSection")}
+              scroll={false}
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               About Us
             </Link>
             <Link
               href="/#whyUsSection"
+              onClick={scrollToSection("whyUsSection")}
+              scroll={false}
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Why Us
@@ -33,7 +42,7 @@ export default function Footer() {
               Contact Us
             </Link>
             <Link
-              href="/#signatureCollectionsSections"
+              href="/gallery/all"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Gallery
@@ -90,7 +99,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col justify-center items-center mt-5 gap-3">
           <p className="lg:text-3xl text-2xl text-golden-gradient">
-            Quality You Can See. Taste. Trust.
+            The Quality you can Taste and The Service you can Trust.
           </p>
           <p className="lg:text-9xl text-7xl pb-4 font-galgin text-golden-gradient underline decoration-3 underline-offset-8">
             Regent Caterers
@@ -122,20 +131,25 @@ export default function Footer() {
             <div className="flex flex-col text-foreground-muted mt-5 text-xl">
               <p className="text-foreground-secondary">Important Links</p>
               <Link
-                href="/#homeSection"
-                as={"/#home"}
+                href="/#home"
+                onClick={scrollToSection("home")}
+                scroll={false}
                 className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
               >
                 Home
               </Link>
               <Link
                 href="/#aboutSection"
+                onClick={scrollToSection("aboutSection")}
+                scroll={false}
                 className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
               >
                 About Us
               </Link>
               <Link
                 href="/#whyUsSection"
+                onClick={scrollToSection("whyUsSection")}
+                scroll={false}
                 className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
               >
                 Why Us
@@ -147,7 +161,7 @@ export default function Footer() {
                 Contact Us
               </Link>
               <Link
-                href="/#signatureCollectionsSections"
+                href="/gallery/all"
                 className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
               >
                 Gallery

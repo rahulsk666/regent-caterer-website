@@ -3,9 +3,9 @@
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
 import { ActionResult, GalleryType, galleryTypes, SectionVideo } from "@/lib/types";
+import { unwrap } from "@/lib/actionResult";
 import Toggle from "./Toggle";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -45,8 +45,6 @@ interface MediaGroupProps {
   items: SectionVideo[];
   locked: boolean;
   uploading: boolean;
-  updating: boolean;
-  deleting: boolean;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmitUpload: (file: File) => Promise<void>;
@@ -59,8 +57,6 @@ function MediaGroup({
   items,
   locked,
   uploading,
-  updating,
-  deleting,
   isOpen,
   onOpenChange,
   onSubmitUpload,
@@ -163,7 +159,7 @@ function MediaGroup({
                   <span>Approved</span>
 
                   <Toggle
-                    disabled={updating || (video.published && locked)}
+                    disabled={video.published && locked}
                     value={!!video.published}
                     onChange={(value) => onToggleApprove(video.id, value)}
                   />
@@ -171,10 +167,10 @@ function MediaGroup({
 
                 <Button
                   variant="custom"
-                  disabled={deleting || (video.published && locked)}
+                  disabled={video.published && locked}
                   onClick={() => onDelete(video.id)}
                   className={`w-full flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium ${
-                    deleting || (video.published && locked)
+                    video.published && locked
                       ? "border border-slate-200 bg-slate-100 hover:bg-slate-100 text-slate-400 cursor-not-allowed"
                       : "border border-red-200 bg-red-50 text-red-600 hover:bg-red-100"
                   }`}
@@ -191,16 +187,40 @@ function MediaGroup({
   );
 }
 
+type OptimisticAction =
+  | {
+      type: "update";
+      id: string;
+      updates: { featured?: boolean; published?: boolean };
+    }
+  | { type: "delete"; id: string };
+
+function optimisticVideosReducer(
+  state: SectionVideo[],
+  action: OptimisticAction,
+): SectionVideo[] {
+  switch (action.type) {
+    case "update":
+      return state.map((v) =>
+        v.id === action.id ? { ...v, ...action.updates } : v,
+      );
+    case "delete":
+      return state.filter((v) => v.id !== action.id);
+  }
+}
+
 export default function AdminSectionVideo({
   videos,
   onUpdateVideo,
   onDeleteVideo,
   onUploadVideo,
 }: AdminSectionVideoProps) {
-  const router = useRouter();
+  const [optimisticVideos, applyOptimistic] = useOptimistic(
+    videos,
+    optimisticVideosReducer,
+  );
+  const [, startTransition] = useTransition();
   const [uploading, setUploading] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-  const [updating, setUpdating] = useState(false);
   const [openTarget, setOpenTarget] = useState<string | null>(null);
   const MAX_FILE_SIZE = 100 * 1024 * 1024;
 
@@ -216,102 +236,72 @@ export default function AdminSectionVideo({
       }
       setUploading(true);
 
-      toast.promise(onUploadVideo(section, file, galleryType), {
+      const promise = unwrap(
+        onUploadVideo(section, file, galleryType),
+        "Failed to upload video",
+      );
+
+      toast.promise(promise, {
         loading: "Uploading video...",
-        success: (result) => {
-          if (!result.success) {
-            throw new Error(result.error);
-          }
-          setUploading(false);
-          setOpenTarget(null);
-          router.refresh();
-          return "Video uploaded successfully";
-        },
-        error: (error) => {
-          console.error(
-            error instanceof Error ? error.message : "Failed to upload video",
-          );
-          return "Failed to upload video";
-        },
+        success: "Video uploaded successfully",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to upload video",
       });
+
+      await promise;
+      setOpenTarget(null);
     } catch (error) {
-      toast.error("Failed to upload video");
-      setUploading(false);
       console.error(error);
+    } finally {
+      setUploading(false);
     }
   };
 
-  const handleUpdateVideo = async (
+  const handleUpdateVideo = (
     id: string,
     updates: {
       featured?: boolean;
       published?: boolean;
     },
   ) => {
-    try {
-      setUpdating(true);
-      const promise = onUpdateVideo(id, updates);
+    startTransition(async () => {
+      applyOptimistic({ type: "update", id, updates });
+
+      const promise = unwrap(onUpdateVideo(id, updates), "Failed to update video");
 
       toast.promise(promise, {
         loading: "Updating video...",
-        success: (result) => {
-          if (!result.success) {
-            throw new Error(result.error);
-          }
-          setUpdating(false);
-
-          return "Video updated";
-        },
-        error: (err) =>
-          err instanceof Error ? err.message : "Failed to update video",
+        success: "Video updated",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to update video",
       });
 
-      const result = await promise;
-
-      if (result.success) {
-        router.refresh();
-      }
-    } catch (error) {
-      toast.error("Failed to update video");
-      console.error(error);
-      setUpdating(false);
-    }
+      await promise.catch(() => {});
+    });
   };
 
-  const handleDeleteVideo = async (id: string) => {
-    try {
-      setDeleting(true);
+  const handleDeleteVideo = (id: string) => {
+    startTransition(async () => {
+      applyOptimistic({ type: "delete", id });
 
-      const promise = onDeleteVideo(id);
-      await toast.promise(promise, {
+      const promise = unwrap(onDeleteVideo(id), "Failed to delete video");
+
+      toast.promise(promise, {
         loading: "Deleting video...",
-        success: (result) => {
-          if (!result.success) {
-            throw new Error(result.error);
-          }
-          setDeleting(false);
-
-          return "Video deleted";
-        },
-        error: (err) =>
-          err instanceof Error ? err.message : "Failed to delete video",
+        success: "Video deleted",
+        error: (e: unknown) =>
+          e instanceof Error ? e.message : "Failed to delete video",
       });
-      const result = await promise;
-      if (result.success) {
-        router.refresh();
-      }
-    } catch (error) {
-      toast.error("Failed to delete video");
-      setDeleting(false);
-      console.error(error);
-    }
+
+      await promise.catch(() => {});
+    });
   };
 
   return (
     <div className="space-y-8">
       {galleryTypes.map((type) => {
         const target = `gallery:${type.key}`;
-        const typeVideos = videos.filter(
+        const typeVideos = optimisticVideos.filter(
           (video) =>
             video.section === "gallery" &&
             (video.galleryType ?? "none") === type.key,
@@ -325,8 +315,6 @@ export default function AdminSectionVideo({
             items={typeVideos}
             locked={approvedVideos.length <= 1}
             uploading={uploading}
-            updating={updating}
-            deleting={deleting}
             isOpen={openTarget === target}
             onOpenChange={(open) => setOpenTarget(open ? target : null)}
             onSubmitUpload={(file) => handleUpload("gallery", file, type.key)}

@@ -22,7 +22,7 @@ export default function FeatureCard({
       href={url}
       className={twMerge(
         className,
-        "absolute lg:relative inset-x-0 lg:inset-auto flex flex-col lg:gap-2 gap-4 p-4 shadow-lg rounded-2xl bg-card-background lg:h-full lg:w-full",
+        "relative flex flex-col lg:gap-2 gap-4 p-4 shadow-lg rounded-2xl bg-card-background lg:h-full lg:w-full",
       )}
     >
       <div className="m-1">
