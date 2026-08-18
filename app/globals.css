@@ -253,6 +253,32 @@ body {
     [data-chromeless-video]::-moz-media-controls {
       display: none !important;
     }
+
+    /* Imperatively-created background video (useDetachedBackgroundVideo).
+       A dedicated class rather than composed Tailwind utilities: this
+       element is built in JS, so its class string never reaches Tailwind's
+       source scanner as JSX and utility generation cannot be relied on. */
+    .bg-video-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      opacity: 0;
+      transition: opacity 700ms ease-out;
+    }
+    .bg-video-layer[data-ready="true"] {
+      opacity: 1;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bg-video-layer {
+        transition: none;
+      }
+    }
   }
 }
 
