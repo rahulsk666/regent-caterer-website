@@ -78,6 +78,7 @@ const ContactPage = () => {
                     alt=""
                     width={20}
                     height={20}
+                    loading="eager"
                     className="w-10 h-auto"
                   />
                 </Link>
@@ -91,6 +92,7 @@ const ContactPage = () => {
                     alt=""
                     width={20}
                     height={20}
+                    loading="eager"
                     className="w-10 h-auto"
                   />
                 </Link>
@@ -104,6 +106,7 @@ const ContactPage = () => {
                     alt=""
                     width={20}
                     height={20}
+                    loading="eager"
                     className="w-10 h-auto"
                   />
                 </Link>
@@ -113,6 +116,7 @@ const ContactPage = () => {
                     alt=""
                     width={20}
                     height={20}
+                    loading="eager"
                     className="w-10 h-auto"
                   />
                 </Link>

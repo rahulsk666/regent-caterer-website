@@ -12,7 +12,7 @@ import {
 } from "@/lib/font";
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
-import SplashScreen from "@/components/ui/SpashScreen";
+import SplashScreen from "@/components/ui/SplashScreen";
 
 export const metadata: Metadata = {
   title: "Regent Caterers",
