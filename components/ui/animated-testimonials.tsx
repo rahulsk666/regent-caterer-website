@@ -6,13 +6,7 @@ import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import Button from "./CustomButton";
 import { Testimonial } from "@/lib/types";
-
-// Generated once at module level — stable across all renders
-const MAX_TESTIMONIALS = 20;
-const rotations = Array.from(
-  { length: MAX_TESTIMONIALS },
-  () => Math.floor(Math.random() * 21) - 10,
-);
+import { stackRotation } from "@/lib/utils";
 
 export const AnimatedTestimonials = ({
   testimonials,
@@ -53,13 +47,13 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: rotations[index],
+                    rotate: stackRotation(index),
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : rotations[index],
+                    rotate: isActive(index) ? 0 : stackRotation(index),
                     zIndex: isActive(index)
                       ? 40
                       : testimonials.length + 2 - index,
@@ -69,7 +63,7 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: rotations[index],
+                    rotate: stackRotation(index),
                   }}
                   transition={{
                     duration: 0.4,

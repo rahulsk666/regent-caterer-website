@@ -71,6 +71,7 @@ export default function GalleryCategoryDropdown({
                 key={item.key}
                 href={`/gallery/${item.key}`}
                 onClick={() => setOpen(false)}
+                aria-current={isActive ? "page" : undefined}
                 className={`flex items-center justify-between px-5 py-4 transition-colors duration-200 ${
                   isActive
                     ? "bg-golden-500 text-white"

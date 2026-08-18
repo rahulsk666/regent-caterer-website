@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { stackRotation } from "@/lib/utils";
 
 interface AnimatedImageStackProps {
   images: string[];
@@ -48,7 +49,7 @@ export default function AnimatedImageStack({
             key={idx}
             ref={idx === resolvedIndex ? centerImageRef : null}
             style={{
-              rotate: Math.random() * 20 - 10,
+              rotate: stackRotation(idx),
             }}
             whileHover={{
               scale: 1.1,
