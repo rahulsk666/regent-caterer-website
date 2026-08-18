@@ -5,6 +5,7 @@ import { DecorativeStar } from "@/components/ui/DecorativeStar";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { contact } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -50,9 +51,9 @@ const ContactPage = () => {
                   Visit Us
                 </p>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
-                  Aloor, Irinjalakuda, Thrissur
+                  {contact.addressLine1}
                   <br />
-                  Pin: 673639
+                  {contact.addressPin}
                 </p>
               </div>
               <div className="flex flex-col gap-2">
@@ -60,15 +61,15 @@ const ContactPage = () => {
                   Talk To Us
                 </p>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
-                  +91 9495559777
+                  {contact.phoneDisplay}
                 </p>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
-                  regentcaterers@gmail.com
+                  {contact.email}
                 </p>
               </div>
               <div className="flex flex-row gap-4">
                 <Link
-                  href="https://wa.me/9495559777?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+                  href={contact.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -81,7 +82,7 @@ const ContactPage = () => {
                   />
                 </Link>
                 <Link
-                  href={"https://www.instagram.com/regentcaterers/"}
+                  href={contact.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -94,7 +95,7 @@ const ContactPage = () => {
                   />
                 </Link>
                 <Link
-                  href={"https://www.facebook.com/regentcatering/"}
+                  href={contact.facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -106,7 +107,7 @@ const ContactPage = () => {
                     className="w-10 h-auto"
                   />
                 </Link>
-                <Link href={"tel:9495559777"}>
+                <Link href={contact.telUrl}>
                   <Image
                     src={"/svg/phone.svg"}
                     alt=""

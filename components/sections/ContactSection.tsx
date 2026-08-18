@@ -4,6 +4,7 @@ import Image from "next/image";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { DecorativeStar } from "../ui/DecorativeStar";
 import BackgroundVideo from "../ui/BackgroundVideo";
+import { contact } from "@/lib/contact";
 
 export default function ContactSection() {
   return (
@@ -46,9 +47,7 @@ export default function ContactSection() {
             className="lg:w-3xl md:w-xl w-70 cursor-pointer"
           >
             <Link
-              href={
-                "https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
-              }
+              href={contact.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-5"

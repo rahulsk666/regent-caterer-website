@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { scrollToSection } from "@/lib/scroll";
+import { contact } from "@/lib/contact";
 
 export default function Footer() {
   return (
@@ -58,7 +59,7 @@ export default function Footer() {
           <div className="flex flex-col text-foreground-muted mt-10 lg:text-xl text-lg">
             <p className="text-foreground-secondary">Social</p>
             <Link
-              href="https://www.instagram.com/regentcaterers/"
+              href={contact.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -66,7 +67,7 @@ export default function Footer() {
               Instagram
             </Link>
             <Link
-              href="https://wa.me/9495559777?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+              href={contact.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -74,7 +75,7 @@ export default function Footer() {
               Whats App
             </Link>
             <Link
-              href="https://www.facebook.com/regentcatering/"
+              href={contact.facebookUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -82,14 +83,14 @@ export default function Footer() {
               Facebook
             </Link>
             <Link
-              href="mailto:regentcaterers@gmail.com"
+              href={contact.mailtoUrl}
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
               Email
             </Link>
             <Link
-              href="tel:9495559777"
+              href={contact.telUrl}
               rel="noopener noreferrer"
               className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
             >
@@ -106,11 +107,11 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex flex-row justify-between mt-5 text-sm text-foreground-secondary">
-          <p>regentcaterers@gmail.com</p>
+          <p>{contact.email}</p>
           <p>
             ©{new Date().getFullYear()} Regent Caterers. All rights reserved.
           </p>
-          <p>+9495559777</p>
+          <p>{contact.phoneDisplay}</p>
         </div>
       </div>
       <div className="flex flex-col md:hidden min-h-full py-5">
@@ -176,7 +177,7 @@ export default function Footer() {
             <div className="flex flex-col text-foreground-muted mt-32 text-xl">
               <p className="text-foreground-secondary">Social</p>
               <Link
-                href="https://www.instagram.com/regentcaterers/"
+                href={contact.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-5 transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -184,7 +185,7 @@ export default function Footer() {
                 Instagram
               </Link>
               <Link
-                href="https://wa.me/919876543210?text=Hi%20I'd%20like%20to%20know%20more%20about%20your%20services"
+                href={contact.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -192,7 +193,7 @@ export default function Footer() {
                 Whats App
               </Link>
               <Link
-                href="https://www.facebook.com/"
+                href={contact.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
@@ -200,14 +201,14 @@ export default function Footer() {
                 Facebook
               </Link>
               <Link
-                href="mailto:hello@example.com"
+                href={contact.mailtoUrl}
                 rel="noopener noreferrer"
                 className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
               >
                 Email
               </Link>
               <Link
-                href="tel:9876543210"
+                href={contact.telUrl}
                 rel="noopener noreferrer"
                 className="transition-all duration-200 hover:text-white hover:-translate-y-0.5 inline-block"
               >
@@ -218,8 +219,8 @@ export default function Footer() {
         </div>
         <div className="h-[3px] w-full bg-foreground-golden mt-10" />
         <div className="flex flex-col gap-3 justify-center items-center mt-5 py-3 text-sm text-foreground-secondary container-app">
-          <p>+9876543210</p>
-          <p>regentcaterers@gmail.com</p>
+          <p>{contact.phoneDisplay}</p>
+          <p>{contact.email}</p>
           <p className="text-foreground-muted">
             ©{new Date().getFullYear()} Regent Caterers. All rights reserved.
           </p>
