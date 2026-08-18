@@ -15,7 +15,7 @@
     #e8bb46 50%,
     #e3a812 100%
   );
-  --background-base: linear-gradient(#ffffff 0%, #eeeeee 50%, #ffffff 100%);
+  --background-base: linear-gradient(#ffffff 0%, #ffffff 100%);
   --background-secondary: #000000;
   --background-elevated: #ffffff;
   --background: oklch(1 0 0);
