@@ -50,12 +50,12 @@ const ContactPage = () => {
                   Visit Us
                 </p>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
-                  Moonlight Building, Mukkom Road Areekode, Malappuram,
+                  Aloor, Irinjalakuda, Thrissur
                   <br />
                   Pin: 673639
                 </p>
               </div>
-              <div>
+              <div className="flex flex-col gap-2">
                 <p className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
                   Talk To Us
                 </p>

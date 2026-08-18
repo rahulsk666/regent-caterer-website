@@ -3,6 +3,7 @@ import Button from "../ui/CustomButton";
 import Image from "next/image";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { DecorativeStar } from "../ui/DecorativeStar";
+import BackgroundVideo from "../ui/BackgroundVideo";
 
 export default function ContactSection() {
   return (
@@ -13,15 +14,11 @@ export default function ContactSection() {
         background: "linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2))",
       }}
     >
-      <video
-        loop
-        muted
-        autoPlay
-        playsInline
+      <BackgroundVideo
+        src="/videos/contact-bg.mp4"
+        poster="/images/contact-bg-poster.jpg"
         className="absolute -z-10 object-cover w-full h-full"
-      >
-        <source src="/videos/contact-bg.mp4" type="video/mp4" />
-      </video>
+      />
       <div className="relative md:h-screen h-[700px] w-full mx-auto flex flex-col lg:gap-20 gap-70  items-center md:justify-center justify-between">
         <DecorativeStar
           alt="star-1"

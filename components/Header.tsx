@@ -204,7 +204,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
                 }}
                 className=""
               >
-                About US
+                About Us
               </Link>
               <Link
                 href="/#whyUsSection"

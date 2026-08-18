@@ -209,6 +209,50 @@ body {
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
     }
+
+    [data-chromeless-video] {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    /* iOS Safari: "big play button" shown when autoplay is refused */
+    [data-chromeless-video]::-webkit-media-controls-start-playback-button {
+      display: none !important;
+      -webkit-appearance: none;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* Chrome / Android WebView equivalent */
+    [data-chromeless-video]::-webkit-media-controls-overlay-play-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+
+    /* Each pseudo-element below gets its OWN rule on purpose -- an engine
+       that does not recognise one selector in a comma-separated group
+       discards the ENTIRE rule, silently disabling the others too. */
+    [data-chromeless-video]::-webkit-media-controls {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+    [data-chromeless-video]::-webkit-media-controls-enclosure {
+      display: none !important;
+    }
+    [data-chromeless-video]::-webkit-media-controls-panel {
+      display: none !important;
+    }
+    [data-chromeless-video]::-webkit-media-controls-play-button {
+      display: none !important;
+    }
+    /* AirPlay route picker (belt and braces with disableRemotePlayback) */
+    [data-chromeless-video]::-webkit-media-controls-wireless-playback-picker-button {
+      display: none !important;
+    }
+    [data-chromeless-video]::-moz-media-controls {
+      display: none !important;
+    }
   }
 }
 

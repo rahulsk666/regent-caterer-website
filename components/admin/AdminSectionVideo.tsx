@@ -4,6 +4,7 @@ import { IconTrash, IconUpload } from "@tabler/icons-react";
 
 import { ActionResult, GalleryType, galleryTypes, SectionVideo } from "@/lib/types";
 import { unwrap } from "@/lib/actionResult";
+import { useAutoplayVideo } from "@/hooks/useAutoplayVideo";
 import Toggle from "./Toggle";
 import { useOptimistic, useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -38,6 +39,29 @@ interface AdminSectionVideoProps {
     file: File,
     galleryType?: GalleryType,
   ) => Promise<ActionResult>;
+}
+
+function AdminVideoTile({ video }: { video: SectionVideo }) {
+  const videoRef = useAutoplayVideo();
+
+  return (
+    <video
+      ref={videoRef}
+      src={video.url}
+      className="pointer-events-none object-cover h-full w-full"
+      playsInline
+      autoPlay
+      muted
+      loop
+      controls={false}
+      preload="metadata"
+      disablePictureInPicture
+      disableRemotePlayback
+      x-webkit-airplay="deny"
+      tabIndex={-1}
+      data-chromeless-video=""
+    />
+  );
 }
 
 interface MediaGroupProps {
@@ -142,16 +166,7 @@ function MediaGroup({
               className="rounded-3xl border bg-white p-4 shadow-sm"
             >
               <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
-                <video
-                  src={video.url}
-                  className="object-cover h-full w-full"
-                  playsInline
-                  autoPlay
-                  muted
-                  loop
-                >
-                  <source src={video.url} />
-                </video>
+                <AdminVideoTile video={video} />
               </div>
 
               <div className="mt-4 space-y-2">

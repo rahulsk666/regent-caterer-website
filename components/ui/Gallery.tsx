@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ImageLightbox from "./ImageLightBox";
+import { useAutoplayVideo } from "@/hooks/useAutoplayVideo";
 
 type Props = {
   images: string[];
@@ -48,7 +49,7 @@ function GalleryImageTile({
 export default function ClientGallery({ images, video, title }: Props) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useAutoplayVideo();
 
   const validImages = images.filter(Boolean);
 
@@ -81,9 +82,15 @@ export default function ClientGallery({ images, video, title }: Props) {
             muted
             autoPlay
             playsInline
+            controls={false}
             preload="metadata"
+            disablePictureInPicture
+            disableRemotePlayback
+            x-webkit-airplay="deny"
+            tabIndex={-1}
+            data-chromeless-video=""
             onLoadedData={() => setVideoLoaded(true)}
-            className={`h-full w-full object-cover shadow-lg transition-opacity duration-300 ${
+            className={`pointer-events-none h-full w-full object-cover shadow-lg transition-opacity duration-300 ${
               videoLoaded ? "opacity-100" : "opacity-0"
             }`}
           >
