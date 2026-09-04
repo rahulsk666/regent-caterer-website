@@ -340,9 +340,10 @@ function UnderlineFileUpload({
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [files, setFiles] = React.useState<File[]>([]);
 
-  // If the parent resets existingImage to undefined, also clear local files
+  // If the parent resets existingImage to undefined, also clear local files.
   React.useEffect(() => {
     if (!existingImage) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiles([]);
       if (inputRef.current) inputRef.current.value = "";
     }

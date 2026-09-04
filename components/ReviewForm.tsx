@@ -32,7 +32,11 @@ export default function ReviewForm() {
   });
 
   useEffect(() => {
+    // Deliberate effect: reacting to a server action's result (an external
+    // system) with side effects — closing the form, resetting it, and
+    // showing a toast — not state derivable during render.
     if (state.success) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsFormOpen(false);
       setRating(0);
       formRef.current?.reset();
@@ -75,9 +79,9 @@ export default function ReviewForm() {
           >
             <IconX className="w-5 h-5" />
           </button>
-          <p className="text-golden-gradient py-10 text-4xl font-galgin text-center">
+          <h2 className="text-golden-gradient py-10 text-4xl font-galgin text-center">
             Share Your Experience
-          </p>
+          </h2>
           <form
             ref={formRef}
             noValidate

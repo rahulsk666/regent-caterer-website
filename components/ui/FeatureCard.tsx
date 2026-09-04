@@ -77,7 +77,7 @@ export default function FeatureCard({
       </div>
 
       {/* Title */}
-      <p
+      <h3
         className="
           font-bold
           text-lg
@@ -89,7 +89,7 @@ export default function FeatureCard({
         "
       >
         {title}
-      </p>
+      </h3>
 
       {/* Description */}
       <p

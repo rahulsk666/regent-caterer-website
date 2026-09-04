@@ -1,12 +1,3 @@
-export interface Point {
-  title: string;
-  description: string;
-}
-
-export interface PointCardProps {
-  point: Point;
-}
-
 export type ActionResult = {
   success: boolean;
   error?: string;

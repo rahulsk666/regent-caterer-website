@@ -49,13 +49,15 @@ export default function Footer() {
               Gallery
             </Link>
           </div>
-          <Image
-            src={"/svg/logo.svg"}
-            alt="Logo"
-            width={100}
-            height={100}
-            className="lg:w-70 w-50 h-auto object-contain"
-          />
+          <Link href="/" aria-label="Regent Caterers home">
+            <Image
+              src={"/images/logo.webp"}
+              alt="Regent Caterers"
+              width={280}
+              height={280}
+              className="lg:w-70 w-50 h-auto object-contain"
+            />
+          </Link>
           <div className="flex flex-col text-foreground-muted mt-10 lg:text-xl text-lg">
             <p className="text-foreground-secondary">Social</p>
             <Link
@@ -116,13 +118,15 @@ export default function Footer() {
       </div>
       <div className="flex flex-col md:hidden min-h-full py-5">
         <div className="flex flex-row gap-10 mt-12 container-app">
-          <Image
-            src={"/svg/logo.svg"}
-            alt="Logo"
-            width={100}
-            height={100}
-            className="w-25 h-auto object-contain"
-          />
+          <Link href="/" aria-label="Regent Caterers home">
+            <Image
+              src={"/images/logo.webp"}
+              alt="Regent Caterers"
+              width={100}
+              height={100}
+              className="w-25 h-auto object-contain"
+            />
+          </Link>
           <p className="text-5xl font-galgin text-golden-gradient">
             Regent Caterers
           </p>

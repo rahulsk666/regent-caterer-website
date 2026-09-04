@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Button from "./ui/CustomButton";
 import { twMerge } from "tailwind-merge";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { scrollToSection } from "@/lib/scroll";
 
 interface HeaderProps {
@@ -127,6 +127,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
   return (
     <nav
       id="Header"
+      aria-label="Primary"
       className="container-app fixed z-100 right-0 left-0 flex flex-row md:justify-center justify-end items-center"
     >
       <div
@@ -151,14 +152,16 @@ export default function Header({ variant = "light" }: HeaderProps) {
           Why Us
         </Link>
         {/* Logo */}
-        <Image
-          src={"/svg/logo.svg"}
-          alt="Logo"
-          width={512}
-          height={512}
-          loading="eager"
-          className="w-8 lg:w-10 h-auto "
-        />
+        <Link href="/" aria-label="Regent Caterers home">
+          <Image
+            src={"/images/logo.webp"}
+            alt="Regent Caterers"
+            width={512}
+            height={512}
+            loading="eager"
+            className="w-8 lg:w-10 h-auto "
+          />
+        </Link>
         <Link href="/gallery/all" className="hover:text-foreground-secondary">
           Gallery
         </Link>
@@ -170,6 +173,8 @@ export default function Header({ variant = "light" }: HeaderProps) {
       <div className="nav-mob mt-2 py-2 md:hidden">
         <button
           onClick={toggleMenu}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMenuOpen}
           className="flex size-10 flex-col items-center justify-center gap-1.5 rounded-full bg-golden-500"
         >
           <span className="h-0.5 w-4 bg-white" />
@@ -226,7 +231,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
                 }}
                 className=""
               >
-                Testomonials
+                Testimonials
               </Link>
               <Link href="/gallery/all" className="">
                 Gallery

@@ -65,8 +65,6 @@
   --color-foreground-muted: var(--foreground-muted);
   --color-foreground-golden: var(--foreground-golden);
   --font-poppins: var(--font-poppins);
-  --font-caveat: var(--font-caveat);
-  --font-inter: var(--font-inter);
   --font-galgin: var(--font-galgin);
   --font-red-hat-display: var(--font-red-hat-display);
   --font-kapakana: var(--font-kapakana);
@@ -386,5 +384,56 @@ body {
     .bento-grid {
       display: none;
     }
+  }
+}
+
+/*
+  Splash screen animation (components/ui/SplashScreen.tsx). Timings mirror
+  the previous GSAP timeline: logo fades in over 1s, text starts 0.15s
+  later, then a 0.5s fade-out begins 0.4s after the text tween finishes.
+*/
+@keyframes splash-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splash-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.splash-logo,
+.splash-text {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .splash-logo {
+    animation: splash-fade-up 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  }
+
+  .splash-text {
+    animation: splash-fade-up 1s cubic-bezier(0.33, 1, 0.68, 1) 0.15s forwards;
+  }
+
+  .splash-root.is-dismissing {
+    animation: splash-fade-out 0.5s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-logo,
+  .splash-text {
+    opacity: 1;
   }
 }

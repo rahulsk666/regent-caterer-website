@@ -14,10 +14,12 @@ type Props = {
 function GalleryImageTile({
   src,
   index,
+  title,
   onClick,
 }: {
   src: string;
   index: number;
+  title: string;
   onClick: () => void;
 }) {
   const [loaded, setLoaded] = useState(false);
@@ -32,7 +34,7 @@ function GalleryImageTile({
       )}
       <Image
         src={src}
-        alt=""
+        alt={`${title} photo ${index + 1}`}
         width={400}
         height={533}
         priority={index < 4}
@@ -57,7 +59,7 @@ export default function ClientGallery({ images, video, title }: Props) {
     if (videoRef.current && videoRef.current.readyState >= 2) {
       setVideoLoaded(true);
     }
-  }, [video]);
+  }, [video, videoRef]);
 
   return (
     <>
@@ -67,6 +69,7 @@ export default function ClientGallery({ images, video, title }: Props) {
             key={i}
             src={src}
             index={i}
+            title={title}
             onClick={() => setActiveIndex(i)}
           />
         ))}

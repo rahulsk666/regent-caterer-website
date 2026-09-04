@@ -68,7 +68,6 @@ export default function AnimatedImageStack({
               alt="gallery images"
               width={500}
               height={500}
-              loading="eager"
               className="rounded-lg h-40 w-40 md:h-50 md:w-50 lg:h-80 lg:w-80 object-cover"
             />
           </motion.div>
