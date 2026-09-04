@@ -29,6 +29,7 @@ export default function FeatureCard({
           flex flex-col
           gap-3
           w-full
+          h-full
           min-h-55
           sm:min-h-57.5
           md:min-h-60
