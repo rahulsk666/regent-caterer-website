@@ -6,24 +6,40 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { contact } from "@/lib/contact";
+import JsonLd from "@/components/seo/JsonLd";
+import { contactSchema } from "@/lib/schema";
+
+const TITLE = "Contact Us";
+const DESCRIPTION =
+  "Get in touch with Regent Caterers in Thrissur, Kerala for wedding and event catering. Call, WhatsApp or visit us to plan your celebration.";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Regent Caterers - Contact Us",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/contact" },
+  // Root layout's `openGraph` doesn't merge per-field with a child's
+  // `title`/`description` — without this override, every page's share
+  // preview would show the homepage's title/description.
+  openGraph: {
+    title: `${TITLE} | Regent Caterers`,
+    description: DESCRIPTION,
+    url: "/contact",
+  },
 };
 
 const ContactPage = () => {
   return (
     <div className="flex-1 space-y-4">
+      <JsonLd data={contactSchema()} />
       {/* Page Header */}
       <Header variant="dark" />
       {/* Main Content */}
       <section id="contactSection" className="min-h-full container-app">
         <div className="min-h-full md:gap-30 grid md:grid-cols-2 md:grid-rows-1 grid-rows-2 lg:pt-40 md:pt-30 pt-20 md:pb-20 pb-5 md:items-center justify-center">
           <div className="flex flex-col gap-2">
-            <p className="font-galgin text-golden-gradient text-3xl lg:text-8xl md:text-5xl">
+            <h1 className="font-galgin text-golden-gradient text-3xl lg:text-8xl md:text-5xl">
               Contact Us
-            </p>
+            </h1>
             <p className="lg:text-2xl md:text-xl text-sm font-monteserrat font-normal">
               {/* Feel free to contact us and We will get back to you as soon as we
               can */}
@@ -47,9 +63,9 @@ const ContactPage = () => {
             </div>
             <div className="flex flex-col gap-10">
               <div className="flex flex-col gap-2">
-                <p className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
+                <h2 className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
                   Visit Us
-                </p>
+                </h2>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
                   {contact.addressLine1}
                   <br />
@@ -57,9 +73,9 @@ const ContactPage = () => {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <p className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
+                <h2 className="text-2xl lg:text-5xl md:text-3xl font-galgin text-golden-gradient">
                   Talk To Us
-                </p>
+                </h2>
                 <p className="text-base lg:text-lg font-monteserrat font-medium">
                   {contact.phoneDisplay}
                 </p>
@@ -72,12 +88,13 @@ const ContactPage = () => {
                   href={contact.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Chat with Regent Caterers on WhatsApp"
                 >
                   <Image
                     src={"/svg/whatsapp.svg"}
                     alt=""
-                    width={20}
-                    height={20}
+                    width={40}
+                    height={40}
                     loading="eager"
                     className="w-10 h-auto"
                   />
@@ -86,12 +103,13 @@ const ContactPage = () => {
                   href={contact.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Regent Caterers on Instagram"
                 >
                   <Image
-                    src={"/svg/insta.svg"}
+                    src={"/images/insta.webp"}
                     alt=""
-                    width={20}
-                    height={20}
+                    width={40}
+                    height={40}
                     loading="eager"
                     className="w-10 h-auto"
                   />
@@ -100,22 +118,23 @@ const ContactPage = () => {
                   href={contact.facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Regent Caterers on Facebook"
                 >
                   <Image
                     src={"/svg/fb.svg"}
                     alt=""
-                    width={20}
-                    height={20}
+                    width={40}
+                    height={40}
                     loading="eager"
                     className="w-10 h-auto"
                   />
                 </Link>
-                <Link href={contact.telUrl}>
+                <Link href={contact.telUrl} aria-label="Call Regent Caterers">
                   <Image
                     src={"/svg/phone.svg"}
                     alt=""
-                    width={20}
-                    height={20}
+                    width={40}
+                    height={40}
                     loading="eager"
                     className="w-10 h-auto"
                   />

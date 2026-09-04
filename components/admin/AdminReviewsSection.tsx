@@ -130,6 +130,7 @@ export default function AdminReviewsSection({
                     src={r.image}
                     alt={r.name}
                     fill
+                    sizes="(min-width: 768px) 140px, 100vw"
                     className="rounded-lg object-cover"
                   />
                 ) : (

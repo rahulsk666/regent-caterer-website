@@ -117,6 +117,11 @@ export default function ImageLightbox({
 
       {/* IMAGE */}
       <div className="relative z-[105]" onClick={(e) => e.stopPropagation()}>
+        {/* next/image needs a known aspect ratio or a sized parent for
+            `fill`; the lightbox intentionally sizes itself to each image's
+            own natural dimensions via `w-auto h-auto object-contain`,
+            which a plain <img> handles directly. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={`${title} ${index + 1}`}

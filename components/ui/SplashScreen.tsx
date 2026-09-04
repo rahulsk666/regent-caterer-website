@@ -1,11 +1,21 @@
 "use client";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
-gsap.registerPlugin(useGSAP);
+const SESSION_KEY = "splashShown";
+
+// Timings mirror the previous GSAP timeline exactly:
+// logo fades in over 1s, text starts 0.15s later (also 1s), then a 0.5s
+// fade-out begins 0.4s after the text tween finishes — so total dismissal
+// is unchanged at ~2.05s. See globals.css for the matching @keyframes.
+const TEXT_DELAY_MS = 150;
+const ENTER_DURATION_MS = 1000;
+const FADE_START_MS = TEXT_DELAY_MS + ENTER_DURATION_MS + 400; // 1550ms
+const FADE_DURATION_MS = 500;
+const TOTAL_DURATION_MS = FADE_START_MS + FADE_DURATION_MS; // 2050ms
+const REDUCED_MOTION_DURATION_MS = 1200; // matches the old delayedCall(1.2, …)
 
 export default function SplashScreen({
   children,
@@ -15,46 +25,44 @@ export default function SplashScreen({
   const pathname = usePathname();
   // Frozen at first mount: this component lives in the root layout and never
   // unmounts across client navigations, so later route changes to "/" must
-  // not re-trigger the splash.
+  // not re-trigger the splash. The initial value matches the server-rendered
+  // markup exactly (sessionStorage isn't available during SSR) — the layout
+  // effect below corrects it before paint if the splash already played this
+  // session, so repeat homepage visits skip it with no flash.
   const [showSplash, setShowSplash] = useState(pathname === "/");
-  const rootRef = useRef<HTMLDivElement>(null);
+  const [isDismissing, setIsDismissing] = useState(false);
 
-  useGSAP(
-    () => {
-      if (!showSplash) return;
+  useLayoutEffect(() => {
+    // Deliberate effect, not derivable during render: sessionStorage only
+    // exists client-side, and this must run before paint (useLayoutEffect)
+    // to avoid a flash on repeat visits — see the comment above.
+    if (showSplash && sessionStorage.getItem(SESSION_KEY)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowSplash(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-      const dismiss = () => setShowSplash(false);
-      const mm = gsap.matchMedia();
+  useEffect(() => {
+    if (!showSplash) return;
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap
-          .timeline({ onComplete: dismiss })
-          .fromTo(
-            ".splash-logo",
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
-          )
-          .fromTo(
-            ".splash-text",
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
-            "<0.15",
-          )
-          .to(
-            rootRef.current,
-            { opacity: 0, duration: 0.5, ease: "power2.inOut" },
-            "+=0.4",
-          );
-      });
+    const dismiss = () => {
+      sessionStorage.setItem(SESSION_KEY, "1");
+      setShowSplash(false);
+    };
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.delayedCall(1.2, dismiss);
-      });
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const timer = setTimeout(dismiss, REDUCED_MOTION_DURATION_MS);
+      return () => clearTimeout(timer);
+    }
 
-      return () => mm.revert();
-    },
-    { scope: rootRef, dependencies: [showSplash] },
-  );
+    const fadeTimer = setTimeout(() => setIsDismissing(true), FADE_START_MS);
+    const dismissTimer = setTimeout(dismiss, TOTAL_DURATION_MS);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(dismissTimer);
+    };
+  }, [showSplash]);
 
   useEffect(() => {
     if (!showSplash) return;
@@ -72,16 +80,15 @@ export default function SplashScreen({
       {children}
       {showSplash && (
         <div
-          ref={rootRef}
           role="status"
           aria-label="Loading"
-          className="fixed inset-0 z-[110] flex flex-col gap-2 justify-center items-center bg-golden-50"
+          className={`splash-root fixed inset-0 z-[110] flex flex-col gap-2 justify-center items-center bg-golden-50 ${isDismissing ? "is-dismissing" : ""}`}
         >
           <Image
-            src="/svg/logo.svg"
+            src="/images/logo.webp"
             alt=""
-            width={1920}
-            height={1080}
+            width={359}
+            height={330}
             loading="eager"
             className="w-20 splash-logo h-auto object-cover"
           />

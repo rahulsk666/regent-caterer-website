@@ -10,7 +10,7 @@ export default async function Testimonials() {
       name: review.name,
       rating: review.rating,
       designation: review.designation || "",
-      src: review.image || "/images/default-review.png",
+      src: review.image || "/images/default-review.webp",
     };
   });
 

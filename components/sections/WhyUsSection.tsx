@@ -126,9 +126,9 @@ export default function WhyUsSection() {
       <div className="container-app min-h-screen py-10">
         <div className="flex flex-row lg:ml-9 items-center justify-start">
           <div className="px-2">
-            <p className="font-kapakana text-foreground-golden md:text-9xl text-6xl">
+            <h2 className="font-kapakana text-foreground-golden md:text-9xl text-6xl">
               Why us
-            </p>
+            </h2>
           </div>
         </div>
         <div className="bento-grid">
@@ -185,7 +185,7 @@ export default function WhyUsSection() {
             has the full source and potential to make your event spectacular.
           </p>
           <div>
-            <div className="feature-stack relative p-2 px-5 flex flex-col w-full gap-4">
+            <div className="feature-stack relative p-2 px-5 grid grid-cols-1 auto-rows-fr w-full gap-4">
               {features.map((feature) => (
                 <FeatureCard
                   key={feature.title}
@@ -207,8 +207,8 @@ export default function WhyUsSection() {
               <Image
                 src="/svg/star.svg"
                 alt="star"
-                width={20}
-                height={20}
+                width={60}
+                height={60}
                 className="w-15 h-auto object-cover"
               />
             </div>

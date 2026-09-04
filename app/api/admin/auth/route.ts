@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     }
 
     return createAuthResponse();
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Unable to process login request." },
       { status: 400 },

@@ -1,6 +1,7 @@
-import Button from "../ui/CustomButton";
+import { baseStyles, buttonVariants } from "../ui/CustomButton";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 import AnimatedImageStack from "../ui/AnimatedImageStack";
 import { getSectionImages } from "@/lib/db";
 import { SectionImage } from "@/lib/types";
@@ -50,25 +51,24 @@ export default async function DelightFulMomentsSection() {
           alt="star-8"
           className="absolute md:hidden top-[90%] right-[4%] w-8 h-auto opacity-40"
         />
-        <p className="text-3xl md:text-6xl p-10 text-center font-galgin text-golden-gradient container-app">
+        <h2 className="text-3xl md:text-6xl p-10 text-center font-galgin text-golden-gradient container-app">
           Delightful Moments <br /> We Shared
-        </p>
+        </h2>
         <AnimatedImageStack images={images} />
         <div className="flex items-center justify-center m-10 container-app">
-          <Button
-            variant="custom"
-            className="group/explore bg-linear-[108deg] from-golden-200 from-0% to-golden-100 to-100% px-20"
+          <Link
+            href={"/gallery/elegant-food-counters"}
+            className={twMerge(
+              baseStyles,
+              buttonVariants.custom,
+              "group/explore bg-linear-[108deg] from-golden-200 from-0% to-golden-100 to-100% px-20 flex-row gap-2",
+            )}
           >
-            <Link
-              className="flex flex-row justify-center items-center gap-2"
-              href={"/gallery/elegant-food-counters"}
-            >
-              <p className="text-golden-gradient lg:text-3xl md:text-xl text-xl">
-                Explore More
-              </p>
-              <IconArrowUpRight className="lg:w-8 w-6 h-auto text-golden-500 transition-transform group-hover/explore:rotate-45 duration-300 ease-in-out" />
-            </Link>
-          </Button>
+            <p className="text-golden-gradient lg:text-3xl md:text-xl text-xl">
+              Explore Elegant Food Counters
+            </p>
+            <IconArrowUpRight className="lg:w-8 w-6 h-auto text-golden-500 transition-transform group-hover/explore:rotate-45 duration-300 ease-in-out" />
+          </Link>
         </div>
       </div>
     </section>
