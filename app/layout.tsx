@@ -25,6 +25,16 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   applicationName: SITE_NAME,
+  keywords: [
+    "caterers in Thrissur",
+    "catering services in Thrissur",
+    "best caterers in Thrissur",
+    "wedding catering in Thrissur",
+    "event catering in Thrissur",
+    "party catering in Thrissur",
+    "catering services Kerala",
+    "wedding caterers Thrissur",
+  ],
   openGraph: {
     type: "website",
     locale: "en_IN",

@@ -17,7 +17,7 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export function localBusinessSchema() {
   return {
-    "@type": "LocalBusiness",
+    "@type": "Caterer",
     "@id": LOCAL_BUSINESS_ID,
     name: SITE_NAME,
     url: SITE_URL,
@@ -37,10 +37,7 @@ export function localBusinessSchema() {
       latitude: contact.geo.lat,
       longitude: contact.geo.lng,
     },
-    areaServed: [
-      { "@type": "City", name: "Thrissur" },
-      { "@type": "State", name: "Kerala" },
-    ],
+    areaServed: [{ "@type": "State", name: "Kerala" }],
     sameAs: [contact.instagramUrl, contact.facebookUrl],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
