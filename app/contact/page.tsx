@@ -106,7 +106,7 @@ const ContactPage = () => {
                   aria-label="Regent Caterers on Instagram"
                 >
                   <Image
-                    src={"/images/insta.webp"}
+                    src={"/svg/insta.svg"}
                     alt=""
                     width={40}
                     height={40}

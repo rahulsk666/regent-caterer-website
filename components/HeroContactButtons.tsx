@@ -6,7 +6,7 @@ export default function HeroContactButtons() {
     <div className="flex flex-row items-center justify-center my-6 gap-3">
       <IconButton
         link={contact.instagramUrl}
-        imageSrc="/images/insta.webp"
+        imageSrc="/svg/insta.svg"
         alt="instagram"
         classname="w-14 h-auto"
       />
