@@ -55,7 +55,7 @@ export default function FeatureCard({
 
           focus:outline-none
           focus-visible:ring-2
-          focus-visible:ring-[#c99a3d]
+          focus-visible:ring-golden-500
           focus-visible:ring-offset-2
         `,
         className,
@@ -125,7 +125,7 @@ export default function FeatureCard({
           sm:h-10
 
           rounded-full
-          bg-[#c99a3d]
+          bg-golden-400
           text-white
           shadow-md
 
@@ -136,7 +136,7 @@ export default function FeatureCard({
           group-active:scale-90
 
           md:group-hover:scale-110
-          md:group-hover:bg-[#b88932]
+          md:group-hover:bg-golden-500
         "
       >
         <ArrowUpRight

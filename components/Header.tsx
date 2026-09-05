@@ -73,7 +73,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
         start: 850,
         onEnter: () => {
           gsap.to(".nav-inner", {
-            backgroundColor: "#ECC869",
+            backgroundColor: "#e7ba44",
             duration: 0.3,
           });
         },
@@ -136,10 +136,13 @@ export default function Header({ variant = "light" }: HeaderProps) {
           "m-2 lg:p-4 p-3 hidden md:flex flex-row justify-center items-center w-full gap-8 lg:text-lg text-base font-medium rounded-2xl",
           variant === "light"
             ? "text-foreground-secondary/75 bg-linear-to-br from-white/20 to-white/5 backdrop-blur-[20px]"
-            : "text-foreground-secondary/75 bg-linear-to-r from-golden-500 from-0% via-golden-300 via-50% to-golden-400 to-100%",
+            : "text-foreground-secondary/75 bg-linear-to-r from-golden-400 from-0% via-golden-400 via-50% to-golden-400 to-100%",
         )}
       >
-        <Link href="/" className="hover:text-foreground-secondary">
+        <Link
+          href="/"
+          className="hover:text-foreground-secondary hover:font-medium"
+        >
           Home
         </Link>
 
@@ -147,7 +150,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
           href="/#whyUsSection"
           onClick={scrollToSection("whyUsSection")}
           scroll={false}
-          className="hover:text-foreground-secondary"
+          className="hover:text-foreground-secondary hover:font-medium"
         >
           Why Us
         </Link>
@@ -162,10 +165,16 @@ export default function Header({ variant = "light" }: HeaderProps) {
             className="w-8 lg:w-10 h-auto "
           />
         </Link>
-        <Link href="/gallery/all" className="hover:text-foreground-secondary">
+        <Link
+          href="/gallery/all"
+          className="hover:text-foreground-secondary hover:font-medium "
+        >
           Gallery
         </Link>
-        <Link href="/contact" className="hover:text-foreground-secondary">
+        <Link
+          href="/contact"
+          className="hover:text-foreground-secondary hover:font-medium"
+        >
           Contact Us
         </Link>
       </div>
