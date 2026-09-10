@@ -97,7 +97,7 @@ export type ContactActionState = {
 
 export const sectionKeys = [
   { key: "delightful-moments", label: "Delightful Moments" },
-  { key: "signature-collections", label: "Signature Collections" },
+  // { key: "signature-collections", label: "Signature Collections" },
   { key: "gallery", label: "Gallery" },
 ] as const;
 
@@ -107,7 +107,7 @@ export type SectionKey = (typeof sectionKeys)[number]["key"];
 // not drop below the minimum. Mirrors app/admin/action.ts deleteSectionImageAction.
 export const protectedSections: SectionKey[] = [
   "delightful-moments",
-  "signature-collections",
+  // "signature-collections",
 ];
 export const MIN_PROTECTED_SECTION_IMAGES = 5;
 

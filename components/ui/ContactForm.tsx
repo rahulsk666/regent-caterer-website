@@ -6,9 +6,39 @@ import { UnderlineInput, UnderlineTextarea } from "./Input";
 import { useActionState, useEffect } from "react";
 import { createContactAction } from "@/app/contact/action";
 import { toast } from "sonner";
+import { ContactActionState } from "@/lib/types";
+import emailjs from "@emailjs/browser";
+
+async function submitContact(
+  prevState: ContactActionState,
+  formData: FormData,
+): Promise<ContactActionState> {
+  const result = await createContactAction(prevState, formData);
+
+  if (result.success) {
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          service: formData.get("service"),
+          message: formData.get("message"),
+        },
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! },
+      );
+    } catch (error) {
+      console.error("Failed to send contact email notification:", error);
+    }
+  }
+
+  return result;
+}
 
 export default function ContactForm() {
-  const [state, formAction, isPending] = useActionState(createContactAction, {
+  const [state, formAction, isPending] = useActionState(submitContact, {
     success: false,
     error: undefined,
     errors: {},

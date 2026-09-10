@@ -6,6 +6,7 @@ import {
   deleteReview,
   deleteSectionImage,
   deleteSectionVideo,
+  getAllReviews,
   getAllSectionImages,
   getAllSectionVideos,
   saveSectionImage,
@@ -32,6 +33,39 @@ export async function updateReviewAction(
   },
 ) {
   try {
+    const reviews = await getAllReviews();
+    const target = reviews.find((r) => r.id === id);
+
+    if (target) {
+      const resultingApproved =
+        updates.approved !== undefined ? updates.approved : target.approved;
+      const resultingHighlighted =
+        updates.highlightedHome !== undefined
+          ? updates.highlightedHome
+          : target.highlightedHome;
+
+      const approvedCount = reviews.filter((r) => r.approved).length;
+      const highlightedCount = reviews.filter((r) => r.highlightedHome).length;
+
+      if (target.approved && !resultingApproved && approvedCount <= 1) {
+        return {
+          success: false,
+          error: "At least one review must remain approved",
+        };
+      }
+
+      if (
+        target.highlightedHome &&
+        !resultingHighlighted &&
+        highlightedCount <= 1
+      ) {
+        return {
+          success: false,
+          error: "At least one review must remain selected for Home",
+        };
+      }
+    }
+
     await updateReview(id, updates);
 
     revalidatePath("/admin");
@@ -48,6 +82,28 @@ export async function updateReviewAction(
 
 export async function deleteReviewAction(id: number) {
   try {
+    const reviews = await getAllReviews();
+    const target = reviews.find((r) => r.id === id);
+
+    if (target) {
+      const approvedCount = reviews.filter((r) => r.approved).length;
+      const highlightedCount = reviews.filter((r) => r.highlightedHome).length;
+
+      if (target.approved && approvedCount <= 1) {
+        return {
+          success: false,
+          error: "At least one review must remain approved",
+        };
+      }
+
+      if (target.highlightedHome && highlightedCount <= 1) {
+        return {
+          success: false,
+          error: "At least one review must remain selected for Home",
+        };
+      }
+    }
+
     await deleteReview(id);
 
     revalidatePath("/admin");

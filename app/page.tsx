@@ -28,7 +28,7 @@ export default function Home() {
       <WhyUsSection />
       <TestomonialsSection />
       <CreateReviewSection />
-      <SignatureCollectionsSection />
+      {/* <SignatureCollectionsSection /> */}
       <DelightFulMomentsSection />
       <ContactSection />
       <Footer />

@@ -28,7 +28,10 @@ export default function HeroSection() {
         }}
       />
       <div className="container-app relative z-10 w-full p-10 lg:gap-2 gap-5 flex flex-col items-center justify-center">
-        <p className="text-sm font-medium text-white">Quality You Can Trust</p>
+        <div className="text-sm font-medium text-white flex flex-col items-center justify-center">
+          <p>Quality You Can Taste</p>
+          <p>Service You Can Trust</p>
+        </div>
         <Image
           src={"/images/logo.webp"}
           alt="Regent Caterers"
@@ -39,13 +42,12 @@ export default function HeroSection() {
         />
         <h1 className="flex flex-col lg:text-6xl md:text-5xl sm:text-3xl text-2xl tracking-wide whitespace-nowrap leading-none text-white font-semibold font-helmorin">
           <span className="text-center">Regent Catering Service</span>
-          <span className="text-center">Excellence in every bite</span>
         </h1>
         <p className=" text-lg text-center font-light text-white">
-          For over two decades, Regent Caterers has served weddings and
-          events across Thrissur and Kerala, transforming celebrations into
-          unforgettable dining experiences with exceptional cuisine,
-          professional service, and unwavering commitment to quality.
+          Since 1996, Regent Caterers served countless events across Kerala,
+          transforming celebrations into unforgettable dining experiences with
+          exceptional cuisine, professional service, and unwavering commitment
+          to quality.
         </p>
         <div className="flex md:flex-row flex-col items-center mt-4 gap-10">
           <Link

@@ -8,12 +8,9 @@ export default function AboutSection() {
         <div className="text-6xl lg:h-20 w-full md:text-9xl font-kapakana text-left text-foreground-golden">
           <h2>About Us</h2>
         </div>
-        <div className="lg:my-20 md:mt-10 md:mb-20 my-5 w-full md:w-2/3 ml-auto lg:text-3xl md:text-lg text-base md:text-right">
+        <div className="lg:my-20 md:mt-10 md:mb-20 my-5 w-full md:w-2/3 ml-auto lg:text-2xl md:text-md text-sm md:text-right">
           <p>
-            {/* Since 2000, We are successfully serving high quality food along with
-            warm service throughout India. Our energetic team is located in
-            Irinjalakuda,Thrissur. */}
-            Since 2000, we have been proudly serving exceptional cuisine paired
+            Since 1996, we have been proudly serving exceptional cuisine paired
             with warm, attentive hospitality. Over the years, our commitment to
             quality, taste, and customer satisfaction has earned the trust of
             clients across India. Based in Thrissur, our passionate and
@@ -23,7 +20,8 @@ export default function AboutSection() {
             authenticity, and excellence to every event we cater.
           </p>
           <p className="font-bold mt-5">
-            - Exceptional quality with memorable service
+            - Over 30 years of experience, we provide exceptional quality with
+            memorable service
           </p>
         </div>
       </div>

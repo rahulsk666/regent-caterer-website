@@ -34,6 +34,10 @@ export const AnimatedTestimonials = ({
     }
   }, [autoplay, handleNext]);
 
+  if (testimonials.length === 0) {
+    return null;
+  }
+
   return (
     <div className="mx-auto max-w-sm px-4 md:py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 md:gap-20 gap-10 md:grid-cols-2">

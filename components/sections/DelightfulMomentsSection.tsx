@@ -64,8 +64,8 @@ export default async function DelightFulMomentsSection() {
               "group/explore bg-linear-[108deg] from-golden-200 from-0% to-golden-100 to-100% px-20 flex-row gap-2",
             )}
           >
-            <p className="text-golden-gradient lg:text-3xl md:text-xl text-xl">
-              Explore Elegant Food Counters
+            <p className="text-golden-gradient lg:text-3xl md:text-xl text-lg">
+              Explore
             </p>
             <IconArrowUpRight className="lg:w-8 w-6 h-auto text-golden-500 transition-transform group-hover/explore:rotate-45 duration-300 ease-in-out" />
           </Link>

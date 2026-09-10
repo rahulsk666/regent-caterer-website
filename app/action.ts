@@ -36,7 +36,7 @@ export async function createReviewAction(
 
     const file = formData.get("file") as File;
 
-    let imagePath = "";
+    let imagePath = "/images/default-placeholder.jpg";
 
     if (file && file.size > 0) {
       imagePath = await saveFile({

@@ -21,7 +21,7 @@ export default function ContactSection() {
         poster="/images/contact-bg-poster.jpg"
         className="absolute -z-10 object-cover w-full h-full"
       />
-      <div className="relative md:h-screen h-[700px] w-full mx-auto flex flex-col lg:gap-20 gap-70  items-center md:justify-center justify-between">
+      <div className="relative md:h-screen h-[700px] w-full mx-auto flex flex-col lg:gap-30 items-center md:justify-center">
         <DecorativeStar
           alt="star-1"
           className="absoluter lg:w-10 md:w-10 w-10 lg:top-[12%] lg:left-[26%] md:top-[18%] md:left-[15%] top-[15%] left-[5%]  opacity-60"
@@ -39,10 +39,17 @@ export default function ContactSection() {
           className="absoluter lg:w-4 md:w-4 w-4 lg:top-[29%] lg:right-[27%] md:top-[31%] md:right-[19%] top-[30%] right-[5%] opacity-40"
         />
 
-        <h2 className="text-golden-gradient font-galgin lg:text-6xl md:text-5xl text-3xl p-2 md:pt-0 pt-40">
-          Let’s plan together
-        </h2>
-        <div className="flex flex-col items-center justify-center my-10 lg:gap-20 md:gap-10 gap-5">
+        <div className="flex flex-col items-center justify-center text-center">
+          <h2 className="text-golden-gradient font-galgin lg:text-6xl md:text-5xl text-3xl p-2 lg:pt-15 md:pt-5 pt-40">
+            Let’s plan together
+          </h2>
+        </div>
+
+        <div className="flex flex-col items-center justify-center my-10 lg:gap-10 md:gap-10 gap-5">
+          <p className="text-golden-gradient text-center font-helmorin lg:text-3xl md:text-3xl text-xl p-2 lg:pt-0 md:pt-10 md:pb-0 py-15 px-10">
+            Feel free to contact us, make a booking and relax, Our dedicated
+            team will take care of the rest
+          </p>
           <Link
             href={contact.whatsappUrl}
             target="_blank"

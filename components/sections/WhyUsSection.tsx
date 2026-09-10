@@ -198,6 +198,15 @@ export default function WhyUsSection() {
             </div>
           </div>
           <div className="stats-stack grid grid-cols-2 gap-5 my-10 items-center justify-center">
+            <div className="">
+              <Image
+                src="/svg/star.svg"
+                alt="star"
+                width={60}
+                height={60}
+                className="w-15 h-auto object-cover"
+              />
+            </div>
             {stats.map((stat) => (
               <div key={stat.label} className={``}>
                 <StatItem label={stat.label} value={stat.value} />
