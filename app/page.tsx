@@ -5,7 +5,6 @@ import WhyUsSection from "@/components/sections/WhyUsSection";
 import AboutSection from "@/components/sections/AboutSection";
 import TestomonialsSection from "@/components/sections/TestomonialsSection";
 import DelightFulMomentsSection from "@/components/sections/DelightfulMomentsSection";
-import SignatureCollectionsSection from "@/components/sections/SignatureCollectionsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import CreateReviewSection from "@/components/sections/CreateReviewSection";
 import Header from "@/components/Header";
@@ -28,7 +27,6 @@ export default function Home() {
       <WhyUsSection />
       <TestomonialsSection />
       <CreateReviewSection />
-      {/* <SignatureCollectionsSection /> */}
       <DelightFulMomentsSection />
       <ContactSection />
       <Footer />

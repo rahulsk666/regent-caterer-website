@@ -20,6 +20,8 @@ import { saveFile } from "@/lib/fileStorage";
 import {
   ActionResult,
   GalleryType,
+  MIN_PROTECTED_SECTION_IMAGES,
+  protectedSections,
   SectionImage,
   SectionVideo,
 } from "@/lib/types";
@@ -230,19 +232,15 @@ export async function deleteSectionImageAction(
       };
     }
 
-    const protectedSection =
-      image.section === "delightful-moments" ||
-      image.section === "signature-collections";
-
-    if (protectedSection) {
+    if (protectedSections.includes(image.section)) {
       const sectionCount = images.filter(
         (img) => img.section === image.section,
       ).length;
 
-      if (sectionCount <= 5) {
+      if (sectionCount <= MIN_PROTECTED_SECTION_IMAGES) {
         return {
           success: false,
-          error: `At least 5 images are required in ${image.section}`,
+          error: `At least ${MIN_PROTECTED_SECTION_IMAGES} images are required in ${image.section}`,
         };
       }
     }

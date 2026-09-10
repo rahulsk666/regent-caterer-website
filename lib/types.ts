@@ -97,7 +97,6 @@ export type ContactActionState = {
 
 export const sectionKeys = [
   { key: "delightful-moments", label: "Delightful Moments" },
-  // { key: "signature-collections", label: "Signature Collections" },
   { key: "gallery", label: "Gallery" },
 ] as const;
 
@@ -105,10 +104,7 @@ export type SectionKey = (typeof sectionKeys)[number]["key"];
 
 // Sections whose published image count the home page depends on and must
 // not drop below the minimum. Mirrors app/admin/action.ts deleteSectionImageAction.
-export const protectedSections: SectionKey[] = [
-  "delightful-moments",
-  // "signature-collections",
-];
+export const protectedSections: SectionKey[] = ["delightful-moments"];
 export const MIN_PROTECTED_SECTION_IMAGES = 5;
 
 export type SectionImage = {
