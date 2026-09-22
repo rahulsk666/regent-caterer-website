@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { twMerge } from "tailwind-merge";
+import { cn } from "@/lib/utils";
 
 type FeatureCardProps = {
   index: number;
@@ -62,20 +63,19 @@ export default function FeatureCard({
       {/* Static Background Image */}
       <div
         aria-hidden="true"
-        className={`
+        className={cn(
+          `
           absolute
           inset-0
           bg-cover
           bg-center
           bg-no-repeat
-          opacity-90
-          brightness-110
-          contrast-110
-          saturate-75
-          blur-[6px]
-          `}
+          rounded-3xl
+          contrast-90
+          `,
+        )}
         style={{
-          backgroundImage: `url('${bgImage}')`,
+          backgroundImage: `linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2)),url('${bgImage}')`,
         }}
       />
 
@@ -117,7 +117,7 @@ export default function FeatureCard({
             md:text-xl
             lg:text-xl
             leading-tight
-            text-foreground-primary
+            text-white
           "
         >
           {title}
@@ -133,6 +133,7 @@ export default function FeatureCard({
             leading-relaxed
             pr-14
             pb-8
+            text-white
           "
         >
           {description}
@@ -153,7 +154,7 @@ export default function FeatureCard({
             sm:w-10
             sm:h-10
             rounded-full
-            bg-golden-400
+            bg-golden-600
             text-white
             shadow-md
             transition-all
