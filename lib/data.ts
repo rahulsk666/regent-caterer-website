@@ -49,11 +49,11 @@ export const features = [
     image: "/images/card/luscious_desserts.jpeg",
   },
   {
-    title: "Healthy Salad Counters",
+    title: "Premium Cutleries",
     description:
-      "Fresh salad and grazing counters built from crisp, seasonal produce.",
-    url: "/gallery/healthy-salad-counters",
-    image: "/images/card/healthy_salad_counters.jpeg",
+      "Polished tableware and serveware that lift the whole table setting.",
+    url: "/gallery/premium-cutleries",
+    image: "/images/card/premium_cutleries.jpeg",
   },
   {
     title: "Elegant Food Counters",
@@ -63,11 +63,11 @@ export const features = [
     image: "/images/card/elegant_food_counters.jpeg",
   },
   {
-    title: "Premium Cutleries",
+    title: "Healthy Salad Counters",
     description:
-      "Polished tableware and serveware that lift the whole table setting.",
-    url: "/gallery/premium-cutleries",
-    image: "/images/card/premium_cutleries.jpeg",
+      "Fresh salad and grazing counters built from crisp, seasonal produce.",
+    url: "/gallery/healthy-salad-counters",
+    image: "/images/card/healthy_salad_counters.jpeg",
   },
 ];
 

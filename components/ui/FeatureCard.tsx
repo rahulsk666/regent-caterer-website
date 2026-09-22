@@ -69,6 +69,9 @@ export default function FeatureCard({
           bg-center
           bg-no-repeat
           opacity-90
+          brightness-110
+          contrast-110
+          saturate-75
           blur-[6px]
           `}
         style={{
