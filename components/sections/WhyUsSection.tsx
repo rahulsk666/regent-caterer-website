@@ -157,9 +157,11 @@ export default function WhyUsSection() {
           {features.map((feature, index) => (
             <div key={feature.title} className={`item feature${index + 1}`}>
               <FeatureCard
+                index={index}
                 title={feature.title}
                 description={feature.description}
                 url={feature.url}
+                bgImage={feature.image}
               />
             </div>
           ))}
@@ -186,12 +188,14 @@ export default function WhyUsSection() {
           </p>
           <div>
             <div className="feature-stack relative p-2 px-5 grid grid-cols-1 auto-rows-fr w-full gap-4">
-              {features.map((feature) => (
+              {features.map((feature, index) => (
                 <FeatureCard
+                  index={index}
                   key={feature.title}
                   title={feature.title}
                   description={feature.description}
                   url={feature.url}
+                  bgImage={feature.image}
                   className="feature-card border"
                 />
               ))}

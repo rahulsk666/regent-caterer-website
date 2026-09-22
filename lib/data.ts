@@ -39,30 +39,35 @@ export const features = [
     description:
       "Multi-cuisine menus cooked fresh, tuned to the occasion and the guest list.",
     url: "/gallery/delicious-cuisine",
+    image: "/images/card/delicious_cuisine.jpeg",
   },
   {
     title: "Luscious Desserts",
     description:
       "Live and plated dessert spreads, from traditional sweets to modern patisserie.",
     url: "/gallery/luscious-desserts",
+    image: "/images/card/luscious_desserts.jpeg",
   },
   {
     title: "Healthy Salad Counters",
     description:
       "Fresh salad and grazing counters built from crisp, seasonal produce.",
     url: "/gallery/healthy-salad-counters",
+    image: "/images/card/healthy_salad_counters.jpeg",
   },
   {
     title: "Elegant Food Counters",
     description:
       "Themed, styled counters that make the buffet part of the decor.",
     url: "/gallery/elegant-food-counters",
+    image: "/images/card/elegant_food_counters.jpeg",
   },
   {
     title: "Premium Cutleries",
     description:
       "Polished tableware and serveware that lift the whole table setting.",
     url: "/gallery/premium-cutleries",
+    image: "/images/card/premium_cutleries.jpeg",
   },
 ];
 
