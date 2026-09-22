@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import Button from "./CustomButton";
 import { Testimonial } from "@/lib/types";
-import { stackRotation } from "@/lib/utils";
+import { stackRotation, getInitials } from "@/lib/utils";
 
 export const AnimatedTestimonials = ({
   testimonials,
@@ -75,14 +75,24 @@ export const AnimatedTestimonials = ({
                   }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <Image
-                    src={testimonial.src}
-                    alt={testimonial.name}
-                    width={500}
-                    height={500}
-                    draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center"
-                  />
+                  {testimonial.src ? (
+                    <Image
+                      src={testimonial.src}
+                      alt={testimonial.name}
+                      width={500}
+                      height={500}
+                      draggable={false}
+                      className="h-full w-full rounded-3xl object-cover object-center"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center overflow-visible rounded-3xl bg-golden-100">
+                      <div className="flex items-center justify-center px-6 py-8">
+                        <span className="text-9xl leading-[1.15] font-monteserrat font-bold text-golden-400">
+                          {getInitials(testimonial.name)}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>

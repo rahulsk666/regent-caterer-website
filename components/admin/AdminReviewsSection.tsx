@@ -169,13 +169,21 @@ function ReviewRow({
     >
       <div className="flex flex-wrap flex-col md:flex-row gap-4 md:items-stretch items-start md:justify-between">
         <div className="relative md:w-35 md:h-40 h-60 w-full min-h-full">
-          <Image
-            src={r.image || "/images/default-placeholder.jpg"}
-            alt={r.name}
-            fill
-            sizes="(min-width: 768px) 140px, 100vw"
-            className="rounded-lg object-cover"
-          />
+          {r.image ? (
+            <Image
+              src={r.image}
+              alt={r.name}
+              fill
+              sizes="(min-width: 768px) 140px, 100vw"
+              className="rounded-lg object-cover"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center rounded-lg bg-slate-100">
+              <span className="text-6xl font-semibold text-slate-400">
+                {r.name?.trim().charAt(0).toUpperCase() || "?"}
+              </span>
+            </div>
+          )}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-1 flex-wrap">
