@@ -87,7 +87,7 @@ export const AnimatedTestimonials = ({
                   ) : (
                     <div className="flex h-full w-full items-center justify-center overflow-visible rounded-3xl bg-golden-100">
                       <div className="flex items-center justify-center px-6 py-8">
-                        <span className="text-9xl leading-[1.15] font-monteserrat font-bold text-golden-400">
+                        <span className="text-9xl font-galgin font-bold text-golden-400">
                           {getInitials(testimonial.name)}
                         </span>
                       </div>
