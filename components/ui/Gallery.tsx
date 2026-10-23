@@ -34,7 +34,7 @@ function GalleryImageTile({
       )}
       <Image
         src={src}
-        alt={`${title} photo ${index + 1}`}
+        alt={`${title} - Regent Caterers Thrissur, photo ${index + 1}`}
         width={400}
         height={533}
         priority={index < 4}

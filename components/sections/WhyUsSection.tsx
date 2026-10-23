@@ -169,7 +169,7 @@ export default function WhyUsSection() {
           <div className="lg:hidden w-20 item star items-center justify-center">
             <Image
               src="/svg/star.svg"
-              alt="star"
+              alt=""
               width={100}
               height={100}
               className="object-cover"
@@ -205,7 +205,7 @@ export default function WhyUsSection() {
             <div className="">
               <Image
                 src="/svg/star.svg"
-                alt="star"
+                alt=""
                 width={60}
                 height={60}
                 className="w-15 h-auto object-cover"
@@ -219,7 +219,7 @@ export default function WhyUsSection() {
             <div className="">
               <Image
                 src="/svg/star.svg"
-                alt="star"
+                alt=""
                 width={60}
                 height={60}
                 className="w-15 h-auto object-cover"

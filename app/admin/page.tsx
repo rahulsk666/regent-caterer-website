@@ -5,8 +5,9 @@ import AdminDashboard from "./AdminDashboard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard - Regent Caterers",
+  title: "Admin Dashboard",
   description: "Admin Dashboard - Regent Caterers",
+  robots: { index: false, follow: false },
 };
 
 export default async function AdminPage() {

@@ -5,7 +5,7 @@ interface StarProps {
   alt?: string;
 }
 
-export function DecorativeStar({ className, alt = "star" }: StarProps) {
+export function DecorativeStar({ className, alt = "" }: StarProps) {
   return (
     <Image
       src="/svg/star-single.svg"

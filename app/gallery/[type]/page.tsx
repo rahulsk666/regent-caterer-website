@@ -8,7 +8,7 @@ import { getSectionImages, getSectionVideos } from "@/lib/db";
 import { GalleryType, galleryTypes } from "@/lib/types";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
+import { gallerySchema } from "@/lib/schema";
 
 const categories = [
   { key: "all", label: "All Gallery" },
@@ -48,6 +48,11 @@ export async function generateMetadata({
       description,
       url: `/gallery/${typeName}`,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Regent Caterers`,
+      description,
+    },
   };
 }
 
@@ -73,13 +78,19 @@ export default async function GalleryPage({
   return (
     <div className="bg-background text-foreground min-h-screen">
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Gallery", path: "/gallery/all" },
-          ...(TypeName !== "all"
-            ? [{ name: category.label, path: `/gallery/${TypeName}` }]
-            : []),
-        ])}
+        data={gallerySchema({
+          path: `/gallery/${TypeName}`,
+          name: category.label,
+          description: `Photos of ${category.label.toLowerCase()} from Regent Caterers, catering weddings and events across Thrissur, Kerala.`,
+          trail: [
+            { name: "Home", path: "/" },
+            { name: "Gallery", path: "/gallery/all" },
+            ...(TypeName !== "all"
+              ? [{ name: category.label, path: `/gallery/${TypeName}` }]
+              : []),
+          ],
+          imageUrls: images.map((image) => image.url),
+        })}
       />
       <Header variant="dark" />
       <div className="container-app py-25">

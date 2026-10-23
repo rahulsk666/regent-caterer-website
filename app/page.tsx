@@ -13,7 +13,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { homeSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: { "en-IN": "/" } },
 };
 
 export default function Home() {

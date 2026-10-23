@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import {
   galgin,
@@ -12,10 +12,17 @@ import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 import SplashScreen from "@/components/ui/SplashScreen";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { contact } from "@/lib/contact";
 
 const TITLE_DEFAULT = "Regent Caterers | Catering Services in Thrissur, Kerala";
 const DESCRIPTION =
   "Wedding and event catering in Thrissur, Kerala. Regent Caterers serves multi-cuisine menus, live counters and trained service staff for every celebration.";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#e7ba44",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -34,12 +41,33 @@ export const metadata: Metadata = {
     "party catering in Thrissur",
     "catering services Kerala",
     "wedding caterers Thrissur",
+    "live food counters Thrissur",
+    "dessert catering Thrissur",
+    "salad counters catering Kerala",
+    "Kerala sadya catering Thrissur",
+    "Regent Caterers",
   ],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "food & catering",
+  formatDetection: { telephone: false, email: false, address: false },
+  other: {
+    "geo.region": "IN-KL",
+    "geo.placename": contact.locality,
+    "geo.position": `${contact.geo.lat};${contact.geo.lng}`,
+    ICBM: `${contact.geo.lat}, ${contact.geo.lng}`,
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "/",
     siteName: SITE_NAME,
+    title: TITLE_DEFAULT,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
     title: TITLE_DEFAULT,
     description: DESCRIPTION,
   },

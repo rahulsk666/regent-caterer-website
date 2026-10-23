@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/contact",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${TITLE} | Regent Caterers`,
+    description: DESCRIPTION,
+  },
 };
 
 const ContactPage = () => {
@@ -53,11 +58,11 @@ const ContactPage = () => {
           <div className="flex flex-col lg:pt-40 md:pt-20 gap-20 p-2 relative">
             <div className="relative md:block hidden">
               <DecorativeStar
-                alt="star-1"
+                alt=""
                 className="md:block absolute hidden lg:w-46 md:w-24 h-auto bottom-[0%] left-[35%] opacity-80"
               />
               <DecorativeStar
-                alt="star-2"
+                alt=""
                 className="md:block hidden lg:w-12 w-8 h-auto bottom-[0%] left-[35%] opacity-60"
               />
             </div>

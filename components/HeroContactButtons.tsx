@@ -7,25 +7,25 @@ export default function HeroContactButtons() {
       <IconButton
         link={contact.instagramUrl}
         imageSrc="/svg/insta.svg"
-        alt="instagram"
+        alt="Regent Caterers on Instagram"
         classname="w-14 h-auto"
       />
       <IconButton
         link={contact.facebookUrl}
         imageSrc="/svg/fb.svg"
-        alt="facebook"
+        alt="Regent Caterers on Facebook"
         classname="w-14 h-auto"
       />
       <IconButton
         link={contact.whatsappUrl}
         imageSrc="/svg/whatsapp.svg"
-        alt="whatsapp"
+        alt="Chat with Regent Caterers on WhatsApp"
         classname="w-14 h-auto"
       />
       <IconButton
         link={contact.telUrl}
         imageSrc="/svg/phone.svg"
-        alt="phone"
+        alt="Call Regent Caterers"
         classname="w-14 h-auto"
       />
     </div>

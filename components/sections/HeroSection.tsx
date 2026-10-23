@@ -58,7 +58,7 @@ export default function HeroSection() {
             Explore our Services
             <Image
               src={"/svg/arrow-up-right.svg"}
-              alt="Arrow up right"
+              alt=""
               width={24}
               height={24}
               className="w-6 h-6 opacity-90 transform group-hover:rotate-45 transition-all duration-300 ease-in-out"

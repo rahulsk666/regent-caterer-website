@@ -38,7 +38,7 @@ export default function AboutSection() {
       >
         <Image
           src={"/images/about-us-bg-2.webp"}
-          alt="About us banner"
+          alt="Regent Caterers wedding and event catering spread in Thrissur"
           width={500}
           height={500}
           style={{

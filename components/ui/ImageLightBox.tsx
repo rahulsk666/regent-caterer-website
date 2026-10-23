@@ -124,7 +124,7 @@ export default function ImageLightbox({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
-          alt={`${title} ${index + 1}`}
+          alt={`${title} - Regent Caterers Thrissur, photo ${index + 1}`}
           className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-lg"
         />
       </div>
