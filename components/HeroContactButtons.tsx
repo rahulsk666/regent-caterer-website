@@ -1,38 +1,32 @@
-"use client";
-
-import ImageButton from "./ui/ImageButton";
-import Facebook from "./ui/svg/Facebook";
-import Instagram from "./ui/svg/Instagram";
-import Phone from "./ui/svg/Phone";
-import Whatsapp from "./ui/svg/Whatsapp";
+import IconButton from "./ui/IconButton";
+import { contact } from "@/lib/contact";
 
 export default function HeroContactButtons() {
   return (
-    <div className="flex flex-row ml-5 md:gap-3 gap-1 mt-6">
-      <ImageButton
-        classname="md:mx-1"
-        component={<Instagram />}
-        onClick={() =>
-          window.open(
-            "https://www.instagram.com/regentcaterers?igsh=dTJkeGN4N3RiOGdl",
-            "_blank",
-          )
-        }
+    <div className="flex flex-row items-center justify-center my-6 gap-3">
+      <IconButton
+        link={contact.instagramUrl}
+        imageSrc="/svg/insta.svg"
+        alt="Regent Caterers on Instagram"
+        classname="w-14 h-auto"
       />
-      <ImageButton
-        classname="md:mx-1"
-        component={<Facebook />}
-        onClick={() => window.open("", "_blank")}
+      <IconButton
+        link={contact.facebookUrl}
+        imageSrc="/svg/fb.svg"
+        alt="Regent Caterers on Facebook"
+        classname="w-14 h-auto"
       />
-      <ImageButton
-        classname="md:mx-1"
-        component={<Whatsapp />}
-        onClick={() => window.open("https://wa.me/919876543210", "_blank")}
+      <IconButton
+        link={contact.whatsappUrl}
+        imageSrc="/svg/whatsapp.svg"
+        alt="Chat with Regent Caterers on WhatsApp"
+        classname="w-14 h-auto"
       />
-      <ImageButton
-        classname="md:mx-1"
-        component={<Phone />}
-        onClick={() => window.open("tel:+919876543210", "_blank")}
+      <IconButton
+        link={contact.telUrl}
+        imageSrc="/svg/phone.svg"
+        alt="Call Regent Caterers"
+        classname="w-14 h-auto"
       />
     </div>
   );

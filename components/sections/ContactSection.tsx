@@ -1,0 +1,91 @@
+import Link from "next/link";
+import { baseStyles, buttonVariants } from "../ui/CustomButton";
+import { twMerge } from "tailwind-merge";
+import Image from "next/image";
+import { IconArrowUpRight } from "@tabler/icons-react";
+import { DecorativeStar } from "../ui/DecorativeStar";
+import BackgroundVideo from "../ui/BackgroundVideo";
+import { contact } from "@/lib/contact";
+
+export default function ContactSection() {
+  return (
+    <section
+      id="contactSection"
+      className="relative md:min-h-screen min-h-[700px]"
+      style={{
+        background: "linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2))",
+      }}
+    >
+      <BackgroundVideo
+        src="/videos/contact-bg.mp4"
+        poster="/images/contact-bg-poster.jpg"
+        className="absolute -z-10 object-cover w-full h-full"
+      />
+      <div className="relative md:h-screen h-[700px] w-full mx-auto flex flex-col lg:gap-30 items-center md:justify-center">
+        <DecorativeStar
+          alt=""
+          className="absoluter lg:w-10 md:w-10 w-10 lg:top-[12%] lg:left-[26%] md:top-[18%] md:left-[15%] top-[15%] left-[5%]  opacity-60"
+        />
+        <DecorativeStar
+          alt=""
+          className="absoluter lg:w-4 md:w-4 w-4 lg:top-[11%] lg:left-[28%] md:top-[17%] md:left-[14%] top-[13%] left-[3%]  opacity-40"
+        />
+        <DecorativeStar
+          alt=""
+          className="absoluter lg:w-10 md:w-10 w-10 lg:top-[30%] lg:right-[25%] md:top-[32%] md:right-[15%] top-[32%] right-[7%]  opacity-60"
+        />
+        <DecorativeStar
+          alt=""
+          className="absoluter lg:w-4 md:w-4 w-4 lg:top-[29%] lg:right-[27%] md:top-[31%] md:right-[19%] top-[30%] right-[5%] opacity-40"
+        />
+
+        <div className="flex flex-col items-center justify-center text-center">
+          <h2 className="text-golden-gradient font-galgin lg:text-6xl md:text-5xl text-3xl p-2 lg:pt-15 md:pt-5 pt-40">
+            Let’s plan together
+          </h2>
+        </div>
+
+        <div className="flex flex-col items-center justify-center my-10 lg:gap-10 md:gap-10 gap-5">
+          <p className="text-golden-gradient text-center font-helmorin lg:text-3xl md:text-3xl text-xl p-2 lg:pt-0 md:pt-10 md:pb-0 py-15 px-10">
+            Feel free to contact us, make a booking and relax, Our dedicated
+            team will take care of the rest
+          </p>
+          <Link
+            href={contact.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={twMerge(
+              baseStyles,
+              buttonVariants.primary,
+              "lg:w-3xl md:w-xl w-70 cursor-pointer gap-5",
+            )}
+          >
+            <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">
+              Chat on WhatsApp
+            </p>
+            <Image
+              src={"/svg/whatsapp.svg"}
+              width={50}
+              height={50}
+              alt=""
+              className="lg:w-18 md:w-12 w-5 h-auto"
+            />
+          </Link>
+          <Link
+            href={"/contact"}
+            className={twMerge(
+              baseStyles,
+              buttonVariants.primary,
+              "lg:w-3xl md:w-xl w-70 group cursor-pointer gap-5",
+            )}
+          >
+            <p className="lg:text-6xl md:text-4xl text-xl font-galgin text-foreground-secondary">
+              Contact Us Now
+            </p>
+            <IconArrowUpRight className="lg:w-18 md:w-12 w-5 h-auto transform  transition-all duration-300 group-hover:rotate-45" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
