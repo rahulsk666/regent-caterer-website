@@ -1,10 +1,10 @@
-const PHONE = "9998263267";
+const PHONE = "9207375370";
 const WHATSAPP_MESSAGE = "Hi I'd like to know more about your services";
 const EMAIL = "regentcaterers@gmail.com";
 
 export const contact = {
   phone: PHONE,
-  phoneDisplay: "+91 9998263267",
+  phoneDisplay: "+91 9207375370",
   email: EMAIL,
   addressLine1: "4/660, Anathadam, Aloor P.O, Thrissur, Kerala",
   addressPin: "Pin: 680683",
